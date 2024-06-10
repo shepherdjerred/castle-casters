@@ -18,7 +18,6 @@
     <executable.name>${game.name}.exe</executable.name>
     <executable.version>1.0.0.0</executable.version>
     <doChecks>false</doChecks>
-    <sentryDsn>noop://localhost?async=false</sentryDsn>
     <buildType>development</buildType>
     <stayAlive>true</stayAlive>
     <maven.javadoc.skip>true</maven.javadoc.skip>
@@ -99,6 +98,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
         <configuration>
           <annotationProcessorPaths>
             <path>
@@ -150,6 +150,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
+        <version>3.4.1</version>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>

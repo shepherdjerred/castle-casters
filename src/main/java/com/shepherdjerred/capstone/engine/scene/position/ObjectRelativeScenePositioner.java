@@ -18,10 +18,10 @@ import lombok.extern.log4j.Log4j2;
 public class ObjectRelativeScenePositioner implements ScenePositioner {
 
   private final GameObject anchor;
-  private final int z;
   @Getter
   @Setter
   private SceneCoordinateOffset offset;
+  private final int z;
 
   @Override
   public SceneCoordinate getSceneCoordinate(WindowSize windowSize,

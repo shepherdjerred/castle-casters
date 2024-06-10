@@ -81,7 +81,5 @@ public class VersusAiSetupView implements View {
           quoridorAi,
           aiPlayer));
     }
-
-    return Optional.of(new MainMenuView(scanner));
   }
 }

@@ -14,7 +14,6 @@ public class Main {
   private static final EventBus<Event> eventBus = new EventBus<>();
 
   public static void main(String[] args) {
-    System.out.println("Starting!");
     try {
       run();
     } catch (Exception e) {
@@ -24,7 +23,7 @@ public class Main {
     }
   }
 
-  private static void run() throws Exception {
+  private static void run() {
     var settings = getSettings();
     var logic = new CastleCastersGame(eventBus);
     var engine = new GameEngine(logic, settings, eventBus);

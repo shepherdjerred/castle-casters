@@ -34,11 +34,6 @@ public class MapObject implements GameObject {
     this.resourceManager = resourceManager;
     this.gameMapName = gameMapName;
     this.mapRenderer = new MapRenderer(resourceManager);
-    createFrame();
-  }
-
-  private void createFrame() {
-
   }
 
   @Override

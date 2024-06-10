@@ -1,9 +1,7 @@
 package com.shepherdjerred.capstone.engine.scene;
 
 import com.shepherdjerred.capstone.engine.scene.position.SceneCoordinateOffset;
-import lombok.Getter;
 
-@Getter
 public record SceneCoordinate(float x, float y, float z) {
 
   public SceneCoordinate withOffset(SceneCoordinateOffset offset) {

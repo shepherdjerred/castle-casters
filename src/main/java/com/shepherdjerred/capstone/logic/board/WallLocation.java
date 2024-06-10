@@ -1,9 +1,7 @@
 package com.shepherdjerred.capstone.logic.board;
 
 import com.google.common.base.Preconditions;
-import lombok.Getter;
 
-@Getter
 public record WallLocation(Coordinate firstCoordinate, Coordinate vertex, Coordinate secondCoordinate) {
 
   public WallLocation(Coordinate firstCoordinate,

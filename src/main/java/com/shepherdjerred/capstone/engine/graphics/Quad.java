@@ -1,11 +1,8 @@
 package com.shepherdjerred.capstone.engine.graphics;
 
-import lombok.Getter;
-
 /**
  * A 3D quad.
  */
-@Getter
 public record Quad(RendererCoordinate topRight, RendererCoordinate topLeft, RendererCoordinate bottomLeft,
                    RendererCoordinate bottomRight) {
 

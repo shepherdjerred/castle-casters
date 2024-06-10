@@ -8,13 +8,11 @@ import com.shepherdjerred.capstone.logic.turn.Turn;
 import com.shepherdjerred.capstone.logic.turn.enactor.MatchTurnEnactor;
 import com.shepherdjerred.capstone.logic.turn.enactor.TurnEnactorFactory;
 import com.shepherdjerred.capstone.logic.turn.validator.TurnValidatorFactory;
-import lombok.Getter;
 
 /**
  * A match of Quoridor.
  */
 // TODO this could still be cleaned up more
-@Getter
 public record Match(QuoridorBoard board, MatchSettings matchSettings, WallBank wallBank, MatchStatus matchStatus,
                     MatchHistory matchHistory, MatchTurnEnactor matchTurnEnactor,
                     ActivePlayerTracker activePlayerTracker) {

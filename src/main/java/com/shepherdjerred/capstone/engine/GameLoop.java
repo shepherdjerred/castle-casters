@@ -60,7 +60,7 @@ public class GameLoop implements Runnable {
     gameLogic.updateGameState(interval);
   }
 
-  private void render() throws Exception {
+  private void render() {
     gameLogic.render();
     window.swapBuffers();
     window.pollEvents();
@@ -83,7 +83,7 @@ public class GameLoop implements Runnable {
     }
   }
 
-  private void runGameLoop() throws Exception {
+  private void runGameLoop() {
     float elapsedTime;
     float accumulator = 0f;
     float updateInterval = 1f / targetUpdatesPerSecond;
@@ -108,8 +108,9 @@ public class GameLoop implements Runnable {
     }
   }
 
-  public void start() throws Exception {
+  public void start() {
     if (isOperatingSystemMacOs()) {
+      //noinspection CallToThreadRun
       gameLoopThread.run();
     } else {
       gameLoopThread.start();

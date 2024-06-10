@@ -36,7 +36,7 @@ public class NettyServerDiscoverer implements ServerDiscoverer, Runnable {
 
   @Override
   public Optional<Event> getEvent() {
-    if (eventQueue.size() > 0) {
+    if (!eventQueue.isEmpty()) {
       return Optional.of(eventQueue.poll());
     } else {
       return Optional.empty();

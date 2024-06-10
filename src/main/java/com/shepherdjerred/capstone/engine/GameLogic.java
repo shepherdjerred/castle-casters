@@ -8,7 +8,7 @@ public interface GameLogic {
 
   void updateGameState(float interval);
 
-  void render() throws Exception;
+  void render();
 
   void cleanup();
 }

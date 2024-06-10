@@ -126,7 +126,7 @@ public class GameScene implements Scene {
             wall2.initialize();
             wall3.initialize();
           } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error occurred while initializing wall object.", e);
           }
 
           gameObjects.add(wall1);

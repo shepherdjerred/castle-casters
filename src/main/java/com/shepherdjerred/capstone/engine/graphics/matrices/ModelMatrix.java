@@ -1,10 +1,8 @@
 package com.shepherdjerred.capstone.engine.graphics.matrices;
 
 import com.shepherdjerred.capstone.engine.graphics.RendererCoordinate;
-import lombok.Getter;
 import org.joml.Matrix4f;
 
-@Getter
 public record ModelMatrix(RendererCoordinate translation, float rotation, float scale) {
 
   // TODO rotation should be done around the center of the object, not the origin

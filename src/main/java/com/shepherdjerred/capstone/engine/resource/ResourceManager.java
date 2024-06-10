@@ -85,6 +85,6 @@ public class ResourceManager {
   }
 
   public boolean hasAllocatedResources() {
-    return referenceCounter.size() > 0;
+    return !referenceCounter.isEmpty();
   }
 }

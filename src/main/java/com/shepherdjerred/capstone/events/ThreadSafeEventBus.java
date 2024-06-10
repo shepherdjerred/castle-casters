@@ -35,7 +35,6 @@ public class ThreadSafeEventBus<T extends Event> {
     genericHandlers.add(handler);
   }
 
-  @SuppressWarnings("unchecked")
   public <U extends T> void removeHandler(Class<U> eventClass, EventHandler<U> handler) {
     handlers.getOrDefault(eventClass, new HashSet<>()).remove(handler);
   }

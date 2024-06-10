@@ -24,27 +24,7 @@ public class WallIsBehindPivotValidatorRule implements ValidatorRule<JumpPawnDia
       return new TurnValidationResult(ErrorMessage.COULD_NOT_RUN_VALIDATOR);
     }
 
-    Direction direction = null;
-
-    if (pivot.x() == dest.x()) {
-      if (src.y() - dest.y() > 0) {
-        direction = Direction.RIGHT;
-      } else if (src.y() - dest.y() < 0) {
-        direction = Direction.LEFT;
-      } else {
-        throw new UnsupportedOperationException();
-      }
-    }
-
-    if (pivot.y() == dest.y()) {
-      if (src.x() - dest.x() < 0) {
-        direction = Direction.DOWN;
-      } else if (src.x() - dest.x() > 0) {
-        direction = Direction.UP;
-      } else {
-        throw new UnsupportedOperationException();
-      }
-    }
+    Direction direction = getDirection(pivot, dest, src);
 
     Coordinate coordinateToCheck;
 
@@ -70,5 +50,30 @@ public class WallIsBehindPivotValidatorRule implements ValidatorRule<JumpPawnDia
     } else {
       return new TurnValidationResult(ErrorMessage.NO_WALL_BEHIND_PIVOT);
     }
+  }
+
+  private static Direction getDirection(Coordinate pivot, Coordinate dest, Coordinate src) {
+    Direction direction = null;
+
+    if (pivot.x() == dest.x()) {
+      if (src.y() - dest.y() > 0) {
+        direction = Direction.RIGHT;
+      } else if (src.y() - dest.y() < 0) {
+        direction = Direction.LEFT;
+      } else {
+        throw new UnsupportedOperationException();
+      }
+    }
+
+    if (pivot.y() == dest.y()) {
+      if (src.x() - dest.x() < 0) {
+        direction = Direction.DOWN;
+      } else if (src.x() - dest.x() > 0) {
+        direction = Direction.UP;
+      } else {
+        throw new UnsupportedOperationException();
+      }
+    }
+    return direction;
   }
 }

@@ -42,14 +42,14 @@ public class NettyServerBootstrap implements Runnable {
       ChannelFuture channel = serverBootstrap.bind().sync();
       channel.channel().closeFuture().sync();
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("Error occurred while running server bootstrap.", e);
     } finally {
       shutdown();
     }
   }
 
   public Optional<NetworkEvent> getNextEvent() {
-    if (eventQueue.size() > 0) {
+    if (!eventQueue.isEmpty()) {
       return Optional.of(eventQueue.poll());
     } else {
       return Optional.empty();

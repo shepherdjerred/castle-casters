@@ -57,11 +57,6 @@ public class BoardAStarSearchNode extends AStarSearchNode {
   @Override
   public int getEstimatedCostToSolution() {
     return getDistanceToNearestGoal(location, goals);
-//    if (isSolutionNode()) {
-//      return 0;
-//    } else {
-//      return 1;
-//    }
   }
 
   @Override

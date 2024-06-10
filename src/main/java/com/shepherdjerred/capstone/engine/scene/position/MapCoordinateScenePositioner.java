@@ -12,13 +12,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class MapCoordinateScenePositioner implements ScenePositioner {
 
-  private final int z;
   @Getter
   @Setter
   private SceneCoordinateOffset offset;
   @Getter
   @Setter
   private MapCoordinate mapCoordinate;
+  private final int z;
 
   @Override
   public SceneCoordinate getSceneCoordinate(WindowSize windowSize,

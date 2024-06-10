@@ -53,7 +53,7 @@ public class NettyClientBootstrap {
   }
 
   public Optional<NetworkEvent> getLatestEvent() {
-    if (eventQueue.size() > 0) {
+    if (!eventQueue.isEmpty()) {
       return Optional.of(eventQueue.poll());
     } else {
       return Optional.empty();

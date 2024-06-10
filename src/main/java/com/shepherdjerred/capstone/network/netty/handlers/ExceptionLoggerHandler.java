@@ -8,7 +8,7 @@ import lombok.extern.log4j.Log4j2;
 public class ExceptionLoggerHandler extends ChannelDuplexHandler {
 
   @Override
-  public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+  public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
     log.error(cause);
   }
 }

@@ -22,6 +22,8 @@ import com.shepherdjerred.capstone.events.EventBus;
 import com.shepherdjerred.capstone.events.handlers.EventLoggerHandler;
 import lombok.extern.log4j.Log4j2;
 
+import java.util.Set;
+
 @Log4j2
 public class GameEngine {
 
@@ -47,7 +49,7 @@ public class GameEngine {
         TARGET_UPDATES_PER_SECOND);
   }
 
-  public void run() throws Exception {
+  public void run() {
     initialize();
     gameLoop.start();
   }
@@ -57,7 +59,7 @@ public class GameEngine {
   }
 
   private void registerEventHandlers() {
-    eventBus.registerHandler(new EventLoggerHandler<>());
+    eventBus.registerHandler(new EventLoggerHandler<>(Set.of(MouseMoveEvent.class)));
     eventBus.registerHandler(WindowResizeEvent.class, new OpenGlWindowResizeHandler());
     eventBus.registerHandler(MouseMoveEvent.class, new MouseMoveEventHandler(mouseTracker));
     eventBus.registerHandler(ToggleWireframeEvent.class, new ToggleWireframeEventHandler());

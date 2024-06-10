@@ -147,7 +147,7 @@ public class LobbyListScene extends InteractableUIScene {
             text.initialize();
             serverInfoMap.put(eventServerInfo, text);
           } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error occurred while initializing text object.", e);
           }
         });
 

@@ -14,7 +14,6 @@ public class ShaderProgramLoader implements ResourceLoader<ShaderProgramName, Sh
     return switch (identifier) {
       case DEFAULT -> getDefaultShaderProgram();
       case TEXT -> getTextShaderProgram();
-      default -> throw new UnsupportedOperationException("Unknown shader program: " + identifier);
     };
   }
 

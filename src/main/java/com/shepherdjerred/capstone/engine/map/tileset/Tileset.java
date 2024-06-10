@@ -2,14 +2,12 @@ package com.shepherdjerred.capstone.engine.map.tileset;
 
 import com.shepherdjerred.capstone.engine.graphics.texture.TextureName;
 import com.shepherdjerred.capstone.engine.graphics.texture.TextureSheetCoordinates;
-import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 
 @Log4j2
-@Getter
 public record Tileset(String name, int firstTile, int columns, int rows, int tileSize,
                       TextureName textureName) implements Comparable<Tileset> {
 

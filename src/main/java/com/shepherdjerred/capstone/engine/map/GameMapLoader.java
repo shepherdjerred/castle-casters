@@ -98,10 +98,9 @@ public class GameMapLoader implements ResourceLoader<GameMapName, MapLayers> {
   }
 
   private JsonObject byteBufferToJson(ByteBuffer byteBuffer) {
-    var parser = new JsonParser();
     var mapBytes = new byte[byteBuffer.remaining()];
     byteBuffer.get(mapBytes);
     var mapJsonString = new String(mapBytes, Charsets.UTF_8);
-    return (JsonObject) parser.parse(mapJsonString);
+    return (JsonObject) JsonParser.parseString(mapJsonString);
   }
 }

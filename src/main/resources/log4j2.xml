@@ -1,4 +1,4 @@
-<Configuration status="info" packages="org.apache.logging.log4j.core,io.sentry.log4j2">
+<Configuration status="info">
     <Appenders>
         <Console name="STDOUT" target="SYSTEM_OUT">
             <PatternLayout>
@@ -60,13 +60,11 @@
                 <SizeBasedTriggeringPolicy size="100 MB"/>
             </Policies>
         </RollingFile>
-        <Sentry name="Sentry"/>
     </Appenders>
     <Loggers>
         <Root level="trace">
             <AppenderRef ref="File"/>
             <AppenderRef ref="STDOUT" level="info"/>
-            <AppenderRef ref="Sentry" level="error"/>
         </Root>
         <Logger name="com.shepherdjerred.capstone.events" additivity="false" level="trace">
             <AppenderRef ref="Events"/>

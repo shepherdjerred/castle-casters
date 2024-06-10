@@ -90,11 +90,11 @@ public class WeightsProblem implements Problem<EvaluatorWeights, DoubleGene, Int
       }
 
       if (currentTurn < 10) {
-        log.info("TURN: {}", currentTurn);
+        log.info("TURN 1: {}", currentTurn);
       } else if (currentTurn % 10 == 0 && currentTurn < 100) {
-        log.info("TURN: {}", currentTurn);
+        log.info("TURN2 : {}", currentTurn);
       } else if (currentTurn % 50 == 0) {
-        log.info("TURN: {}", currentTurn);
+        log.info("TURN 3: {}", currentTurn);
       }
     }
 

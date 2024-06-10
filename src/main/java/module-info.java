@@ -1,12 +1,10 @@
 module com.shepherdjerred.capstone.engine {
   requires static lombok;
-  requires org.apache.logging.log4j;
   requires org.lwjgl.glfw;
   requires org.lwjgl.opengl;
   requires org.joml;
   requires org.lwjgl.stb;
   requires com.google.common;
-  requires io.netty.all;
   requires org.lwjgl.openal;
   requires name.machine;
   requires ai.algorithms;
@@ -18,6 +16,8 @@ module com.shepherdjerred.capstone.engine {
   requires io.netty.common;
   requires com.google.gson;
   requires io.netty.buffer;
+  //noinspection Java9RedundantRequiresStatement
+  requires org.apache.logging.log4j;
 
   opens com.shepherdjerred.capstone.logic.match to com.google.gson;
   opens com.shepherdjerred.capstone.logic.board to com.google.gson;

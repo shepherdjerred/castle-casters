@@ -16,10 +16,10 @@ public class WindowRelativeScenePositioner implements ScenePositioner {
   private final HorizontalPosition horizontalPosition;
   @Getter
   private final VerticalPosition verticalPosition;
-  private final float z;
   @Setter
   @Getter
   private SceneCoordinateOffset offset;
+  private final float z;
 
   @Override
   public SceneCoordinate getSceneCoordinate(WindowSize windowSize,

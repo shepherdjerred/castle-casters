@@ -1,9 +1,7 @@
 package com.shepherdjerred.capstone.logic.match;
 
 import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
-import lombok.Getter;
 
-@Getter
 public record MatchStatus(QuoridorPlayer victor, com.shepherdjerred.capstone.logic.match.MatchStatus.Status status) {
 
   public enum Status {

@@ -1,11 +1,8 @@
 package com.shepherdjerred.capstone.engine.graphics.texture;
 
-import lombok.Getter;
-
 /**
  * A 2D texture quad.
  */
-@Getter
 public record TextureQuad(TextureCoordinate topRight, TextureCoordinate topLeft, TextureCoordinate bottomLeft,
                           TextureCoordinate bottomRight) {
 

@@ -38,14 +38,11 @@ public class WeightedMatchEvaluator implements MatchEvaluator {
           var weight = entry.getValue();
           var rawScore = evaluator.evaluate(match, optimizingPlayer);
           var weightedScore = rawScore * weight;
-//          log.debug(evaluator + " RAW: " + rawScore);
-//          log.debug(evaluator + " WEIGHTED: " + weightedScore);
           return weightedScore;
         })
         .mapToDouble(Double::doubleValue)
         .sum();
 
-//    log.debug("Match score: " + matchScore);
     return matchScore;
   }
 

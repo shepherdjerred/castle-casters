@@ -7,7 +7,6 @@ import com.shepherdjerred.capstone.engine.graphics.RendererCoordinate;
 import com.shepherdjerred.capstone.engine.graphics.texture.TextureCoordinate;
 import com.shepherdjerred.capstone.engine.graphics.texture.TextureQuad;
 import com.shepherdjerred.capstone.engine.resource.Resource;
-import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.lwjgl.stb.STBTTAlignedQuad;
 import org.lwjgl.stb.STBTTBakedChar;
@@ -17,7 +16,6 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.stb.STBTruetype.stbtt_GetBakedQuad;
 
 @Log4j2
-@Getter
 public record Font(FontName fontName, int ascent, int descent, int gap, int glTextureName, int textureWidth,
                    int textureHeight, STBTTBakedChar.Buffer characterBuffer) implements Resource {
 
@@ -35,7 +33,7 @@ public record Font(FontName fontName, int ascent, int descent, int gap, int glTe
     try (var stack = MemoryStack.stackPush()) {
       var xBuffer = stack.mallocFloat(1);
       var yBuffer = stack.mallocFloat(1);
-      STBTTAlignedQuad quad = STBTTAlignedQuad.mallocStack(stack);
+      STBTTAlignedQuad quad = STBTTAlignedQuad.malloc(stack);
 
       xBuffer.put(xPosition).flip();
       yBuffer.put(yPosition).flip();

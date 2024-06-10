@@ -8,14 +8,12 @@ import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
 import com.shepherdjerred.capstone.logic.turn.Turn;
 import com.shepherdjerred.capstone.logic.turn.generator.TurnGenerator;
 import com.shepherdjerred.capstone.logic.turn.validator.TurnValidatorFactory;
-import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Log4j2
-@Getter
 public record QuoridorNode(QuoridorPlayer optimizingPlayer, Match match, Turn turn,
                            MatchEvaluator matchEvaluator) implements IQuoridorNode {
 

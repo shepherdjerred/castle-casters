@@ -6,12 +6,6 @@ import org.lwjgl.system.MemoryStack;
 
 import static com.shepherdjerred.capstone.engine.graphics.OpenGlHelper.unbindBuffer;
 import static com.shepherdjerred.capstone.engine.graphics.OpenGlHelper.unbindVertexArray;
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
-import static org.lwjgl.opengl.GL13.glActiveTexture;
-import static org.lwjgl.opengl.GL15.*;
-import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
-import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 import static org.lwjgl.opengl.GL30.*;
 
 /**

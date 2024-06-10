@@ -27,8 +27,8 @@ public class WallPieceLocationCoordinatesAreFreeValidatorRuleTest {
   private Match match;
 
   @BeforeEach
-  public void setup() {
-    MockitoAnnotations.initMocks(this);
+  public void setup() throws Exception {
+    MockitoAnnotations.openMocks(this).close();
   }
 
   @Test

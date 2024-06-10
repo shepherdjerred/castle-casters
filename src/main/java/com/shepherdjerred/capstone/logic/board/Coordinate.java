@@ -1,8 +1,5 @@
 package com.shepherdjerred.capstone.logic.board;
 
-import lombok.Getter;
-
-@Getter
 public record Coordinate(int x, int y) {
 
   public static boolean areCoordinatesCardinal(Coordinate left, Coordinate right) {

@@ -1,6 +1,7 @@
 package com.shepherdjerred.capstone.server;
 
 import com.shepherdjerred.capstone.common.GameState;
+import com.shepherdjerred.capstone.engine.events.input.MouseMoveEvent;
 import com.shepherdjerred.capstone.events.Event;
 import com.shepherdjerred.capstone.events.EventBus;
 import com.shepherdjerred.capstone.events.handlers.EventLoggerHandler;
@@ -13,6 +14,7 @@ import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 
 import java.net.SocketAddress;
+import java.util.Set;
 
 @Log4j2
 @ToString
@@ -21,7 +23,6 @@ public class GameServer implements Runnable {
   private final EventBus<Event> eventBus;
   private final NetworkManager networkManager;
   private final GameLogic gameLogic;
-  private final boolean shouldContinue;
 
   public GameServer(GameState gameState,
                     SocketAddress gameAddress,
@@ -29,13 +30,12 @@ public class GameServer implements Runnable {
     eventBus = new EventBus<>();
     gameLogic = new GameLogic(gameState, eventBus);
     networkManager = new NetworkManager(gameAddress, broadcastAddress, eventBus);
-    shouldContinue = true;
 
     registerEventHandlers();
   }
 
   private void registerEventHandlers() {
-    eventBus.registerHandler(new EventLoggerHandler<>());
+    eventBus.registerHandler(new EventLoggerHandler<>(Set.of()));
   }
 
   @Override
@@ -46,9 +46,11 @@ public class GameServer implements Runnable {
 
     eventBus.dispatch(new StartNetworkEvent());
 
-    while (shouldContinue) {
+    //noinspection InfiniteLoopStatement
+    while (true) {
       networkManager.update();
       try {
+        //noinspection BusyWait
         Thread.sleep(sleepMilliseconds);
       } catch (InterruptedException e) {
         log.error(e);

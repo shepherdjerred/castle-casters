@@ -74,32 +74,23 @@ public class MapRenderer implements GameObjectRenderer<MapObject> {
   public void render(WindowSize windowSize, MapObject map) {
     shaderProgram.bind();
 
-    map.getMapLayers().forEach(layer -> {
-//      log.info("STARTING LAYER " + layer.getZ());
+    map.getMapLayers().forEach(layer -> layer.forEach(tile -> {
+      var x = tile.position().x();
+      var y = tile.position().y();
 
-      layer.forEach(tile -> {
-        var x = tile.position().x();
-        var y = tile.position().y();
+      var model = new ModelMatrix(new RendererCoordinate(x * RENDER_TILE_RESOLUTION + map.getXOffset(),
+          y * RENDER_TILE_RESOLUTION + map.getYOffset(),
+          layer.getZ() * -1),
+          0,
+          1).getMatrix();
 
-//        log.info(String.format("Map Location: x: %s, y: %s", x, y));
-//        log.info(String.format("Texture coords: %s", tile.getTextureSheetCoordinates()));
+      shaderProgram.setUniform(ShaderUniform.MODEL_MATRIX, model);
 
-        var model = new ModelMatrix(new RendererCoordinate(x * RENDER_TILE_RESOLUTION + map.getXOffset(),
-            y * RENDER_TILE_RESOLUTION + map.getYOffset(),
-            layer.getZ() * -1),
-            0,
-            1).getMatrix();
-
-        shaderProgram.setUniform(ShaderUniform.MODEL_MATRIX, model);
-
-        var mesh = meshes.get(tile);
-        mesh.render();
-      });
-    });
+      var mesh = meshes.get(tile);
+      mesh.render();
+    }));
 
     shaderProgram.unbind();
-
-//    System.exit(0);
   }
 
   @Override

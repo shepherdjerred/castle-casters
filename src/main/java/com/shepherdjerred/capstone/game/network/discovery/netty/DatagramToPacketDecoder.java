@@ -18,8 +18,7 @@ public class DatagramToPacketDecoder extends MessageToMessageDecoder<DatagramPac
   private final PacketJsonSerializer serializer;
 
   @Override
-  protected void decode(ChannelHandlerContext ctx, DatagramPacket msg, List<Object> out)
-      throws Exception {
+  protected void decode(ChannelHandlerContext ctx, DatagramPacket msg, List<Object> out) {
     var bytes = new byte[msg.content().readableBytes()];
     msg.content().readBytes(bytes);
     var packet = serializer.fromBytes(bytes);

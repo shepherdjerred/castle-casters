@@ -16,8 +16,6 @@ public class DefeatEvaluatorRule implements EvaluatorRule {
   public double evaluate(Match match, QuoridorPlayer player) {
     if (match.matchStatus().status() == Status.VICTORY
         && match.matchStatus().victor() != player) {
-//      log.info("EVAL DEFEAT; WINNER: " + match.getMatchStatus().getVictor() + " NOT "
-//          + player);
       return MIN_SCORE;
     } else {
       return 0.0;
