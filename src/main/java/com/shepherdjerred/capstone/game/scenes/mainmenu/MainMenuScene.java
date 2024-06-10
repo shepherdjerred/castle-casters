@@ -1,31 +1,31 @@
-package com.shepherdjerred.capstone.engine.game.scenes.mainmenu;
+package com.shepherdjerred.capstone.game.scenes.mainmenu;
 
-import static com.shepherdjerred.capstone.engine.game.objects.button.Button.Type.GENERIC;
+import static com.shepherdjerred.capstone.game.objects.button.Button.Type.GENERIC;
 
 import com.shepherdjerred.capstone.common.lobby.LobbySettings.LobbyType;
-import com.shepherdjerred.capstone.engine.engine.events.CloseApplicationEvent;
-import com.shepherdjerred.capstone.engine.engine.events.scene.SceneTransitionEvent;
-import com.shepherdjerred.capstone.engine.engine.graphics.Color;
-import com.shepherdjerred.capstone.engine.engine.graphics.font.FontName;
-import com.shepherdjerred.capstone.engine.engine.object.GameObject;
-import com.shepherdjerred.capstone.engine.engine.object.SceneObjectDimensions;
-import com.shepherdjerred.capstone.engine.engine.resource.ResourceManager;
-import com.shepherdjerred.capstone.engine.engine.scene.InteractableUIScene;
-import com.shepherdjerred.capstone.engine.engine.scene.position.ObjectRelativeScenePositioner;
-import com.shepherdjerred.capstone.engine.engine.scene.position.SceneCoordinateOffset;
-import com.shepherdjerred.capstone.engine.engine.scene.position.WindowRelativeScenePositioner;
-import com.shepherdjerred.capstone.engine.engine.scene.position.WindowRelativeScenePositioner.HorizontalPosition;
-import com.shepherdjerred.capstone.engine.engine.scene.position.WindowRelativeScenePositioner.VerticalPosition;
-import com.shepherdjerred.capstone.engine.engine.window.WindowSize;
-import com.shepherdjerred.capstone.engine.game.objects.background.parallax.ParallaxBackground;
-import com.shepherdjerred.capstone.engine.game.objects.background.parallax.ParallaxBackground.Type;
-import com.shepherdjerred.capstone.engine.game.objects.logo.Logo;
-import com.shepherdjerred.capstone.engine.game.objects.text.Text;
-import com.shepherdjerred.capstone.engine.game.objects.textbutton.TextButton;
-import com.shepherdjerred.capstone.engine.game.scenes.help.HelpScene;
-import com.shepherdjerred.capstone.engine.game.scenes.lobby.host.HostLobbyScene;
-import com.shepherdjerred.capstone.engine.game.scenes.lobby.host.SimpleSceneRenderer;
-import com.shepherdjerred.capstone.engine.game.scenes.lobby.list.LobbyListScene;
+import com.shepherdjerred.capstone.engine.events.CloseApplicationEvent;
+import com.shepherdjerred.capstone.engine.events.scene.SceneTransitionEvent;
+import com.shepherdjerred.capstone.engine.graphics.Color;
+import com.shepherdjerred.capstone.engine.graphics.font.FontName;
+import com.shepherdjerred.capstone.engine.object.GameObject;
+import com.shepherdjerred.capstone.engine.object.SceneObjectDimensions;
+import com.shepherdjerred.capstone.engine.resource.ResourceManager;
+import com.shepherdjerred.capstone.engine.scene.InteractableUIScene;
+import com.shepherdjerred.capstone.engine.scene.position.ObjectRelativeScenePositioner;
+import com.shepherdjerred.capstone.engine.scene.position.SceneCoordinateOffset;
+import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePositioner;
+import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePositioner.HorizontalPosition;
+import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePositioner.VerticalPosition;
+import com.shepherdjerred.capstone.engine.window.WindowSize;
+import com.shepherdjerred.capstone.game.objects.background.parallax.ParallaxBackground;
+import com.shepherdjerred.capstone.game.objects.background.parallax.ParallaxBackground.Type;
+import com.shepherdjerred.capstone.game.objects.logo.Logo;
+import com.shepherdjerred.capstone.game.objects.text.Text;
+import com.shepherdjerred.capstone.game.objects.textbutton.TextButton;
+import com.shepherdjerred.capstone.game.scenes.help.HelpScene;
+import com.shepherdjerred.capstone.game.scenes.lobby.host.HostLobbyScene;
+import com.shepherdjerred.capstone.game.scenes.lobby.host.SimpleSceneRenderer;
+import com.shepherdjerred.capstone.game.scenes.lobby.list.LobbyListScene;
 import com.shepherdjerred.capstone.events.Event;
 import com.shepherdjerred.capstone.events.EventBus;
 import java.util.HashSet;
@@ -37,7 +37,7 @@ public class MainMenuScene extends InteractableUIScene {
 
   private final ResourceManager resourceManager;
   private final WindowSize windowSize;
-  private final MainMenuAudio sceneAudio;
+  private final com.shepherdjerred.capstone.game.scenes.mainmenu.MainMenuAudio sceneAudio;
 
   public MainMenuScene(ResourceManager resourceManager,
       EventBus<Event> eventBus,
@@ -48,7 +48,7 @@ public class MainMenuScene extends InteractableUIScene {
         eventBus);
     this.resourceManager = resourceManager;
     this.windowSize = windowSize;
-    this.sceneAudio = new MainMenuAudio(eventBus, resourceManager);
+    this.sceneAudio = new com.shepherdjerred.capstone.game.scenes.mainmenu.MainMenuAudio(eventBus, resourceManager);
   }
 
   protected Set<GameObject> createGameObjects() {

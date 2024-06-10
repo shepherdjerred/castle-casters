@@ -72,11 +72,11 @@
       <AppenderRef ref="Events"/>
       <AppenderRef ref="STDOUT"/>
     </Logger>
-    <Logger name="com.shepherdjerred.capstone.engine.engine.resource" additivity="false" level="trace">
+    <Logger name="com.shepherdjerred.capstone.engine.resource" additivity="false" level="trace">
       <AppenderRef ref="Resources"/>
       <AppenderRef ref="STDOUT"/>
     </Logger>
-    <Logger name="com.shepherdjerred.capstone.engine.game.network" additivity="false" level="trace">
+    <Logger name="com.shepherdjerred.capstone.game.network" additivity="false" level="trace">
       <AppenderRef ref="Network"/>
       <AppenderRef ref="STDOUT"/>
     </Logger>

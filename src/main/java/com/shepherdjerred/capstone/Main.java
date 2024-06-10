@@ -14,6 +14,7 @@ public class Main {
   private static EventBus<Event> eventBus = new EventBus<>();
 
   public static void main(String[] args) {
+    System.out.println("Starting!");
     try {
       run();
     } catch (Exception e) {

@@ -43,8 +43,6 @@
       <properties>
         <doChecks>true</doChecks>
         <buildType>release</buildType>
-        <!--suppress UnresolvedMavenProperty -->
-        <sentryDsn>${env.SENTRY_DSN}</sentryDsn>
         <stayAlive>false</stayAlive>
       </properties>
     </profile>
@@ -128,7 +126,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-              <mainClass>com.shepherdjerred.capstone.engine.Main</mainClass>
+              <mainClass>com.shepherdjerred.capstone.Main</mainClass>
             </manifest>
             <manifestEntries>
               <Implementation-Build>${buildNumber}</Implementation-Build>
@@ -324,6 +322,40 @@
       <artifactId>lwjgl-openal</artifactId>
       <version>${lwjgl.version}</version>
       <classifier>natives-macos</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl</artifactId>
+      <version>${lwjgl.version}</version>
+      <classifier>natives-macos-arm64</classifier>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl-glfw</artifactId>
+      <version>${lwjgl.version}</version>
+      <classifier>natives-macos-arm64</classifier>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl-opengl</artifactId>
+      <version>${lwjgl.version}</version>
+      <classifier>natives-macos-arm64</classifier>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl-stb</artifactId>
+      <version>${lwjgl.version}</version>
+      <classifier>natives-macos-arm64</classifier>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl-openal</artifactId>
+      <version>${lwjgl.version}</version>
+      <classifier>natives-macos-arm64</classifier>
     </dependency>
     <dependency>
       <groupId>org.lwjgl</groupId>

@@ -1,4 +1,4 @@
-package com.shepherdjerred.capstone.engine.game.scenes.lobby.host;
+package com.shepherdjerred.capstone.game.scenes.lobby.host;
 
 import com.shepherdjerred.capstone.common.Constants;
 import com.shepherdjerred.capstone.common.GameMap;
@@ -7,32 +7,32 @@ import com.shepherdjerred.capstone.common.chat.ChatHistory;
 import com.shepherdjerred.capstone.common.lobby.Lobby;
 import com.shepherdjerred.capstone.common.lobby.LobbySettings;
 import com.shepherdjerred.capstone.common.lobby.LobbySettings.LobbyType;
-import com.shepherdjerred.capstone.engine.engine.events.scene.SceneTransitionEvent;
-import com.shepherdjerred.capstone.engine.engine.graphics.Color;
-import com.shepherdjerred.capstone.engine.engine.graphics.font.FontName;
-import com.shepherdjerred.capstone.engine.engine.map.GameMapName;
-import com.shepherdjerred.capstone.engine.engine.object.GameObject;
+import com.shepherdjerred.capstone.engine.events.scene.SceneTransitionEvent;
+import com.shepherdjerred.capstone.engine.graphics.Color;
+import com.shepherdjerred.capstone.engine.graphics.font.FontName;
+import com.shepherdjerred.capstone.engine.map.GameMapName;
+import com.shepherdjerred.capstone.engine.object.GameObject;
 import com.shepherdjerred.capstone.engine.object.SceneObjectDimensions;
-import com.shepherdjerred.capstone.engine.engine.resource.ResourceManager;
-import com.shepherdjerred.capstone.engine.engine.scene.InteractableUIScene;
-import com.shepherdjerred.capstone.engine.engine.scene.position.ObjectRelativeScenePositioner;
+import com.shepherdjerred.capstone.engine.resource.ResourceManager;
+import com.shepherdjerred.capstone.engine.scene.InteractableUIScene;
+import com.shepherdjerred.capstone.engine.scene.position.ObjectRelativeScenePositioner;
 import com.shepherdjerred.capstone.engine.scene.position.SceneCoordinateOffset;
-import com.shepherdjerred.capstone.engine.engine.scene.position.WindowRelativeScenePositioner;
-import com.shepherdjerred.capstone.engine.engine.scene.position.WindowRelativeScenePositioner.HorizontalPosition;
-import com.shepherdjerred.capstone.engine.engine.scene.position.WindowRelativeScenePositioner.VerticalPosition;
-import com.shepherdjerred.capstone.engine.engine.window.WindowSize;
-import com.shepherdjerred.capstone.engine.game.event.events.FillSlotsWithAiEvent;
-import com.shepherdjerred.capstone.engine.game.network.event.ServerConnectedEvent;
-import com.shepherdjerred.capstone.engine.game.network.manager.event.ConnectServerEvent;
-import com.shepherdjerred.capstone.engine.game.network.manager.event.ShutdownNetworkEvent;
-import com.shepherdjerred.capstone.engine.game.network.manager.event.StartClientEvent;
-import com.shepherdjerred.capstone.engine.game.network.manager.event.StartServerEvent;
-import com.shepherdjerred.capstone.engine.game.objects.background.parallax.ParallaxBackground;
-import com.shepherdjerred.capstone.engine.game.objects.button.Button.Type;
-import com.shepherdjerred.capstone.engine.game.objects.text.Text;
-import com.shepherdjerred.capstone.engine.game.objects.textbutton.TextButton;
-import com.shepherdjerred.capstone.engine.game.scenes.lobby.details.LobbyDetailsScene;
-import com.shepherdjerred.capstone.engine.game.scenes.mainmenu.MainMenuScene;
+import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePositioner;
+import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePositioner.HorizontalPosition;
+import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePositioner.VerticalPosition;
+import com.shepherdjerred.capstone.engine.window.WindowSize;
+import com.shepherdjerred.capstone.game.event.events.FillSlotsWithAiEvent;
+import com.shepherdjerred.capstone.game.network.event.ServerConnectedEvent;
+import com.shepherdjerred.capstone.game.network.manager.event.ConnectServerEvent;
+import com.shepherdjerred.capstone.game.network.manager.event.ShutdownNetworkEvent;
+import com.shepherdjerred.capstone.game.network.manager.event.StartClientEvent;
+import com.shepherdjerred.capstone.game.network.manager.event.StartServerEvent;
+import com.shepherdjerred.capstone.game.objects.background.parallax.ParallaxBackground;
+import com.shepherdjerred.capstone.game.objects.button.Button.Type;
+import com.shepherdjerred.capstone.game.objects.text.Text;
+import com.shepherdjerred.capstone.game.objects.textbutton.TextButton;
+import com.shepherdjerred.capstone.game.scenes.lobby.details.LobbyDetailsScene;
+import com.shepherdjerred.capstone.game.scenes.mainmenu.MainMenuScene;
 import com.shepherdjerred.capstone.events.Event;
 import com.shepherdjerred.capstone.events.EventBus;
 import com.shepherdjerred.capstone.logic.match.MatchSettings;
@@ -56,7 +56,7 @@ public class HostLobbyScene extends InteractableUIScene {
       LobbyType lobbyType) {
     super(windowSize,
         resourceManager,
-        new com.shepherdjerred.capstone.engine.game.scenes.lobby.host.SimpleSceneRenderer(
+        new com.shepherdjerred.capstone.game.scenes.lobby.host.SimpleSceneRenderer(
             resourceManager,
             windowSize),
         eventBus);

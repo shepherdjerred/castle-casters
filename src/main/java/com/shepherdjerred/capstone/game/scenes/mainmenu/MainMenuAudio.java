@@ -1,14 +1,14 @@
-package com.shepherdjerred.capstone.engine.game.scenes.mainmenu;
+package com.shepherdjerred.capstone.game.scenes.mainmenu;
 
-import static com.shepherdjerred.capstone.engine.engine.audio.AudioName.THEME_MUSIC;
+import static com.shepherdjerred.capstone.engine.audio.AudioName.THEME_MUSIC;
 import static org.lwjgl.openal.AL10.alGenSources;
 
-import com.shepherdjerred.capstone.engine.engine.audio.AudioName;
-import com.shepherdjerred.capstone.engine.engine.audio.SourcedAudio;
-import com.shepherdjerred.capstone.engine.engine.events.audio.PlayAudioEvent;
-import com.shepherdjerred.capstone.engine.engine.events.scene.SceneActiveEvent;
-import com.shepherdjerred.capstone.engine.engine.resource.ResourceManager;
-import com.shepherdjerred.capstone.engine.engine.scene.SceneAudio;
+import com.shepherdjerred.capstone.engine.audio.AudioName;
+import com.shepherdjerred.capstone.engine.audio.SourcedAudio;
+import com.shepherdjerred.capstone.engine.events.audio.PlayAudioEvent;
+import com.shepherdjerred.capstone.engine.events.scene.SceneActiveEvent;
+import com.shepherdjerred.capstone.engine.resource.ResourceManager;
+import com.shepherdjerred.capstone.engine.scene.SceneAudio;
 import com.shepherdjerred.capstone.events.Event;
 import com.shepherdjerred.capstone.events.EventBus;
 import com.shepherdjerred.capstone.events.handlers.EventHandlerFrame;
