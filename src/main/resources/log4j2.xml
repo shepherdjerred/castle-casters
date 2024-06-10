@@ -66,19 +66,19 @@
             <AppenderRef ref="File"/>
             <AppenderRef ref="STDOUT" level="info"/>
         </Root>
-        <Logger name="com.shepherdjerred.capstone.events" additivity="false" level="trace">
+        <Logger name="com.shepherdjerred.castlecasters.events" additivity="false" level="trace">
             <AppenderRef ref="Events"/>
             <AppenderRef ref="STDOUT"/>
         </Logger>
-        <Logger name="com.shepherdjerred.capstone.engine.resource" additivity="false" level="trace">
+        <Logger name="com.shepherdjerred.castlecasters.engine.resource" additivity="false" level="trace">
             <AppenderRef ref="Resources"/>
             <AppenderRef ref="STDOUT"/>
         </Logger>
-        <Logger name="com.shepherdjerred.capstone.game.network" additivity="false" level="trace">
+        <Logger name="com.shepherdjerred.castlecasters.game.network" additivity="false" level="trace">
             <AppenderRef ref="Network"/>
             <AppenderRef ref="STDOUT"/>
         </Logger>
-        <Logger name="com.shepherdjerred.capstone.server" additivity="false" level="trace">
+        <Logger name="com.shepherdjerred.castlecasters.server" additivity="false" level="trace">
             <AppenderRef ref="Server"/>
             <AppenderRef ref="STDOUT"/>
         </Logger>

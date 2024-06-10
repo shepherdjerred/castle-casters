@@ -5,11 +5,11 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.shepherdjerred.capstone</groupId>
-  <artifactId>engine</artifactId>
+  <groupId>sjer.red</groupId>
+  <artifactId>castle-casters</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 
-  <name>engine</name>
+  <name>castle-casters</name>
   <description>${game.name}</description>
   <url>https://github.com/shepherdjerred/castle-casters</url>
 
@@ -126,7 +126,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-              <mainClass>com.shepherdjerred.capstone.Main</mainClass>
+              <mainClass>com.shepherdjerred.castlecasters.Main</mainClass>
             </manifest>
             <manifestEntries>
               <Implementation-Build>${buildNumber}</Implementation-Build>

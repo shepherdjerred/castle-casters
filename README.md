@@ -1,6 +1,8 @@
 # Castle Casters
 
-The game of Quoridor with a medieval fantasy theme. Created for the Harding University department of computer science capstone class. Cross-platform, tested on macOS and Windows.
+The game of Quoridor with a medieval fantasy theme. Created for my Harding University department of computer science capstone class.
+
+Cross-platform, tested on macOS and Windows.
 
 ## Technologies Used
 

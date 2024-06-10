@@ -1,4 +1,4 @@
-module com.shepherdjerred.capstone.engine {
+module com.shepherdjerred.castlecasters {
   requires static lombok;
   requires org.lwjgl.glfw;
   requires org.lwjgl.opengl;
@@ -19,12 +19,12 @@ module com.shepherdjerred.capstone.engine {
   //noinspection Java9RedundantRequiresStatement
   requires org.apache.logging.log4j;
 
-  opens com.shepherdjerred.capstone.logic.match to com.google.gson;
-  opens com.shepherdjerred.capstone.logic.board to com.google.gson;
-  opens com.shepherdjerred.capstone.logic.board.layout to com.google.gson;
-  opens com.shepherdjerred.capstone.logic.board.pieces to com.google.gson;
-  opens com.shepherdjerred.capstone.logic.player to com.google.gson;
-  opens com.shepherdjerred.capstone.logic.turn.enactor to com.google.gson;
-  opens com.shepherdjerred.capstone.logic.turn.validator to com.google.gson;
-  opens com.shepherdjerred.capstone.logic.piece to com.google.gson;
+  opens com.shepherdjerred.castlecasters.logic.match to com.google.gson;
+  opens com.shepherdjerred.castlecasters.logic.board to com.google.gson;
+  opens com.shepherdjerred.castlecasters.logic.board.layout to com.google.gson;
+  opens com.shepherdjerred.castlecasters.logic.board.pieces to com.google.gson;
+  opens com.shepherdjerred.castlecasters.logic.player to com.google.gson;
+  opens com.shepherdjerred.castlecasters.logic.turn.enactor to com.google.gson;
+  opens com.shepherdjerred.castlecasters.logic.turn.validator to com.google.gson;
+  opens com.shepherdjerred.castlecasters.logic.piece to com.google.gson;
 }
