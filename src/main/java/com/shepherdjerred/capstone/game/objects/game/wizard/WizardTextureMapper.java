@@ -3,6 +3,7 @@ package com.shepherdjerred.capstone.game.objects.game.wizard;
 import com.shepherdjerred.capstone.common.player.Element;
 import com.shepherdjerred.capstone.engine.graphics.texture.TextureName;
 import com.shepherdjerred.capstone.game.objects.game.wizard.Wizard.State;
+
 import java.util.HashMap;
 import java.util.Map;
 

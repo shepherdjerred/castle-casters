@@ -1,9 +1,10 @@
 package com.shepherdjerred.capstone.game.objects.background.parallax;
 
-import java.util.SortedMap;
-import java.util.TreeMap;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 @Getter
 @ToString

@@ -9,8 +9,8 @@ import com.shepherdjerred.capstone.engine.graphics.shader.ShaderProgramName;
 import com.shepherdjerred.capstone.engine.graphics.shader.ShaderUniform;
 import com.shepherdjerred.capstone.engine.graphics.texture.Texture;
 import com.shepherdjerred.capstone.engine.graphics.texture.TextureName;
-import com.shepherdjerred.capstone.engine.resource.ResourceManager;
 import com.shepherdjerred.capstone.engine.object.GameObjectRenderer;
+import com.shepherdjerred.capstone.engine.resource.ResourceManager;
 import com.shepherdjerred.capstone.engine.window.WindowSize;
 import com.shepherdjerred.capstone.game.objects.logo.Logo.Type;
 
@@ -27,8 +27,8 @@ public class LogoRenderer implements
 
   @Override
   public void initialize(Logo gameObject) throws Exception {
-    var width = gameObject.getSceneObjectDimensions().getWidth();
-    var height = gameObject.getSceneObjectDimensions().getHeight();
+    var width = gameObject.getSceneObjectDimensions().width();
+    var height = gameObject.getSceneObjectDimensions().height();
 
     defaultShaderProgram = resourceManager.get(ShaderProgramName.DEFAULT);
 
@@ -41,21 +41,21 @@ public class LogoRenderer implements
       throw new UnsupportedOperationException(gameObject.getType().toString());
     }
 
-    var vertices = new float[] {
+    var vertices = new float[]{
         0, 0, 0,
         0, height, 0,
         width, 0, 0,
         width, height, 0
     };
 
-    var textureCoordinates = new float[] {
+    var textureCoordinates = new float[]{
         0, 0,
         0, 1,
         1, 0,
         1, 1
     };
 
-    var indices = new int[] {
+    var indices = new int[]{
         0, 1, 2,
         3, 1, 2
     };
@@ -68,7 +68,7 @@ public class LogoRenderer implements
   public void render(WindowSize windowSize, Logo logo) {
     var pos = logo.getPosition()
         .getSceneCoordinate(windowSize, logo.getSceneObjectDimensions());
-    var model = new ModelMatrix(new RendererCoordinate(pos.getX(), pos.getY(), pos.getZ()),
+    var model = new ModelMatrix(new RendererCoordinate(pos.x(), pos.y(), pos.z()),
         0,
         1).getMatrix();
 
@@ -82,8 +82,8 @@ public class LogoRenderer implements
 
   @Override
   public void cleanup() {
-    resourceManager.free(texturedMesh.getTexture().getTextureName());
+    resourceManager.free(texturedMesh.texture().textureName());
     resourceManager.free(defaultShaderProgram.getShaderProgramName());
-    texturedMesh.getMesh().cleanup();
+    texturedMesh.mesh().cleanup();
   }
 }

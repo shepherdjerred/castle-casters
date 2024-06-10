@@ -2,8 +2,9 @@ package com.shepherdjerred.capstone.ai.evaluator;
 
 import com.shepherdjerred.capstone.logic.match.Match;
 import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
-import java.util.Random;
 import lombok.AllArgsConstructor;
+
+import java.util.Random;
 
 @AllArgsConstructor
 public class RandomlyMultipliedMatchEvaluator implements MatchEvaluator {

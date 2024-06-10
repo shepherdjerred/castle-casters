@@ -12,7 +12,7 @@ public class TurnSourceIsSameAsActualLocationValidatorRule implements ValidatorR
 
   @Override
   public TurnValidationResult validate(Match match, MovePawnTurn turn) {
-    if (turn.getSource().equals(match.getBoard().getPawnLocation(turn.getCauser()))) {
+    if (turn.source().equals(match.board().getPawnLocation(turn.causer()))) {
       return new TurnValidationResult();
     } else {
       return new TurnValidationResult(ErrorMessage.SOURCE_DIFFERENT_FROM_ACTUAL_LOCATION);

@@ -3,15 +3,15 @@ package com.shepherdjerred.capstone;
 import com.shepherdjerred.capstone.engine.GameEngine;
 import com.shepherdjerred.capstone.engine.window.WindowSettings;
 import com.shepherdjerred.capstone.engine.window.WindowSize;
-import com.shepherdjerred.capstone.game.CastleCastersGame;
 import com.shepherdjerred.capstone.events.Event;
 import com.shepherdjerred.capstone.events.EventBus;
+import com.shepherdjerred.capstone.game.CastleCastersGame;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class Main {
 
-  private static EventBus<Event> eventBus = new EventBus<>();
+  private static final EventBus<Event> eventBus = new EventBus<>();
 
   public static void main(String[] args) {
     System.out.println("Starting!");

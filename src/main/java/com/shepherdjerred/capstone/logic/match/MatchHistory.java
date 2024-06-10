@@ -1,8 +1,9 @@
 package com.shepherdjerred.capstone.logic.match;
 
-import java.util.Stack;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.util.Stack;
 
 @ToString
 @EqualsAndHashCode

@@ -9,11 +9,12 @@ import com.shepherdjerred.capstone.engine.map.tileset.TilesetNameToTextureMapper
 import com.shepherdjerred.capstone.engine.resource.ByteBufferLoader;
 import com.shepherdjerred.capstone.engine.resource.ResourceFileLocator;
 import com.shepherdjerred.capstone.engine.resource.ResourceLoader;
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
 import java.nio.ByteBuffer;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @AllArgsConstructor
@@ -72,8 +73,8 @@ public class GameMapLoader implements ResourceLoader<GameMapName, MapLayers> {
           .getAsJsonArray("data");
 
       for (int tileNumber = 0; tileNumber < layerTiles.size(); tileNumber++) {
-        var x = tileNumber % mapDimensions.getWidth();
-        var y = tileNumber / mapDimensions.getWidth();
+        var x = tileNumber % mapDimensions.width();
+        var y = tileNumber / mapDimensions.width();
         var coord = new MapCoordinate(x, y);
 
         var tileTexture = layerTiles.get(tileNumber).getAsInt();
@@ -86,7 +87,7 @@ public class GameMapLoader implements ResourceLoader<GameMapName, MapLayers> {
 
         layer.setTile(new MapCoordinate(x, y),
             new MapTile(coord,
-                tileset.getTextureName(),
+                tileset.textureName(),
                 tileset.getTextureCoordinate(tileTexture)));
       }
 

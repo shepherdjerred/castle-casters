@@ -17,7 +17,7 @@ import lombok.extern.log4j.Log4j2;
 public class SimpleSceneRenderer implements SceneRenderer<Scene> {
 
   private final ResourceManager resourceManager;
-  private WindowSize windowSize;
+  private final WindowSize windowSize;
   private ProjectionMatrix projectionMatrix;
   private ShaderProgram defaultShaderProgram;
   private ShaderProgram textShaderProgram;

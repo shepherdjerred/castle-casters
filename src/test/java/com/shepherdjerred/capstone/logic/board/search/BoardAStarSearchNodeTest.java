@@ -1,16 +1,17 @@
 package com.shepherdjerred.capstone.logic.board.search;
 
 
-import com.shepherdjerred.capstone.logic.board.QuoridorBoard;
 import com.shepherdjerred.capstone.logic.board.BoardSettings;
 import com.shepherdjerred.capstone.logic.board.Coordinate;
+import com.shepherdjerred.capstone.logic.board.QuoridorBoard;
 import com.shepherdjerred.capstone.logic.board.WallLocation;
 import com.shepherdjerred.capstone.logic.player.PlayerCount;
 import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
-import java.util.HashSet;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashSet;
 
 @Log4j2
 public class BoardAStarSearchNodeTest {

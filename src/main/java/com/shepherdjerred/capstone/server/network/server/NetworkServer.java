@@ -14,8 +14,9 @@ import com.shepherdjerred.capstone.server.event.DoTurnEvent;
 import com.shepherdjerred.capstone.server.event.PlayerJoinEvent;
 import com.shepherdjerred.capstone.server.event.StartGameEvent;
 import com.shepherdjerred.capstone.server.network.server.netty.NettyServerBootstrap;
-import java.net.SocketAddress;
 import lombok.extern.log4j.Log4j2;
+
+import java.net.SocketAddress;
 
 @Log4j2
 public class NetworkServer implements Runnable {
@@ -35,19 +36,15 @@ public class NetworkServer implements Runnable {
     var frame = new EventHandlerFrame<>();
 
     frame.registerHandler(PlayerJoinEvent.class, (event) -> {
-      if (event.getConnection() != null) {
-        setPlayerConnection(event.getPlayer(), event.getConnection());
+      if (event.connection() != null) {
+        setPlayerConnection(event.player(), event.connection());
       }
-      send(new PlayerJoinPacket(event.getPlayer()));
+      send(new PlayerJoinPacket(event.player()));
     });
 
-    frame.registerHandler(StartGameEvent.class, (event) -> {
-      send(new StartMatchPacket());
-    });
+    frame.registerHandler(StartGameEvent.class, (event) -> send(new StartMatchPacket()));
 
-    frame.registerHandler(DoTurnEvent.class, (event) -> {
-      send(new DoTurnPacket(event.getTurn()));
-    });
+    frame.registerHandler(DoTurnEvent.class, (event) -> send(new DoTurnPacket(event.turn())));
 
     eventBus.registerHandlerFrame(frame);
   }

@@ -36,7 +36,7 @@ public class BoardPiecesInitializerTest {
     var pawnLocations = initializer.getInitialPawnLocations(settings);
     var actual = initializer.convertPawnLocationsToPieceLocations(pawnLocations);
 
-   Assertions.assertEquals(2, actual.size());
+    Assertions.assertEquals(2, actual.size());
   }
 
   @Test
@@ -47,7 +47,7 @@ public class BoardPiecesInitializerTest {
     var pawnLocations = initializer.getInitialPawnLocations(settings);
     var actual = initializer.convertPawnLocationsToPieceLocations(pawnLocations);
 
-   Assertions.assertEquals(4, actual.size());
+    Assertions.assertEquals(4, actual.size());
   }
 
   @Test
@@ -57,7 +57,7 @@ public class BoardPiecesInitializerTest {
 
     var actual = initializer.getInitialPawnLocations(settings);
 
-   Assertions.assertTrue(actual.containsValue(new Coordinate(8, 0)));
+    Assertions.assertTrue(actual.containsValue(new Coordinate(8, 0)));
   }
 
   @Test
@@ -67,7 +67,7 @@ public class BoardPiecesInitializerTest {
 
     var actual = initializer.getInitialPawnLocations(settings);
 
-   Assertions.assertTrue(actual.containsValue(new Coordinate(8, 16)));
+    Assertions.assertTrue(actual.containsValue(new Coordinate(8, 16)));
   }
 
   @Test
@@ -77,7 +77,7 @@ public class BoardPiecesInitializerTest {
 
     var actual = initializer.getInitialPawnLocations(settings);
 
-   Assertions.assertTrue(actual.containsValue(new Coordinate(0, 8)));
+    Assertions.assertTrue(actual.containsValue(new Coordinate(0, 8)));
   }
 
   @Test
@@ -87,6 +87,6 @@ public class BoardPiecesInitializerTest {
 
     var actual = initializer.getInitialPawnLocations(settings);
 
-   Assertions.assertTrue(actual.containsValue(new Coordinate(16, 8)));
+    Assertions.assertTrue(actual.containsValue(new Coordinate(16, 8)));
   }
 }

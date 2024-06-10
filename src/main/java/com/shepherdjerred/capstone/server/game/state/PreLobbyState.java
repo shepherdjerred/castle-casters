@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j2;
 public class PreLobbyState extends AbstractGameServerState {
 
   public PreLobbyState(GameLogic gameLogic,
-      EventBus<Event> eventBus) {
+                       EventBus<Event> eventBus) {
     super(gameLogic, eventBus);
   }
 
@@ -27,18 +27,18 @@ public class PreLobbyState extends AbstractGameServerState {
     var frame = new EventHandlerFrame<>();
 
     frame.registerHandler(PlayerInformationReceivedEvent.class, event -> {
-      var playerInformation = event.getPlayerInformation();
-      var player = new HumanPlayer(playerInformation.getUuid(),
-          playerInformation.getName(),
+      var playerInformation = event.playerInformation();
+      var player = new HumanPlayer(playerInformation.uuid(),
+          playerInformation.name(),
           Element.ICE);
 
-      eventBus.dispatch(new PlayerJoinEvent(player, event.getConnection()));
+      eventBus.dispatch(new PlayerJoinEvent(player, event.connection()));
 
       gameLogic.setHost(player);
       gameLogic.transitionState(new LobbyState(gameLogic, eventBus));
 
-      var lobby = gameLogic.getGameState().getLobby();
-      var lobbyType = lobby.getLobbySettings().getLobbyType();
+      var lobby = gameLogic.getGameState().lobby();
+      var lobbyType = lobby.getLobbySettings().lobbyType();
 
       if (lobbyType == LobbyType.NETWORK) {
         eventBus.dispatch(new StartBroadcastEvent(lobby));
@@ -46,7 +46,7 @@ public class PreLobbyState extends AbstractGameServerState {
     });
 
     frame.registerHandler(FillSlotsWithAiEvent.class, (event) -> {
-      var lobby = gameLogic.getGameState().getLobby();
+      var lobby = gameLogic.getGameState().lobby();
 
       log.info("Filling slots...");
 

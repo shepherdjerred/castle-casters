@@ -2,9 +2,10 @@ package com.shepherdjerred.capstone.logic.match;
 
 import com.shepherdjerred.capstone.logic.board.Coordinate;
 import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
+import lombok.EqualsAndHashCode;
+
 import java.util.HashSet;
 import java.util.Set;
-import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
 public class PlayerGoals {

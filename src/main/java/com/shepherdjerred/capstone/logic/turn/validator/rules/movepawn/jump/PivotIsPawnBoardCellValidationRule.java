@@ -10,13 +10,13 @@ public class PivotIsPawnBoardCellValidationRule implements ValidatorRule<JumpPaw
 
   @Override
   public TurnValidationResult validate(Match match, JumpPawnTurn turn) {
-    var pivot = turn.getPivot();
+    var pivot = turn.pivot();
 
-    if (match.getBoard().isCoordinateInvalid(pivot)) {
+    if (match.board().isCoordinateInvalid(pivot)) {
       return new TurnValidationResult(true);
     }
 
-    if (match.getBoard().isPawnBoardCell(pivot)) {
+    if (match.board().isPawnBoardCell(pivot)) {
       return new TurnValidationResult();
     } else {
       return new TurnValidationResult(ErrorMessage.PIVOT_CELL_TYPE_NOT_PAWN);

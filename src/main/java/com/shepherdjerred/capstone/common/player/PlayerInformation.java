@@ -1,15 +1,10 @@
 package com.shepherdjerred.capstone.common.player;
 
-import java.util.UUID;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
+
+import java.util.UUID;
 
 @Getter
-@ToString
-@AllArgsConstructor
-public class PlayerInformation {
+public record PlayerInformation(UUID uuid, String name) {
 
-  private final UUID uuid;
-  private final String name;
 }

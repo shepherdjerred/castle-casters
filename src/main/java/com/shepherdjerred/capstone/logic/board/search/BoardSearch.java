@@ -1,8 +1,9 @@
 package com.shepherdjerred.capstone.logic.board.search;
 
 import com.github.bentorfs.ai.search.asearch.AStarSearchNode;
-import com.shepherdjerred.capstone.logic.board.QuoridorBoard;
 import com.shepherdjerred.capstone.logic.board.Coordinate;
+import com.shepherdjerred.capstone.logic.board.QuoridorBoard;
+
 import java.util.Set;
 
 public interface BoardSearch {

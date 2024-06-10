@@ -1,50 +1,9 @@
 package com.shepherdjerred.capstone.engine.input.keyboard;
 
-import static com.shepherdjerred.capstone.engine.input.keyboard.Key.*;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_0;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_1;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_2;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_3;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_4;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_5;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_6;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_7;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_8;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_9;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_A;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_B;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_C;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_D;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_DOWN;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_E;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_F;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_G;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_H;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_I;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_J;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_K;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_L;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_M;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_N;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_O;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_P;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_Q;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_R;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_RIGHT;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_S;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_T;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_U;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_UP;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_V;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_W;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_X;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_Y;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_Z;
-
 import java.util.Optional;
+
+import static com.shepherdjerred.capstone.engine.input.keyboard.Key.*;
+import static org.lwjgl.glfw.GLFW.*;
 
 /**
  * Converts GLFW integer keycodes to a Key enum.
@@ -52,136 +11,51 @@ import java.util.Optional;
 public class GlfwKeyCodeConverter {
 
   public Optional<Key> fromGlfwKey(int glfwKey) {
-    Key key = null;
-
-    switch (glfwKey) {
-      case GLFW_KEY_A:
-        key = A;
-        break;
-      case GLFW_KEY_B:
-        key = B;
-        break;
-      case GLFW_KEY_C:
-        key = C;
-        break;
-      case GLFW_KEY_D:
-        key = D;
-        break;
-      case GLFW_KEY_E:
-        key = E;
-        break;
-      case GLFW_KEY_F:
-        key = F;
-        break;
-      case GLFW_KEY_G:
-        key = G;
-        break;
-      case GLFW_KEY_H:
-        key = H;
-        break;
-      case GLFW_KEY_I:
-        key = I;
-        break;
-      case GLFW_KEY_J:
-        key = J;
-        break;
-      case GLFW_KEY_K:
-        key = K;
-        break;
-      case GLFW_KEY_L:
-        key = L;
-        break;
-      case GLFW_KEY_M:
-        key = M;
-        break;
-      case GLFW_KEY_N:
-        key = N;
-        break;
-      case GLFW_KEY_O:
-        key = O;
-        break;
-      case GLFW_KEY_P:
-        key = P;
-        break;
-      case GLFW_KEY_Q:
-        key = Q;
-        break;
-      case GLFW_KEY_R:
-        key = R;
-        break;
-      case GLFW_KEY_S:
-        key = S;
-        break;
-      case GLFW_KEY_T:
-        key = T;
-        break;
-      case GLFW_KEY_U:
-        key = U;
-        break;
-      case GLFW_KEY_V:
-        key = V;
-        break;
-      case GLFW_KEY_W:
-        key = W;
-        break;
-      case GLFW_KEY_X:
-        key = X;
-        break;
-      case GLFW_KEY_Y:
-        key = Y;
-        break;
-      case GLFW_KEY_Z:
-        key = Z;
-        break;
-      case GLFW_KEY_SPACE:
-        key = SPACE;
-        break;
-      case GLFW_KEY_1:
-        key = ONE;
-        break;
-      case GLFW_KEY_2:
-        key = TWO;
-        break;
-      case GLFW_KEY_3:
-        key = THREE;
-        break;
-      case GLFW_KEY_4:
-        key = FOUR;
-        break;
-      case GLFW_KEY_5:
-        key = FIVE;
-        break;
-      case GLFW_KEY_6:
-        key = SIX;
-        break;
-      case GLFW_KEY_7:
-        key = SEVEN;
-        break;
-      case GLFW_KEY_8:
-        key = EIGHT;
-        break;
-      case GLFW_KEY_9:
-        key = NINE;
-        break;
-      case GLFW_KEY_0:
-        key = ZERO;
-        break;
-      case GLFW_KEY_UP:
-        key = UP;
-        break;
-      case GLFW_KEY_DOWN:
-        key = DOWN;
-        break;
-      case GLFW_KEY_LEFT:
-        key = LEFT;
-        break;
-      case GLFW_KEY_RIGHT:
-        key = RIGHT;
-        break;
-      case GLFW_KEY_ESCAPE:
-        key = ESCAPE;
-        break;
-    }
+    Key key = switch (glfwKey) {
+      case GLFW_KEY_A -> A;
+      case GLFW_KEY_B -> B;
+      case GLFW_KEY_C -> C;
+      case GLFW_KEY_D -> D;
+      case GLFW_KEY_E -> E;
+      case GLFW_KEY_F -> F;
+      case GLFW_KEY_G -> G;
+      case GLFW_KEY_H -> H;
+      case GLFW_KEY_I -> I;
+      case GLFW_KEY_J -> J;
+      case GLFW_KEY_K -> K;
+      case GLFW_KEY_L -> L;
+      case GLFW_KEY_M -> M;
+      case GLFW_KEY_N -> N;
+      case GLFW_KEY_O -> O;
+      case GLFW_KEY_P -> P;
+      case GLFW_KEY_Q -> Q;
+      case GLFW_KEY_R -> R;
+      case GLFW_KEY_S -> S;
+      case GLFW_KEY_T -> T;
+      case GLFW_KEY_U -> U;
+      case GLFW_KEY_V -> V;
+      case GLFW_KEY_W -> W;
+      case GLFW_KEY_X -> X;
+      case GLFW_KEY_Y -> Y;
+      case GLFW_KEY_Z -> Z;
+      case GLFW_KEY_SPACE -> SPACE;
+      case GLFW_KEY_1 -> ONE;
+      case GLFW_KEY_2 -> TWO;
+      case GLFW_KEY_3 -> THREE;
+      case GLFW_KEY_4 -> FOUR;
+      case GLFW_KEY_5 -> FIVE;
+      case GLFW_KEY_6 -> SIX;
+      case GLFW_KEY_7 -> SEVEN;
+      case GLFW_KEY_8 -> EIGHT;
+      case GLFW_KEY_9 -> NINE;
+      case GLFW_KEY_0 -> ZERO;
+      case GLFW_KEY_UP -> UP;
+      case GLFW_KEY_DOWN -> DOWN;
+      case GLFW_KEY_LEFT -> LEFT;
+      case GLFW_KEY_RIGHT -> RIGHT;
+      case GLFW_KEY_ESCAPE -> ESCAPE;
+      default -> null;
+    };
 
     if (key == null) {
       return Optional.empty();

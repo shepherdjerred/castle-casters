@@ -52,8 +52,8 @@ public class BoardLayoutInitializer {
    * @return True if the BoardCell should be Null, or false otherwise
    */
   private boolean shouldBeWallVertexCell(Coordinate coordinate) {
-    int x = coordinate.getX();
-    int y = coordinate.getY();
+    int x = coordinate.x();
+    int y = coordinate.y();
 
     return x % 2 != 0
         && y % 2 != 0;
@@ -66,8 +66,8 @@ public class BoardLayoutInitializer {
    * @return True if the BoardCell should be a Pawn BoardCell, or false otherwise
    */
   private boolean shouldBePawnCell(Coordinate coordinate) {
-    int x = coordinate.getX();
-    int y = coordinate.getY();
+    int x = coordinate.x();
+    int y = coordinate.y();
 
     return x % 2 == 0
         && y % 2 == 0;
@@ -80,8 +80,8 @@ public class BoardLayoutInitializer {
    * @return True if the BoardCell should be a Wall BoardCell, or false otherwise
    */
   private boolean shouldBeWallCell(Coordinate coordinate) {
-    int x = coordinate.getX();
-    int y = coordinate.getY();
+    int x = coordinate.x();
+    int y = coordinate.y();
 
     return x % 2 != 0
         && y % 2 == 0

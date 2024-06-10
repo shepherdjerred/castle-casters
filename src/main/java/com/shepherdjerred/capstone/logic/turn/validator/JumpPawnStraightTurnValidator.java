@@ -4,6 +4,7 @@ import com.shepherdjerred.capstone.logic.match.Match;
 import com.shepherdjerred.capstone.logic.turn.JumpPawnStraightTurn;
 import com.shepherdjerred.capstone.logic.turn.validator.rules.ValidatorRule;
 import com.shepherdjerred.capstone.logic.turn.validator.rules.movepawn.jump.straight.StraightPivotIsValidValidatorRule;
+
 import java.util.HashSet;
 import java.util.Set;
 

@@ -4,7 +4,7 @@ import com.shepherdjerred.capstone.logic.board.Coordinate;
 
 public interface MovePawnTurn extends Turn {
 
-  Coordinate getSource();
+  Coordinate source();
 
-  Coordinate getDestination();
+  Coordinate destination();
 }

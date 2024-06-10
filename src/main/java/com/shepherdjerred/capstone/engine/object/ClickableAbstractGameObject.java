@@ -14,33 +14,33 @@ public abstract class ClickableAbstractGameObject extends HoverableAbstractGameO
   private boolean isClicked;
 
   public ClickableAbstractGameObject(GameObjectRenderer renderer,
-      SceneObjectDimensions objectDimensions,
-      ScenePositioner positioner,
-      CollisionDetector collisionDetector,
-      Runnable onHover,
-      Runnable onUnhover,
-      Runnable onClick,
-      Runnable onUnclick) {
+                                     SceneObjectDimensions objectDimensions,
+                                     ScenePositioner positioner,
+                                     CollisionDetector collisionDetector,
+                                     Runnable onHover,
+                                     Runnable onUnhover,
+                                     Runnable onClick,
+                                     Runnable onUnclick) {
     super(renderer, objectDimensions, positioner, collisionDetector, onHover, onUnhover);
     this.onClick = onClick;
     this.onUnclick = onUnclick;
   }
 
   public ClickableAbstractGameObject(GameObjectRenderer renderer,
-      SceneObjectDimensions objectDimensions,
-      ScenePositioner positioner,
-      CollisionDetector collisionDetector,
-      Runnable onHover,
-      Runnable onClick) {
+                                     SceneObjectDimensions objectDimensions,
+                                     ScenePositioner positioner,
+                                     CollisionDetector collisionDetector,
+                                     Runnable onHover,
+                                     Runnable onClick) {
     super(renderer, objectDimensions, positioner, collisionDetector, onHover);
     this.onClick = onClick;
     this.onUnclick = null;
   }
 
   public ClickableAbstractGameObject(GameObjectRenderer renderer,
-      SceneObjectDimensions objectDimensions,
-      ScenePositioner positioner,
-      CollisionDetector collisionDetector, Runnable onClick) {
+                                     SceneObjectDimensions objectDimensions,
+                                     ScenePositioner positioner,
+                                     CollisionDetector collisionDetector, Runnable onClick) {
     super(renderer, objectDimensions, positioner, collisionDetector);
     this.onClick = onClick;
     this.onUnclick = null;

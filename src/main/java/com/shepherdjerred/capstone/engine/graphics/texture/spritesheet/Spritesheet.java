@@ -27,8 +27,8 @@ public class Spritesheet {
   }
 
   public TextureSheetCoordinates getCoordinatesForSprite(SpritesheetCoordinate coordinate) {
-    var x = coordinate.getX();
-    var y = coordinate.getY();
+    var x = coordinate.x();
+    var y = coordinate.y();
 
     float rawMinX = x * spriteSize;
     float rawMaxX = rawMinX + spriteSize;

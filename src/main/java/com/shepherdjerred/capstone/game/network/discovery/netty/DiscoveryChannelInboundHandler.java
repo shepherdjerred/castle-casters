@@ -5,9 +5,10 @@ import com.shepherdjerred.capstone.game.network.discovery.event.ServerDiscovered
 import com.shepherdjerred.capstone.game.network.event.NetworkEvent;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Log4j2
 @AllArgsConstructor
@@ -17,8 +18,7 @@ public class DiscoveryChannelInboundHandler extends ChannelInboundHandlerAdapter
 
   @Override
   public void channelRead(ChannelHandlerContext context, Object message) {
-    if (message instanceof ServerInformation) {
-      var serverInformation = (ServerInformation) message;
+    if (message instanceof ServerInformation serverInformation) {
       var serverDiscoveredEvent = new ServerDiscoveredEvent(serverInformation);
 
       eventQueue.add(serverDiscoveredEvent);

@@ -15,8 +15,8 @@ public class MouseMoveHoverableEventHandler implements EventHandler<MouseMoveEve
   @Override
   public void handle(MouseMoveEvent mouseMoveEvent) {
     scene.getGameObjects().forEach(element -> {
-      var orig = mouseMoveEvent.getNewMousePosition();
-      var coord = new SceneCoordinate(orig.getX(), orig.getY(), 0);
+      var orig = mouseMoveEvent.newMousePosition();
+      var coord = new SceneCoordinate(orig.x(), orig.y(), 0);
       if (element instanceof Hoverable) {
         if (((Hoverable) element).isHovered()) {
           if (!((Hoverable) element).contains(coord)) {

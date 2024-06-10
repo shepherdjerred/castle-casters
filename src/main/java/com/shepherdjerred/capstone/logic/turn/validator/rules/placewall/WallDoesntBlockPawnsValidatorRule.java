@@ -20,13 +20,13 @@ public class WallDoesntBlockPawnsValidatorRule implements ValidatorRule<PlaceWal
 
   @Override
   public TurnValidationResult validate(Match match, PlaceWallTurn turn) {
-    var board = match.getBoard().placeWall(turn.getCauser(), turn.getLocation());
+    var board = match.board().placeWall(turn.causer(), turn.location());
     var gridSize = board.getGridSize();
     var pawnLocations = board.getPawnLocations();
 
     var isAnyPawnBlocked = pawnLocations.stream()
         .anyMatch(pawnLocation -> {
-          var player = match.getBoard().getPiece(pawnLocation).getOwner();
+          var player = match.board().getPiece(pawnLocation).owner();
           var goals = playerGoals.getGoalCoordinatesForPlayer(player, gridSize);
           var pawnHasPathToGoal = boardSearch.hasPathToAnyDestination(board, pawnLocation, goals);
           return !pawnHasPathToGoal;

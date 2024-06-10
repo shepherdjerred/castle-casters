@@ -9,9 +9,10 @@ import com.shepherdjerred.capstone.server.network.manager.NetworkManager;
 import com.shepherdjerred.capstone.server.network.manager.events.StartNetworkEvent;
 import com.shepherdjerred.capstone.server.network.manager.events.StopBroadcastEvent;
 import com.shepherdjerred.capstone.server.network.manager.events.StopNetworkEvent;
-import java.net.SocketAddress;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
+
+import java.net.SocketAddress;
 
 @Log4j2
 @ToString
@@ -20,11 +21,11 @@ public class GameServer implements Runnable {
   private final EventBus<Event> eventBus;
   private final NetworkManager networkManager;
   private final GameLogic gameLogic;
-  private boolean shouldContinue;
+  private final boolean shouldContinue;
 
   public GameServer(GameState gameState,
-      SocketAddress gameAddress,
-      SocketAddress broadcastAddress) {
+                    SocketAddress gameAddress,
+                    SocketAddress broadcastAddress) {
     eventBus = new EventBus<>();
     gameLogic = new GameLogic(gameState, eventBus);
     networkManager = new NetworkManager(gameAddress, broadcastAddress, eventBus);

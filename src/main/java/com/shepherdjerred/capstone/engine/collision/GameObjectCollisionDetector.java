@@ -18,14 +18,14 @@ public class GameObjectCollisionDetector implements CollisionDetector {
   public boolean hasCollision(SceneCoordinate coordinate) {
     var position = object.getPosition()
         .getSceneCoordinate(windowSize, object.getSceneObjectDimensions());
-    var maxX = position.getX() + object.getSceneObjectDimensions().getWidth();
-    var minX = position.getX();
-    var maxY = position.getY() + object.getSceneObjectDimensions().getHeight();
-    var minY = position.getY();
+    var maxX = position.x() + object.getSceneObjectDimensions().width();
+    var minX = position.x();
+    var maxY = position.y() + object.getSceneObjectDimensions().height();
+    var minY = position.y();
 
-    return coordinate.getX() <= maxX
-        && coordinate.getX() >= minX
-        && coordinate.getY() <= maxY
-        && coordinate.getY() >= minY;
+    return coordinate.x() <= maxX
+        && coordinate.x() >= minX
+        && coordinate.y() <= maxY
+        && coordinate.y() >= minY;
   }
 }

@@ -7,11 +7,7 @@ import com.shepherdjerred.capstone.events.handlers.EventHandlerFrame;
 import com.shepherdjerred.capstone.logic.board.BoardSettings;
 import com.shepherdjerred.capstone.logic.match.Match;
 import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
-import com.shepherdjerred.capstone.server.event.FillSlotsWithAiEvent;
-import com.shepherdjerred.capstone.server.event.MatchStartedEvent;
-import com.shepherdjerred.capstone.server.event.PlayerInformationReceivedEvent;
-import com.shepherdjerred.capstone.server.event.PlayerJoinEvent;
-import com.shepherdjerred.capstone.server.event.StartGameEvent;
+import com.shepherdjerred.capstone.server.event.*;
 import com.shepherdjerred.capstone.server.game.GameLogic;
 import lombok.extern.log4j.Log4j2;
 
@@ -19,7 +15,7 @@ import lombok.extern.log4j.Log4j2;
 public class LobbyState extends AbstractGameServerState {
 
   public LobbyState(GameLogic gameLogic,
-      EventBus<Event> eventBus) {
+                    EventBus<Event> eventBus) {
     super(gameLogic, eventBus);
   }
 
@@ -30,12 +26,12 @@ public class LobbyState extends AbstractGameServerState {
     frame.registerHandler(PlayerInformationReceivedEvent.class, (event) -> {
       log.info("PLAYER IS JOINING");
 
-      var lobby = gameLogic.getGameState().getLobby();
+      var lobby = gameLogic.getGameState().lobby();
 
       if (lobby.isFull()) {
         // TODO Send a message saying the server is full
-        event.getConnection().sendPacket(null);
-        event.getConnection().disconnect();
+        event.connection().sendPacket(null);
+        event.connection().disconnect();
       }
 
       var element = lobby.getFreeElement();
@@ -44,20 +40,20 @@ public class LobbyState extends AbstractGameServerState {
         throw new IllegalStateException("No free element");
       }
 
-      var playerInformation = event.getPlayerInformation();
-      var player = new HumanPlayer(playerInformation.getUuid(),
-          playerInformation.getName(),
+      var playerInformation = event.playerInformation();
+      var player = new HumanPlayer(playerInformation.uuid(),
+          playerInformation.name(),
           element.get());
 
       lobby = lobby.addPlayer(player);
 
       gameLogic.setGameState(gameLogic.getGameState().setLobby(lobby));
 
-      eventBus.dispatch(new PlayerJoinEvent(player, event.getConnection()));
+      eventBus.dispatch(new PlayerJoinEvent(player, event.connection()));
     });
 
     frame.registerHandler(FillSlotsWithAiEvent.class, (event) -> {
-      var lobby = gameLogic.getGameState().getLobby();
+      var lobby = gameLogic.getGameState().lobby();
 
       log.info("Filling slots..");
 
@@ -71,10 +67,10 @@ public class LobbyState extends AbstractGameServerState {
 
     frame.registerHandler(StartGameEvent.class, (event) -> {
       var currentGameState = gameLogic.getGameState();
-      var lobbySettings = currentGameState.getLobby().getLobbySettings();
-      var matchSettings = lobbySettings.getMatchSettings();
-      var map = lobbySettings.getGameMap();
-      var boardSettings = new BoardSettings(map.getBoardSize(), matchSettings.getPlayerCount());
+      var lobbySettings = currentGameState.lobby().getLobbySettings();
+      var matchSettings = lobbySettings.matchSettings();
+      var map = lobbySettings.gameMap();
+      var boardSettings = new BoardSettings(map.getBoardSize(), matchSettings.playerCount());
       var match = Match.from(matchSettings, boardSettings);
 
       var newGameState = currentGameState.setMatch(match);

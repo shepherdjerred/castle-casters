@@ -9,7 +9,7 @@ public class MovePawnTurnEnactor implements TurnEnactor {
   /**
    * Takes the steps to transform a given board state by the parameters in a turn
    *
-   * @param turn The turn to use when transforming the board
+   * @param turn  The turn to use when transforming the board
    * @param board The board state
    * @return The board state transformed by the turn
    */
@@ -23,6 +23,6 @@ public class MovePawnTurnEnactor implements TurnEnactor {
   }
 
   private QuoridorBoard enactMovePawnTurn(MovePawnTurn turn, QuoridorBoard board) {
-    return board.movePawn(turn.getCauser(), turn.getDestination());
+    return board.movePawn(turn.causer(), turn.destination());
   }
 }

@@ -2,6 +2,7 @@ package com.shepherdjerred.capstone.engine.scene;
 
 import com.shepherdjerred.capstone.engine.object.GameObject;
 import com.shepherdjerred.capstone.engine.window.WindowSize;
+
 import java.util.Set;
 
 public interface Scene {

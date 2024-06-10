@@ -2,20 +2,15 @@ package com.shepherdjerred.capstone.game.network.manager;
 
 import com.shepherdjerred.capstone.common.Constants;
 import com.shepherdjerred.capstone.common.GameState;
-import com.shepherdjerred.capstone.game.network.client.NetworkClient;
-import com.shepherdjerred.capstone.game.network.discovery.ServerDiscoverer;
-import com.shepherdjerred.capstone.game.network.discovery.netty.NettyServerDiscoverer;
-import com.shepherdjerred.capstone.game.network.manager.event.ConnectServerEvent;
-import com.shepherdjerred.capstone.game.network.manager.event.ShutdownNetworkEvent;
-import com.shepherdjerred.capstone.game.network.manager.event.StartDiscoveryEvent;
-import com.shepherdjerred.capstone.game.network.manager.event.StartServerEvent;
-import com.shepherdjerred.capstone.game.network.manager.event.StopClientEvent;
-import com.shepherdjerred.capstone.game.network.manager.event.StopDiscoveryEvent;
-import com.shepherdjerred.capstone.game.network.manager.event.StopServerEvent;
 import com.shepherdjerred.capstone.events.Event;
 import com.shepherdjerred.capstone.events.EventBus;
 import com.shepherdjerred.capstone.events.handlers.EventHandlerFrame;
+import com.shepherdjerred.capstone.game.network.client.NetworkClient;
+import com.shepherdjerred.capstone.game.network.discovery.ServerDiscoverer;
+import com.shepherdjerred.capstone.game.network.discovery.netty.NettyServerDiscoverer;
+import com.shepherdjerred.capstone.game.network.manager.event.*;
 import com.shepherdjerred.capstone.server.GameServer;
+
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 
@@ -37,27 +32,13 @@ public class NetworkManager {
   }
 
   private void initializeEventHandlerFrame() {
-    eventHandlerFrame.registerHandler(StartServerEvent.class, (event) -> {
-      createServer(event.getGameState());
-    });
-    eventHandlerFrame.registerHandler(StopClientEvent.class, (event) -> {
-      stopClient();
-    });
-    eventHandlerFrame.registerHandler(StopServerEvent.class, (event) -> {
-      stopServer();
-    });
-    eventHandlerFrame.registerHandler(ConnectServerEvent.class, (event) -> {
-      connectClient(event.getAddress());
-    });
-    eventHandlerFrame.registerHandler(StartDiscoveryEvent.class, (event) -> {
-      startDiscovery();
-    });
-    eventHandlerFrame.registerHandler(StopDiscoveryEvent.class, (event) -> {
-      stopDiscovery();
-    });
-    eventHandlerFrame.registerHandler(ShutdownNetworkEvent.class, (event) -> {
-      shutdown();
-    });
+    eventHandlerFrame.registerHandler(StartServerEvent.class, (event) -> createServer(event.gameState()));
+    eventHandlerFrame.registerHandler(StopClientEvent.class, (event) -> stopClient());
+    eventHandlerFrame.registerHandler(StopServerEvent.class, (event) -> stopServer());
+    eventHandlerFrame.registerHandler(ConnectServerEvent.class, (event) -> connectClient(event.address()));
+    eventHandlerFrame.registerHandler(StartDiscoveryEvent.class, (event) -> startDiscovery());
+    eventHandlerFrame.registerHandler(StopDiscoveryEvent.class, (event) -> stopDiscovery());
+    eventHandlerFrame.registerHandler(ShutdownNetworkEvent.class, (event) -> shutdown());
   }
 
   public void initialize() {

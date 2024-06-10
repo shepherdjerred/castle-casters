@@ -10,9 +10,9 @@ public class WallPieceLocationVertexIsFreeValidatorRule implements ValidatorRule
 
   @Override
   public TurnValidationResult validate(Match match, PlaceWallTurn turn) {
-    var wallLocation = turn.getLocation();
-    var vertex = wallLocation.getVertex();
-    var board = match.getBoard();
+    var wallLocation = turn.location();
+    var vertex = wallLocation.vertex();
+    var board = match.board();
 
     if (board.isCoordinateInvalid(vertex)) {
       return new TurnValidationResult(ErrorMessage.VALIDATOR_FAILED);

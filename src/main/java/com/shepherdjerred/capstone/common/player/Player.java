@@ -4,9 +4,9 @@ import java.util.UUID;
 
 public interface Player {
 
-  UUID getUuid();
+  UUID uuid();
 
-  String getName();
+  String name();
 
-  Element getElement();
+  Element element();
 }

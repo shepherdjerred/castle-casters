@@ -1,9 +1,9 @@
 package com.shepherdjerred.capstone.game.network.client.state;
 
-import com.shepherdjerred.capstone.game.network.client.NetworkClient;
 import com.shepherdjerred.capstone.events.Event;
 import com.shepherdjerred.capstone.events.EventBus;
 import com.shepherdjerred.capstone.events.handlers.EventHandlerFrame;
+import com.shepherdjerred.capstone.game.network.client.NetworkClient;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -23,13 +23,13 @@ public abstract class AbstractNetworkClientState implements NetworkClientState {
 
   @Override
   public void enable() {
-    log.info("Enabling " + this);
+    log.info("Enabling {}", this);
     eventBus.registerHandlerFrame(eventHandlerFrame);
   }
 
   @Override
   public void disable() {
-    log.info("Disabling " + this);
+    log.info("Disabling {}", this);
     eventBus.removeHandlerFrame(eventHandlerFrame);
   }
 }

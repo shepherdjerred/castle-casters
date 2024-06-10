@@ -1,15 +1,16 @@
 package com.shepherdjerred.capstone.server.network.broadcast.netty;
 
-import static com.shepherdjerred.capstone.common.Constants.DISCOVERY_PORT;
-
 import com.shepherdjerred.capstone.network.netty.handlers.ExceptionLoggerHandler;
 import com.shepherdjerred.capstone.network.packet.serialization.PacketJsonSerializer;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.nio.NioDatagramChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.logging.LoggingHandler;
-import java.net.InetSocketAddress;
 import lombok.AllArgsConstructor;
+
+import java.net.InetSocketAddress;
+
+import static com.shepherdjerred.capstone.common.Constants.DISCOVERY_PORT;
 
 @AllArgsConstructor
 public class NettyBroadcastInitializer extends ChannelInitializer<NioDatagramChannel> {

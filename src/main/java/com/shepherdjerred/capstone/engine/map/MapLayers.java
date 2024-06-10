@@ -2,13 +2,10 @@ package com.shepherdjerred.capstone.engine.map;
 
 import com.shepherdjerred.capstone.engine.graphics.texture.TextureName;
 import com.shepherdjerred.capstone.engine.resource.Resource;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.util.*;
 
 @Getter
 @ToString

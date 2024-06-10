@@ -19,6 +19,6 @@ public class ToggleBlendingEventHandler implements EventHandler<ToggleBlendingEv
       OpenGlHelper.disableTransparency();
     }
 
-    log.info("Blending: " + isBlendingEnabled);
+    log.info("Blending: {}", isBlendingEnabled);
   }
 }

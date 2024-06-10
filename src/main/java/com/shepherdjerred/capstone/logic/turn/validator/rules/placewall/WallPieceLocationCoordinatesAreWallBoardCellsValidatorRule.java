@@ -10,10 +10,10 @@ public class WallPieceLocationCoordinatesAreWallBoardCellsValidatorRule implemen
 
   @Override
   public TurnValidationResult validate(Match match, PlaceWallTurn turn) {
-    var board = match.getBoard();
-    var location = turn.getLocation();
-    var firstCoordinate = location.getFirstCoordinate();
-    var secondCoordinate = location.getSecondCoordinate();
+    var board = match.board();
+    var location = turn.location();
+    var firstCoordinate = location.firstCoordinate();
+    var secondCoordinate = location.secondCoordinate();
 
     if (board.isCoordinateInvalid(firstCoordinate)
         || board.isCoordinateInvalid(secondCoordinate)) {

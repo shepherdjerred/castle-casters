@@ -8,26 +8,16 @@ import com.shepherdjerred.capstone.logic.turn.Turn;
 import com.shepherdjerred.capstone.logic.turn.enactor.MatchTurnEnactor;
 import com.shepherdjerred.capstone.logic.turn.enactor.TurnEnactorFactory;
 import com.shepherdjerred.capstone.logic.turn.validator.TurnValidatorFactory;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
 /**
  * A match of Quoridor.
  */
 // TODO this could still be cleaned up more
 @Getter
-@ToString
-@EqualsAndHashCode
-public class Match {
-
-  private final QuoridorBoard board;
-  private final MatchSettings matchSettings;
-  private final WallBank wallBank;
-  private final MatchStatus matchStatus;
-  private final MatchHistory matchHistory;
-  private final MatchTurnEnactor matchTurnEnactor;
-  private final ActivePlayerTracker activePlayerTracker;
+public record Match(QuoridorBoard board, MatchSettings matchSettings, WallBank wallBank, MatchStatus matchStatus,
+                    MatchHistory matchHistory, MatchTurnEnactor matchTurnEnactor,
+                    ActivePlayerTracker activePlayerTracker) {
 
   public static Match from(MatchSettings matchSettings, BoardSettings boardSettings) {
     var board = QuoridorBoard.from(boardSettings);
@@ -36,10 +26,10 @@ public class Match {
 
   // TODO board validation
   public static Match from(MatchSettings matchSettings, QuoridorBoard board) {
-    var playerCount = matchSettings.getPlayerCount();
-    var startingPlayer = matchSettings.getStartingQuoridorPlayer();
-    var wallPool = WallBank.from(matchSettings.getPlayerCount(),
-        matchSettings.getWallsPerPlayer());
+    var playerCount = matchSettings.playerCount();
+    var startingPlayer = matchSettings.startingQuoridorPlayer();
+    var wallPool = WallBank.from(matchSettings.playerCount(),
+        matchSettings.wallsPerPlayer());
     var matchStatus = new MatchStatus(QuoridorPlayer.NULL, Status.IN_PROGRESS);
     var matchHistory = new MatchHistory();
     var activePlayerTracker = new ActivePlayerTracker(startingPlayer, playerCount);
@@ -54,22 +44,6 @@ public class Match {
         matchHistory,
         matchTurnEnactor,
         activePlayerTracker);
-  }
-
-  public Match(QuoridorBoard board,
-      MatchSettings matchSettings,
-      WallBank wallBank,
-      MatchStatus matchStatus,
-      MatchHistory matchHistory,
-      MatchTurnEnactor matchTurnEnactor,
-      ActivePlayerTracker activePlayerTracker) {
-    this.board = board;
-    this.matchSettings = matchSettings;
-    this.activePlayerTracker = activePlayerTracker;
-    this.wallBank = wallBank;
-    this.matchStatus = matchStatus;
-    this.matchHistory = matchHistory;
-    this.matchTurnEnactor = matchTurnEnactor;
   }
 
   /**

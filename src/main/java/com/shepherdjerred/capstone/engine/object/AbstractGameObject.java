@@ -17,8 +17,8 @@ public abstract class AbstractGameObject implements GameObject {
   private ScenePositioner position;
 
   public AbstractGameObject(GameObjectRenderer renderer,
-      SceneObjectDimensions sceneObjectDimensions,
-      ScenePositioner position) {
+                            SceneObjectDimensions sceneObjectDimensions,
+                            ScenePositioner position) {
     this.renderer = renderer;
     this.sceneObjectDimensions = sceneObjectDimensions;
     this.position = position;

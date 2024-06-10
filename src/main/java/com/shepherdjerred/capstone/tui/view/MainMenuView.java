@@ -1,9 +1,10 @@
 package com.shepherdjerred.capstone.tui.view;
 
-import java.util.Optional;
-import java.util.Scanner;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+
+import java.util.Optional;
+import java.util.Scanner;
 
 @Log4j2
 @AllArgsConstructor
@@ -34,7 +35,7 @@ public class MainMenuView implements View {
           System.out.println("Invalid input. Try again.");
         }
       } catch (Exception e) {
-        log.error("Error parsing int" , e);
+        log.error("Error parsing int", e);
       }
     }
 

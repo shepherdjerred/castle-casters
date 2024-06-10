@@ -10,7 +10,7 @@ public class PivotHasPawnAtCoordinateValidatorRule implements ValidatorRule<Jump
 
   @Override
   public TurnValidationResult validate(Match match, JumpPawnTurn turn) {
-    if (match.getBoard().hasPiece(turn.getPivot())) {
+    if (match.board().hasPiece(turn.pivot())) {
       return new TurnValidationResult();
     } else {
       return new TurnValidationResult(ErrorMessage.NO_PIECE_AT_PIVOT);

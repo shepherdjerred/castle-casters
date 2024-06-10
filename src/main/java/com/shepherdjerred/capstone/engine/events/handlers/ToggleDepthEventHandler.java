@@ -18,6 +18,6 @@ public class ToggleDepthEventHandler implements EventHandler<ToggleDepthEvent> {
     } else {
       OpenGlHelper.disableDepthBuffer();
     }
-    log.info("Depth: " + isDepthEnabled);
+    log.info("Depth: {}", isDepthEnabled);
   }
 }

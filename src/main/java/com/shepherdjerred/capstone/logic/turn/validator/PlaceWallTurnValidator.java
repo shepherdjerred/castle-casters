@@ -5,12 +5,8 @@ import com.shepherdjerred.capstone.logic.match.Match;
 import com.shepherdjerred.capstone.logic.match.PlayerGoals;
 import com.shepherdjerred.capstone.logic.turn.PlaceWallTurn;
 import com.shepherdjerred.capstone.logic.turn.validator.rules.ValidatorRule;
-import com.shepherdjerred.capstone.logic.turn.validator.rules.placewall.PlayerHasWallsLeftToPlaceValidatorRule;
-import com.shepherdjerred.capstone.logic.turn.validator.rules.placewall.WallDoesntBlockPawnsValidatorRule;
-import com.shepherdjerred.capstone.logic.turn.validator.rules.placewall.WallPieceLocationCoordinatesAreFreeValidatorRule;
-import com.shepherdjerred.capstone.logic.turn.validator.rules.placewall.WallPieceLocationCoordinatesAreValidValidatorRule;
-import com.shepherdjerred.capstone.logic.turn.validator.rules.placewall.WallPieceLocationCoordinatesAreWallBoardCellsValidatorRule;
-import com.shepherdjerred.capstone.logic.turn.validator.rules.placewall.WallPieceLocationVertexIsFreeValidatorRule;
+import com.shepherdjerred.capstone.logic.turn.validator.rules.placewall.*;
+
 import java.util.HashSet;
 import java.util.Set;
 

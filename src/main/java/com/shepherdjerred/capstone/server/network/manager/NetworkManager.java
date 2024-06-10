@@ -12,6 +12,7 @@ import com.shepherdjerred.capstone.server.network.manager.events.StartNetworkEve
 import com.shepherdjerred.capstone.server.network.manager.events.StopBroadcastEvent;
 import com.shepherdjerred.capstone.server.network.manager.events.StopNetworkEvent;
 import com.shepherdjerred.capstone.server.network.server.NetworkServer;
+
 import java.net.SocketAddress;
 
 public class NetworkManager {
@@ -25,8 +26,8 @@ public class NetworkManager {
   private Thread broadcastThread;
 
   public NetworkManager(SocketAddress gameAddress,
-      SocketAddress broadcastAddress,
-      EventBus<Event> eventBus) {
+                        SocketAddress broadcastAddress,
+                        EventBus<Event> eventBus) {
     this.broadcastAddress = broadcastAddress;
     this.gameAddress = gameAddress;
     this.eventBus = eventBus;
@@ -36,18 +37,10 @@ public class NetworkManager {
   private void createEventHandlers() {
     eventBus.registerHandler(PacketReceivedEvent.class, new PacketReceivedEventHandler(eventBus));
 
-    eventBus.registerHandler(StartBroadcastEvent.class, (event) -> {
-      startBroadcast(event.getLobby());
-    });
-    eventBus.registerHandler(StopBroadcastEvent.class, (event) -> {
-      stopBroadcast();
-    });
-    eventBus.registerHandler(StartNetworkEvent.class, (event) -> {
-      startNetwork();
-    });
-    eventBus.registerHandler(StopNetworkEvent.class, (event) -> {
-      stopNetwork();
-    });
+    eventBus.registerHandler(StartBroadcastEvent.class, (event) -> startBroadcast(event.lobby()));
+    eventBus.registerHandler(StopBroadcastEvent.class, (event) -> stopBroadcast());
+    eventBus.registerHandler(StartNetworkEvent.class, (event) -> startNetwork());
+    eventBus.registerHandler(StopNetworkEvent.class, (event) -> stopNetwork());
   }
 
   private void startBroadcast(Lobby lobby) {

@@ -4,5 +4,5 @@ import com.shepherdjerred.capstone.logic.board.Coordinate;
 
 public interface JumpPawnTurn extends MovePawnTurn {
 
-  Coordinate getPivot();
+  Coordinate pivot();
 }

@@ -11,7 +11,7 @@ public enum NullPiece implements Piece {
   INSTANCE;
 
   @Override
-  public QuoridorPlayer getOwner() {
+  public QuoridorPlayer owner() {
     return QuoridorPlayer.NULL;
   }
 

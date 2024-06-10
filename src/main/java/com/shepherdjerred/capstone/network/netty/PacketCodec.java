@@ -5,8 +5,9 @@ import com.shepherdjerred.capstone.network.packet.serialization.PacketSerializer
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageCodec;
-import java.util.List;
 import lombok.AllArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
 public class PacketCodec extends ByteToMessageCodec<Packet> {

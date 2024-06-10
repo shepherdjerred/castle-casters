@@ -1,14 +1,8 @@
 package com.shepherdjerred.capstone.engine.object;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
-@ToString
-@AllArgsConstructor
-public class SceneObjectDimensions {
+public record SceneObjectDimensions(int width, int height) {
 
-  private final int width;
-  private final int height;
 }

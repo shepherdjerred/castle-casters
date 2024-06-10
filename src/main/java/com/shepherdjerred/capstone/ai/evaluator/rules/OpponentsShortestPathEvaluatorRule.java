@@ -5,10 +5,11 @@ import com.shepherdjerred.capstone.logic.match.Match;
 import com.shepherdjerred.capstone.logic.match.PlayerGoals;
 import com.shepherdjerred.capstone.logic.player.PlayerCount;
 import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
-import java.util.HashSet;
-import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @ToString
 @AllArgsConstructor
@@ -19,7 +20,7 @@ public class OpponentsShortestPathEvaluatorRule implements EvaluatorRule {
 
   @Override
   public double evaluate(Match match, QuoridorPlayer player) {
-    var playerCount = match.getMatchSettings().getPlayerCount();
+    var playerCount = match.matchSettings().playerCount();
     Set<QuoridorPlayer> players = new HashSet<>();
 
     if (playerCount == PlayerCount.TWO) {
@@ -38,11 +39,11 @@ public class OpponentsShortestPathEvaluatorRule implements EvaluatorRule {
 
     var sumOfDistances = players.stream()
         .map(p -> {
-          var gridSize = match.getBoard().getGridSize();
+          var gridSize = match.board().getGridSize();
           var goals = playerGoals.getGoalCoordinatesForPlayer(p,
               gridSize);
-          return boardSearch.getShortestPathToAnyDestination(match.getBoard(),
-              match.getBoard().getPawnLocation(p),
+          return boardSearch.getShortestPathToAnyDestination(match.board(),
+              match.board().getPawnLocation(p),
               goals);
         })
         .mapToInt(Integer::intValue)

@@ -4,7 +4,7 @@ import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
 
 public interface Piece {
 
-  QuoridorPlayer getOwner();
+  QuoridorPlayer owner();
 
   char toChar();
 }

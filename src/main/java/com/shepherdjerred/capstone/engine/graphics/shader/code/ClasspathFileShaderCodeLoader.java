@@ -1,11 +1,12 @@
 package com.shepherdjerred.capstone.engine.graphics.shader.code;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 @Log4j2
 @ToString

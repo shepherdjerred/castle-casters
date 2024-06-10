@@ -12,8 +12,8 @@ public class DestinationCoordinateIsValidValidatorRule implements ValidatorRule<
 
   @Override
   public TurnValidationResult validate(Match match, MovePawnTurn turn) {
-    var board = match.getBoard();
-    if (board.isCoordinateInvalid(turn.getDestination())) {
+    var board = match.board();
+    if (board.isCoordinateInvalid(turn.destination())) {
       return new TurnValidationResult(ErrorMessage.DESTINATION_COORDINATE_INVALID);
     } else {
       return new TurnValidationResult();

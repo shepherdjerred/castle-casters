@@ -1,8 +1,9 @@
 package com.shepherdjerred.capstone.engine.map.tileset;
 
-import java.util.SortedSet;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+
+import java.util.SortedSet;
 
 /**
  * Finds what tileset a tile ID belongs to based on a set of tilesets.
@@ -17,7 +18,7 @@ public class TileIdTilesetMapper {
     Tileset lastMatch = tilesets.first();
 
     for (Tileset tileset : tilesets) {
-      if (tileset.getFirstTile() > tileId) {
+      if (tileset.firstTile() > tileId) {
         break;
       } else {
         lastMatch = tileset;

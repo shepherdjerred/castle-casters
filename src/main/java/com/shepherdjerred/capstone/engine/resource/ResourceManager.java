@@ -1,9 +1,10 @@
 package com.shepherdjerred.capstone.engine.resource;
 
-import java.util.HashMap;
-import java.util.Map;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Handles the loading and reference counting of resources. Useful to ensure that resources are
@@ -25,7 +26,7 @@ public class ResourceManager {
   }
 
   public <R extends Resource, I extends ResourceIdentifier> void registerLoader(Class<I> resourceType,
-      ResourceLoader<I, R> provider) {
+                                                                                ResourceLoader<I, R> provider) {
     loaders.put((Class<ResourceIdentifier>) resourceType, provider);
   }
 
@@ -34,7 +35,7 @@ public class ResourceManager {
     var currentReferences = referenceCounter.getOrDefault(identifier, 0) + 1;
     referenceCounter.put(identifier, currentReferences);
 
-    log.trace("Allocating " + identifier + ". New usage: " + currentReferences);
+    log.trace("Allocating {}. New usage: {}", identifier, currentReferences);
 
     if (resourceCache.containsKey(identifier)) {
       return (R) resourceCache.get(identifier);
@@ -52,13 +53,13 @@ public class ResourceManager {
   }
 
   public <R extends Resource, I extends ResourceIdentifier> R getUnchecked(I identifier) {
-    log.warn("Getting resource " + identifier + " unsafely.");
+    log.warn("Getting resource {} unsafely.", identifier);
     return (R) resourceCache.get(identifier);
   }
 
   public void free(ResourceIdentifier identifier) {
     if (!referenceCounter.containsKey(identifier)) {
-      log.error("Freeing unallocated resource: " + identifier);
+      log.error("Freeing unallocated resource: {}", identifier);
       return;
     }
     var newReferenceCount = referenceCounter.get(identifier) - 1;
@@ -69,7 +70,7 @@ public class ResourceManager {
     if (newReferenceCount < 0) {
       throw new IllegalStateException("Negative reference count.");
     } else if (newReferenceCount == 0) {
-      log.trace("Resource " + identifier + " no longer in use. Cleaning up.");
+      log.trace("Resource {} no longer in use. Cleaning up.", identifier);
       resourceCache.get(identifier).cleanup();
       resourceCache.remove(identifier);
       referenceCounter.remove(identifier);

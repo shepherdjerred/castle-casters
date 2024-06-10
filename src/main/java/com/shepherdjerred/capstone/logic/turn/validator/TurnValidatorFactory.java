@@ -1,30 +1,21 @@
 package com.shepherdjerred.capstone.logic.turn.validator;
 
-import com.shepherdjerred.capstone.logic.turn.JumpPawnDiagonalTurn;
-import com.shepherdjerred.capstone.logic.turn.JumpPawnStraightTurn;
-import com.shepherdjerred.capstone.logic.turn.NormalMovePawnTurn;
-import com.shepherdjerred.capstone.logic.turn.PlaceWallTurn;
-import com.shepherdjerred.capstone.logic.turn.Turn;
+import com.shepherdjerred.capstone.logic.turn.*;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
 public class TurnValidatorFactory {
 
   public <T extends Turn> TurnValidator<T> getValidator(T turn) {
-    TurnValidator validator;
+    TurnValidator<?> validator = switch (turn) {
+      case PlaceWallTurn placeWallTurn -> new PlaceWallTurnValidator();
+      case NormalMovePawnTurn normalMovePawnTurn -> new NormalMovePawnTurnValidator();
+      case JumpPawnStraightTurn jumpPawnStraightTurn -> new JumpPawnStraightTurnValidator();
+      case JumpPawnDiagonalTurn jumpPawnDiagonalTurn -> new JumpPawnDiagonalTurnValidator();
+      case null, default -> throw new UnsupportedOperationException();
+    };
 
-    if (turn instanceof PlaceWallTurn) {
-      validator = new PlaceWallTurnValidator();
-    } else if (turn instanceof NormalMovePawnTurn) {
-      validator = new NormalMovePawnTurnValidator();
-    } else if (turn instanceof JumpPawnStraightTurn) {
-      validator = new JumpPawnStraightTurnValidator();
-    } else if (turn instanceof JumpPawnDiagonalTurn) {
-      validator = new JumpPawnDiagonalTurnValidator();
-    } else {
-      throw new UnsupportedOperationException();
-    }
-
-    return validator;
+    //noinspection unchecked
+    return (TurnValidator<T>) validator;
   }
 }

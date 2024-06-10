@@ -7,10 +7,11 @@ import io.jenetics.Genotype;
 import io.jenetics.engine.Engine;
 import io.jenetics.engine.EvolutionResult;
 import io.jenetics.engine.EvolutionStatistics;
-import java.util.Optional;
-import java.util.Scanner;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+
+import java.util.Optional;
+import java.util.Scanner;
 
 @Log4j2
 @AllArgsConstructor
@@ -44,8 +45,8 @@ public class GeneticAiView implements View {
         .collect(EvolutionResult.toBestGenotype());
 
     final EvaluatorWeights param = problem.decode(gt);
-    System.out.println(String.format("Result: \t%s", param));
-    log.info("== Result ==\n" + param);
+    System.out.printf("Result: \t%s%n", param);
+    log.info("== Result ==\n{}", param);
 
     return Optional.of(new MainMenuView(scanner));
   }

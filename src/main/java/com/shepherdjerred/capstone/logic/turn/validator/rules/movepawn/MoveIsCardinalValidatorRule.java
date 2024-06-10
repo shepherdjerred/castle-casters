@@ -13,8 +13,8 @@ public class MoveIsCardinalValidatorRule implements ValidatorRule<MovePawnTurn> 
 
   @Override
   public TurnValidationResult validate(Match match, MovePawnTurn turn) {
-    var source = turn.getSource();
-    var destination = turn.getDestination();
+    var source = turn.source();
+    var destination = turn.destination();
     if (Coordinate.areCoordinatesCardinal(source, destination)) {
       return new TurnValidationResult();
     } else {

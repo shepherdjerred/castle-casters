@@ -9,9 +9,10 @@ import com.shepherdjerred.capstone.server.network.server.Connection;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Forwards channel event as event in a queue.
@@ -20,9 +21,9 @@ import lombok.extern.log4j.Log4j2;
 @RequiredArgsConstructor
 public class ServerChannelHandler extends ChannelDuplexHandler {
 
+  private final ConcurrentLinkedQueue<NetworkEvent> eventQueue;
   private Connection connection;
   private Channel channel;
-  private final ConcurrentLinkedQueue<NetworkEvent> eventQueue;
 
   @Override
   public void channelActive(ChannelHandlerContext context) {

@@ -12,12 +12,13 @@ import com.shepherdjerred.capstone.logic.board.pieces.BoardPiecesInitializer;
 import com.shepherdjerred.capstone.logic.piece.Piece;
 import com.shepherdjerred.capstone.logic.player.PlayerCount;
 import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
-import java.util.HashSet;
-import java.util.Set;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -42,8 +43,8 @@ public class QuoridorBoard {
    * Creates a new QuoridorBoard.
    */
   public static QuoridorBoard from(BoardSettings boardSettings,
-      BoardLayoutInitializer boardLayoutInitializer,
-      BoardPiecesInitializer boardPiecesInitializer) {
+                                   BoardLayoutInitializer boardLayoutInitializer,
+                                   BoardPiecesInitializer boardPiecesInitializer) {
     var layout = BoardLayout.from(boardSettings, boardLayoutInitializer);
     var pieces = BoardPieces.from(boardSettings, boardPiecesInitializer);
     return new QuoridorBoard(layout, pieces, boardSettings);
@@ -116,8 +117,8 @@ public class QuoridorBoard {
   private Set<Coordinate> getValidCardinalCoordinatesThatAreDistanceAway(Coordinate origin, int range) {
     Set<Coordinate> spaces = new HashSet<>();
     var gridSize = boardSettings.getGridSize();
-    int x = origin.getX();
-    int y = origin.getY();
+    int x = origin.x();
+    int y = origin.y();
 
     if (x - range >= 0) {
       spaces.add(origin.toLeft(range));
@@ -142,7 +143,7 @@ public class QuoridorBoard {
    * Moves a pawn.
    *
    * @param quoridorPlayer The owner of the pawn to move
-   * @param destination The new location of the pawn
+   * @param destination    The new location of the pawn
    * @return The BoardPieces after the move
    */
   // TODO better validation
@@ -170,9 +171,9 @@ public class QuoridorBoard {
   // TODO better validation
   // TODO extract validation
   public QuoridorBoard placeWall(QuoridorPlayer quoridorPlayer, WallLocation location) {
-    var c1 = location.getFirstCoordinate();
-    var vertex = location.getVertex();
-    var c2 = location.getSecondCoordinate();
+    var c1 = location.firstCoordinate();
+    var vertex = location.vertex();
+    var c2 = location.secondCoordinate();
 
     if (isCoordinateInvalid(c1)) {
       throw new CoordinateOutOfBoundsException(c1);

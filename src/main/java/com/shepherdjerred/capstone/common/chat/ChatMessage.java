@@ -1,24 +1,15 @@
 package com.shepherdjerred.capstone.common.chat;
 
 import com.shepherdjerred.capstone.common.player.Player;
-import java.time.Instant;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
+
+import java.time.Instant;
 
 @Getter
-@ToString
-@EqualsAndHashCode
-@AllArgsConstructor
-public class ChatMessage implements Comparable<ChatMessage> {
-
-  private final Player sender;
-  private final String message;
-  private final Instant time;
+public record ChatMessage(Player sender, String message, Instant time) implements Comparable<ChatMessage> {
 
   @Override
   public int compareTo(ChatMessage chatMessage) {
-    return time.compareTo(chatMessage.getTime());
+    return time.compareTo(chatMessage.time());
   }
 }

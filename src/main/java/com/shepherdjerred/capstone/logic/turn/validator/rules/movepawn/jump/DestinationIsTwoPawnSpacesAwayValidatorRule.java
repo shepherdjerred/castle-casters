@@ -11,7 +11,7 @@ public class DestinationIsTwoPawnSpacesAwayValidatorRule implements ValidatorRul
 
   @Override
   public TurnValidationResult validate(Match match, JumpPawnTurn turn) {
-    var dist = Coordinate.calculateManhattanDistance(turn.getSource(), turn.getDestination());
+    var dist = Coordinate.calculateManhattanDistance(turn.source(), turn.destination());
 
     // We check if the distance equals four because wall cells count in the calculation
     if (dist == 4) {

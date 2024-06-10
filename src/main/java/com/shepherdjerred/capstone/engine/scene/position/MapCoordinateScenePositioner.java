@@ -12,20 +12,20 @@ import lombok.Setter;
 @AllArgsConstructor
 public class MapCoordinateScenePositioner implements ScenePositioner {
 
+  private final int z;
   @Getter
   @Setter
   private SceneCoordinateOffset offset;
   @Getter
   @Setter
   private MapCoordinate mapCoordinate;
-  private final int z;
 
   @Override
   public SceneCoordinate getSceneCoordinate(WindowSize windowSize,
-      SceneObjectDimensions sceneObjectDimensions) {
+                                            SceneObjectDimensions sceneObjectDimensions) {
     var tileSize = Constants.RENDER_TILE_RESOLUTION;
-    var x = mapCoordinate.getX() * tileSize;
-    var y = mapCoordinate.getY() * tileSize;
+    var x = mapCoordinate.x() * tileSize;
+    var y = mapCoordinate.y() * tileSize;
     return new SceneCoordinate(x, y, z);
   }
 }

@@ -12,22 +12,23 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioDatagramChannel;
 import io.netty.util.concurrent.DefaultThreadFactory;
+import lombok.extern.log4j.Log4j2;
+
 import java.net.SocketAddress;
 import java.util.concurrent.TimeUnit;
-import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class NettyBroadcastBootstrap implements Runnable {
 
   private final SocketAddress address;
   private final EventBus<Event> eventBus;
+  private final EventHandlerFrame<Event> eventHandlerFrame;
   private EventLoopGroup group;
   private Lobby lobby;
-  private final EventHandlerFrame<Event> eventHandlerFrame;
 
   public NettyBroadcastBootstrap(SocketAddress address,
-      Lobby lobby,
-      EventBus<Event> eventBus) {
+                                 Lobby lobby,
+                                 EventBus<Event> eventBus) {
     this.address = address;
     this.eventBus = eventBus;
     this.lobby = lobby;
@@ -38,7 +39,7 @@ public class NettyBroadcastBootstrap implements Runnable {
 
   private void createHandlerFrame() {
     eventHandlerFrame.registerHandler(LobbyUpdatedEvent.class,
-        (event) -> lobby = event.getNewLobby());
+        (event) -> lobby = event.newLobby());
   }
 
   @Override
@@ -57,7 +58,7 @@ public class NettyBroadcastBootstrap implements Runnable {
       var channel = bootstrap.bind(address).sync().channel();
 
       group.scheduleAtFixedRate(() -> {
-            log.trace("Broadcasting: " + lobby);
+            log.trace("Broadcasting: {}", lobby);
             channel.writeAndFlush(new ServerBroadcastPacket(lobby));
           },
           0,

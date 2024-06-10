@@ -19,7 +19,7 @@ public class AbsoluteScenePositioner implements ScenePositioner {
 
   @Override
   public SceneCoordinate getSceneCoordinate(WindowSize windowSize,
-      SceneObjectDimensions dimensions) {
+                                            SceneObjectDimensions dimensions) {
     return sceneCoordinate.withOffset(offset);
   }
 }

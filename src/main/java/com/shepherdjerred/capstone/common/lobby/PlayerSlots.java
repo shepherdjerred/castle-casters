@@ -1,15 +1,16 @@
 package com.shepherdjerred.capstone.common.lobby;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import com.shepherdjerred.capstone.common.player.Player;
 import com.shepherdjerred.capstone.logic.player.PlayerCount;
 import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
-import java.util.HashMap;
-import java.util.Map;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * GameMap QuoridorPlayers to Players.
@@ -21,6 +22,12 @@ class PlayerSlots {
   private final Map<QuoridorPlayer, Player> playerIdMap;
   private final PlayerCount playerCount;
 
+  private PlayerSlots(Map<QuoridorPlayer, Player> playerIdMap,
+                      PlayerCount playerCount) {
+    this.playerIdMap = playerIdMap;
+    this.playerCount = playerCount;
+  }
+
   // TODO this could be better
   static PlayerSlots forPlayerCount(PlayerCount playerCount) {
     Map<QuoridorPlayer, Player> playerIdMap = new HashMap<>();
@@ -29,12 +36,6 @@ class PlayerSlots {
       playerIdMap.put(playerId, null);
     }
     return new PlayerSlots(playerIdMap, playerCount);
-  }
-
-  private PlayerSlots(Map<QuoridorPlayer, Player> playerIdMap,
-      PlayerCount playerCount) {
-    this.playerIdMap = playerIdMap;
-    this.playerCount = playerCount;
   }
 
   boolean areSlotsFull() {
@@ -63,7 +64,7 @@ class PlayerSlots {
     QuoridorPlayer playerId = null;
 
     for (Map.Entry<QuoridorPlayer, Player> pair : playerIdMap.entrySet()) {
-      if (pair.getValue().getUuid() == player.getUuid()) {
+      if (pair.getValue().uuid() == player.uuid()) {
         playerId = pair.getKey();
         break;
       }

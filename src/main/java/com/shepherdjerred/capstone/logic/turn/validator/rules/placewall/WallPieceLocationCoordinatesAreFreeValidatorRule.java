@@ -10,10 +10,10 @@ public class WallPieceLocationCoordinatesAreFreeValidatorRule implements Validat
 
   @Override
   public TurnValidationResult validate(Match match, PlaceWallTurn turn) {
-    var board = match.getBoard();
-    var location = turn.getLocation();
-    var firstCoordinate = location.getFirstCoordinate();
-    var secondCoordinate = location.getSecondCoordinate();
+    var board = match.board();
+    var location = turn.location();
+    var firstCoordinate = location.firstCoordinate();
+    var secondCoordinate = location.secondCoordinate();
 
     if (board.isEmpty(firstCoordinate)
         && board.isEmpty(secondCoordinate)) {

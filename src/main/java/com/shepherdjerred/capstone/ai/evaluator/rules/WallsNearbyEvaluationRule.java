@@ -9,7 +9,7 @@ public class WallsNearbyEvaluationRule implements EvaluatorRule {
 
   @Override
   public double evaluate(Match match, QuoridorPlayer player) {
-    var board = match.getBoard();
+    var board = match.board();
     var pawnLocation = board.getPawnLocation(player);
     var adjacentWallLocations = board.getWallCellsAdjacentToPawnSpace(pawnLocation);
     return adjacentWallLocations.stream().filter(board::hasPiece).count();

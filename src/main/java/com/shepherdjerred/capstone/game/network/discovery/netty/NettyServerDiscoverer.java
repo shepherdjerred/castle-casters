@@ -2,13 +2,14 @@ package com.shepherdjerred.capstone.game.network.discovery.netty;
 
 
 import com.shepherdjerred.capstone.common.Constants;
+import com.shepherdjerred.capstone.events.Event;
 import com.shepherdjerred.capstone.game.network.discovery.ServerDiscoverer;
 import com.shepherdjerred.capstone.game.network.event.NetworkEvent;
-import com.shepherdjerred.capstone.events.Event;
+import lombok.extern.log4j.Log4j2;
+
 import java.net.InetSocketAddress;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class NettyServerDiscoverer implements ServerDiscoverer, Runnable {

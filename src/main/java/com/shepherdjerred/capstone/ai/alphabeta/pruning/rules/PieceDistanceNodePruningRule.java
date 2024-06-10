@@ -4,11 +4,12 @@ import com.shepherdjerred.capstone.ai.alphabeta.pruning.PruningQuoridorNode;
 import com.shepherdjerred.capstone.logic.board.Coordinate;
 import com.shepherdjerred.capstone.logic.turn.MovePawnTurn;
 import com.shepherdjerred.capstone.logic.turn.PlaceWallTurn;
-import java.util.HashSet;
-import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Log4j2
 @ToString
@@ -21,16 +22,16 @@ public class PieceDistanceNodePruningRule implements NodePruningRule {
   public boolean shouldPrune(PruningQuoridorNode node) {
     var match = node.getMatch();
     var turn = node.getTurn();
-    var pieceCoords = match.getBoard().getPieceLocations();
+    var pieceCoords = match.board().getPieceLocations();
 
     Set<Coordinate> turnCoords = new HashSet<>();
     if (turn instanceof MovePawnTurn) {
       return false;
     } else if (turn instanceof PlaceWallTurn) {
-      var wallLocation = ((PlaceWallTurn) turn).getLocation();
-      turnCoords.add(wallLocation.getFirstCoordinate());
-      turnCoords.add(wallLocation.getVertex());
-      turnCoords.add(wallLocation.getSecondCoordinate());
+      var wallLocation = ((PlaceWallTurn) turn).location();
+      turnCoords.add(wallLocation.firstCoordinate());
+      turnCoords.add(wallLocation.vertex());
+      turnCoords.add(wallLocation.secondCoordinate());
     } else {
       throw new UnsupportedOperationException();
     }
@@ -42,11 +43,7 @@ public class PieceDistanceNodePruningRule implements NodePruningRule {
             .allMatch(turnCoordinate -> Coordinate.calculateManhattanDistance(pieceCoord, turnCoordinate)
                 > distance));
 
-    if (shouldBePruned) {
-      return true;
-    } else {
-      return false;
-    }
+    return shouldBePruned;
 
   }
 }

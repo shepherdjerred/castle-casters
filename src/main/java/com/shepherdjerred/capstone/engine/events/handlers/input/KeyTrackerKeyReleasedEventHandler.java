@@ -12,6 +12,6 @@ public class KeyTrackerKeyReleasedEventHandler implements EventHandler<KeyReleas
 
   @Override
   public void handle(KeyReleasedEvent keyReleasedEvent) {
-    keyTracker.setKeyAsUnpressed(keyReleasedEvent.getKey());
+    keyTracker.setKeyAsUnpressed(keyReleasedEvent.key());
   }
 }

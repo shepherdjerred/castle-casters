@@ -24,22 +24,22 @@ public class PacketReceivedEventHandler implements EventHandler<PacketReceivedEv
 
   @Override
   public void handle(PacketReceivedEvent event) {
-    var packet = event.getPacket();
+    var packet = event.packet();
 
     if (packet instanceof PlayerDescriptionPacket) {
-      handlePlayerDescriptionPacket((PlayerDescriptionPacket) packet, event.getConnection());
+      handlePlayerDescriptionPacket((PlayerDescriptionPacket) packet, event.connection());
     } else if (packet instanceof StartMatchPacket) {
       eventBus.dispatch(new StartGameEvent());
     } else if (packet instanceof FillSlotsWithAiPacket) {
       eventBus.dispatch(new FillSlotsWithAiEvent());
     } else if (packet instanceof DoTurnPacket) {
-      eventBus.dispatch(new TryDoTurnEvent(((DoTurnPacket) packet).getTurn()));
+      eventBus.dispatch(new TryDoTurnEvent(((DoTurnPacket) packet).turn()));
     }
   }
 
   private void handlePlayerDescriptionPacket(PlayerDescriptionPacket packet,
-      Connection connection) {
-    eventBus.dispatch(new PlayerInformationReceivedEvent(packet.getPlayerInformation(),
+                                             Connection connection) {
+    eventBus.dispatch(new PlayerInformationReceivedEvent(packet.playerInformation(),
         connection));
   }
 }

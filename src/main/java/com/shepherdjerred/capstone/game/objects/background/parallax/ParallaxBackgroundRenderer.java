@@ -8,24 +8,25 @@ import com.shepherdjerred.capstone.engine.graphics.shader.ShaderProgramName;
 import com.shepherdjerred.capstone.engine.graphics.shader.ShaderUniform;
 import com.shepherdjerred.capstone.engine.graphics.texture.Texture;
 import com.shepherdjerred.capstone.engine.graphics.texture.TextureName;
-import com.shepherdjerred.capstone.engine.resource.ResourceManager;
 import com.shepherdjerred.capstone.engine.object.GameObjectRenderer;
+import com.shepherdjerred.capstone.engine.resource.ResourceManager;
 import com.shepherdjerred.capstone.engine.window.WindowSize;
+import lombok.extern.log4j.Log4j2;
+
 import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class ParallaxBackgroundRenderer implements
     GameObjectRenderer<ParallaxBackground> {
 
   private final ResourceManager resourceManager;
-  private Mesh mesh;
   private final SortedMap<Integer, Texture> textureMap;
-  private WindowSize windowSize;
-  private ShaderProgram shaderProgram;
+  private final WindowSize windowSize;
   private final ParallaxTexturesMapper mapper;
+  private Mesh mesh;
+  private ShaderProgram shaderProgram;
 
   public ParallaxBackgroundRenderer(ResourceManager resourceManager, WindowSize windowSize) {
     this.resourceManager = resourceManager;
@@ -36,8 +37,8 @@ public class ParallaxBackgroundRenderer implements
 
   @Override
   public void initialize(ParallaxBackground gameObject) throws Exception {
-    var width = windowSize.getWidth();
-    var height = windowSize.getHeight();
+    var width = windowSize.width();
+    var height = windowSize.height();
 
     var type = gameObject.getType();
 
@@ -46,25 +47,25 @@ public class ParallaxBackgroundRenderer implements
 
     for (Entry<Integer, LayerData> entry : textures.getLayers().entrySet()) {
       Integer layer = entry.getKey();
-      TextureName texture = entry.getValue().getTextureName();
+      TextureName texture = entry.getValue().textureName();
       textureMap.put(layer, resourceManager.get(texture));
     }
 
-    var vertices = new float[] {
+    var vertices = new float[]{
         0, 0, 0,
         0, height, 0,
         width, 0, 0,
         width, height, 0
     };
 
-    var textureCoordinates = new float[] {
+    var textureCoordinates = new float[]{
         0, 0,
         0, 1,
         1, 0,
         1, 1
     };
 
-    var indices = new int[] {
+    var indices = new int[]{
         0, 1, 2,
         3, 1, 2
     };
@@ -77,7 +78,7 @@ public class ParallaxBackgroundRenderer implements
     shaderProgram.bind();
 
     gameObject.getInstances().forEach((instance, layers) -> layers.forEach((layer, position) -> {
-      var xpos = position * windowSize.getWidth();
+      var xpos = position * windowSize.width();
       var model = new ModelMatrix(new RendererCoordinate(xpos, 0, -1000 + layer),
           0,
           1).getMatrix();
@@ -91,9 +92,7 @@ public class ParallaxBackgroundRenderer implements
 
   @Override
   public void cleanup() {
-    textureMap.values().forEach(texture -> {
-      resourceManager.free(texture.getTextureName());
-    });
+    textureMap.values().forEach(texture -> resourceManager.free(texture.textureName()));
     resourceManager.free(shaderProgram.getShaderProgramName());
   }
 }

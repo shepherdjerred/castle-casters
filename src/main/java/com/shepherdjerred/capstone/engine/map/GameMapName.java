@@ -1,6 +1,7 @@
 package com.shepherdjerred.capstone.engine.map;
 
 import com.shepherdjerred.capstone.engine.resource.ResourceIdentifier;
+
 import java.util.Random;
 
 public enum GameMapName implements ResourceIdentifier {

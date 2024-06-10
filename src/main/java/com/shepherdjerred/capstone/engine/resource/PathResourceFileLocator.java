@@ -1,16 +1,17 @@
 package com.shepherdjerred.capstone.engine.resource;
 
-import static com.shepherdjerred.capstone.engine.graphics.font.FontName.FIRA_CODE;
-import static com.shepherdjerred.capstone.engine.graphics.font.FontName.M5X7;
-import static com.shepherdjerred.capstone.engine.graphics.texture.TextureName.*;
-
 import com.shepherdjerred.capstone.engine.audio.AudioName;
 import com.shepherdjerred.capstone.engine.graphics.font.FontName;
 import com.shepherdjerred.capstone.engine.graphics.texture.TextureName;
 import com.shepherdjerred.capstone.engine.map.GameMapName;
-import java.util.HashMap;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
+
+import java.util.HashMap;
+
+import static com.shepherdjerred.capstone.engine.graphics.font.FontName.FIRA_CODE;
+import static com.shepherdjerred.capstone.engine.graphics.font.FontName.M5X7;
+import static com.shepherdjerred.capstone.engine.graphics.texture.TextureName.*;
 
 /**
  * Returns the path to a texture file.
@@ -26,9 +27,9 @@ public class PathResourceFileLocator implements ResourceFileLocator {
   private final HashMap<ResourceIdentifier, String> resourcePaths;
 
   public PathResourceFileLocator(String texturesBasePath,
-      String fontsBasePath,
-      String audioBasePath,
-      String mapBasePath) {
+                                 String fontsBasePath,
+                                 String audioBasePath,
+                                 String mapBasePath) {
     this.texturesBasePath = texturesBasePath;
     this.fontsBasePath = fontsBasePath;
     this.audioBasePath = audioBasePath;

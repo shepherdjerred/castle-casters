@@ -1,16 +1,8 @@
 package com.shepherdjerred.capstone.engine.window;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
-@ToString
-@AllArgsConstructor
-public class WindowSettings {
+public record WindowSettings(String title, WindowSize windowSize, boolean isVsyncEnabled, boolean isDebugEnabled) {
 
-  private final String title;
-  private final WindowSize windowSize;
-  private final boolean isVsyncEnabled;
-  private final boolean isDebugEnabled;
 }

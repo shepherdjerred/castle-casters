@@ -1,5 +1,8 @@
 package com.shepherdjerred.capstone.engine;
 
+import lombok.Getter;
+
+@Getter
 public class Timer {
 
   private double lastLoopTime;
@@ -19,7 +22,4 @@ public class Timer {
     return elapsedTime;
   }
 
-  public double getLastLoopTime() {
-    return lastLoopTime;
-  }
 }

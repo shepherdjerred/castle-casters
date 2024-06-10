@@ -12,6 +12,6 @@ public class KeyTrackerKeyPressedEventHandler implements EventHandler<KeyPressed
 
   @Override
   public void handle(KeyPressedEvent keyPressedEvent) {
-    keyTracker.setKeyAsPressed(keyPressedEvent.getKey());
+    keyTracker.setKeyAsPressed(keyPressedEvent.key());
   }
 }

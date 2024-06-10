@@ -21,14 +21,14 @@ public class ScenePositionCollisionDetector implements CollisionDetector {
   @Override
   public boolean hasCollision(SceneCoordinate coordinate) {
     var position = scenePositioner.getSceneCoordinate(windowSize, dimensions);
-    var maxX = position.getX() + dimensions.getWidth();
-    var minX = position.getX();
-    var maxY = position.getY() + dimensions.getHeight();
-    var minY = position.getY();
+    var maxX = position.x() + dimensions.width();
+    var minX = position.x();
+    var maxY = position.y() + dimensions.height();
+    var minY = position.y();
 
-    return coordinate.getX() <= maxX
-        && coordinate.getX() >= minX
-        && coordinate.getY() <= maxY
-        && coordinate.getY() >= minY;
+    return coordinate.x() <= maxX
+        && coordinate.x() >= minX
+        && coordinate.y() <= maxY
+        && coordinate.y() >= minY;
   }
 }

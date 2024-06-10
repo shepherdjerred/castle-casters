@@ -8,7 +8,7 @@ public interface TurnEnactor {
   /**
    * Takes the steps to transform a given match state by the parameters in a turn
    *
-   * @param turn The turn to use when transforming the board
+   * @param turn  The turn to use when transforming the board
    * @param board The board state
    * @return The board state transformed by the turn
    */

@@ -11,9 +11,9 @@ import com.shepherdjerred.capstone.engine.window.WindowSize;
 public class StaticBackgroundRenderer implements
     GameObjectRenderer<StaticBackground> {
 
-  private TexturedMesh texturedMesh;
   private final ResourceManager resourceManager;
-  private WindowSize windowSize;
+  private final WindowSize windowSize;
+  private TexturedMesh texturedMesh;
 
   public StaticBackgroundRenderer(ResourceManager resourceManager, WindowSize windowSize) {
     this.windowSize = windowSize;
@@ -22,35 +22,32 @@ public class StaticBackgroundRenderer implements
 
   @Override
   public void initialize(StaticBackground gameObject) throws Exception {
-    var width = windowSize.getWidth();
-    var height = windowSize.getHeight();
+    var width = windowSize.width();
+    var height = windowSize.height();
 
     Texture texture;
     var type = gameObject.getType();
 
-    switch (type) {
-      case PURPLE_MOUNTAINS:
-        texture = resourceManager.get(TextureName.PURPLE_MOUNTAINS);
-        break;
-      default:
-        throw new UnsupportedOperationException(gameObject.getType().toString());
-    }
+    texture = switch (type) {
+      case PURPLE_MOUNTAINS -> resourceManager.get(TextureName.PURPLE_MOUNTAINS);
+      default -> throw new UnsupportedOperationException(gameObject.getType().toString());
+    };
 
-    var vertices = new float[] {
+    var vertices = new float[]{
         0, 0, 0,
         0, height, 0,
         width, 0, 0,
         width, height, 0
     };
 
-    var textureCoordinates = new float[] {
+    var textureCoordinates = new float[]{
         0, 0,
         0, 1,
         1, 0,
         1, 1
     };
 
-    var indices = new int[] {
+    var indices = new int[]{
         0, 1, 2,
         3, 1, 2
     };
@@ -67,7 +64,7 @@ public class StaticBackgroundRenderer implements
 
   @Override
   public void cleanup() {
-    resourceManager.free(texturedMesh.getTexture().getTextureName());
-    texturedMesh.getMesh().cleanup();
+    resourceManager.free(texturedMesh.texture().textureName());
+    texturedMesh.mesh().cleanup();
   }
 }

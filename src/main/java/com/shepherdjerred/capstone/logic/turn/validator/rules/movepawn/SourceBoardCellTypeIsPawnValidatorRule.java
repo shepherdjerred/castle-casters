@@ -12,8 +12,8 @@ public class SourceBoardCellTypeIsPawnValidatorRule implements ValidatorRule<Mov
 
   @Override
   public TurnValidationResult validate(Match match, MovePawnTurn turn) {
-    var source = turn.getSource();
-    if (match.getBoard().isPawnBoardCell(source)) {
+    var source = turn.source();
+    if (match.board().isPawnBoardCell(source)) {
       return new TurnValidationResult();
     } else {
       return new TurnValidationResult(ErrorMessage.SOURCE_CELL_TYPE_NOT_PAWN);

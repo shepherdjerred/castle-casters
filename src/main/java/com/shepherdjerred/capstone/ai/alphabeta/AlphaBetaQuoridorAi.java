@@ -17,6 +17,6 @@ public class AlphaBetaQuoridorAi implements QuoridorAi {
   public Turn calculateBestTurn(Match match) {
     var current = new QuoridorNode(match.getActivePlayerId(), match, null, matchEvaluator);
     var bestNode = (QuoridorNode) new MiniMaxAlgorithm(depth).getBestMove(current);
-    return bestNode.getTurn();
+    return bestNode.turn();
   }
 }

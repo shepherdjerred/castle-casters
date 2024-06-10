@@ -1,10 +1,5 @@
 package com.shepherdjerred.capstone.engine.graphics.font;
 
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.glBindTexture;
-import static org.lwjgl.opengl.GL11.glDeleteTextures;
-import static org.lwjgl.stb.STBTruetype.stbtt_GetBakedQuad;
-
 import com.google.common.base.Preconditions;
 import com.shepherdjerred.capstone.engine.graphics.OpenGlHelper;
 import com.shepherdjerred.capstone.engine.graphics.Quad;
@@ -12,28 +7,19 @@ import com.shepherdjerred.capstone.engine.graphics.RendererCoordinate;
 import com.shepherdjerred.capstone.engine.graphics.texture.TextureCoordinate;
 import com.shepherdjerred.capstone.engine.graphics.texture.TextureQuad;
 import com.shepherdjerred.capstone.engine.resource.Resource;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 import org.lwjgl.stb.STBTTAlignedQuad;
 import org.lwjgl.stb.STBTTBakedChar;
 import org.lwjgl.system.MemoryStack;
 
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.stb.STBTruetype.stbtt_GetBakedQuad;
+
 @Log4j2
 @Getter
-@ToString
-@AllArgsConstructor
-public class Font implements Resource {
-
-  private final FontName fontName;
-  private final int ascent;
-  private final int descent;
-  private final int gap;
-  private final int glTextureName;
-  private final int textureWidth;
-  private final int textureHeight;
-  private final STBTTBakedChar.Buffer characterBuffer;
+public record Font(FontName fontName, int ascent, int descent, int gap, int glTextureName, int textureWidth,
+                   int textureHeight, STBTTBakedChar.Buffer characterBuffer) implements Resource {
 
   public void bind() {
     glBindTexture(GL_TEXTURE_2D, glTextureName);

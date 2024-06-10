@@ -6,15 +6,15 @@ import com.shepherdjerred.capstone.engine.window.WindowSize;
 import lombok.Getter;
 import lombok.Setter;
 
+@Setter
+@Getter
 public class MapPositioner implements ScenePositioner {
 
-  @Getter
-  @Setter
   private SceneCoordinateOffset offset;
 
   @Override
   public SceneCoordinate getSceneCoordinate(WindowSize windowSize,
-      SceneObjectDimensions sceneObjectDimensions) {
+                                            SceneObjectDimensions sceneObjectDimensions) {
     return null;
   }
 

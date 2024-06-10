@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.shepherdjerred.capstone.logic.match.Match;
 import com.shepherdjerred.capstone.logic.piece.Piece;
 import com.shepherdjerred.capstone.logic.serialization.AbstractClassGsonAdapter;
+
 import java.nio.charset.StandardCharsets;
 
 public class MatchJsonSerializer implements MatchSerializer {

@@ -25,28 +25,28 @@ public class WallRenderer implements GameObjectRenderer<Wall> {
 
   @Override
   public void initialize(Wall gameObject) throws Exception {
-    var width = gameObject.getSceneObjectDimensions().getWidth();
-    var height = gameObject.getSceneObjectDimensions().getHeight();
+    var width = gameObject.getSceneObjectDimensions().width();
+    var height = gameObject.getSceneObjectDimensions().height();
 
     var normalTexture = (Texture) resourceManager.get(TextureName.GENERIC_BUTTON);
 
     shaderProgram = resourceManager.get(ShaderProgramName.DEFAULT);
 
-    var vertices = new float[] {
+    var vertices = new float[]{
         0, 0, 0,
         0, height, 0,
         width, 0, 0,
         width, height, 0
     };
 
-    var textureCoordinates = new float[] {
+    var textureCoordinates = new float[]{
         0, 0,
         0, 1,
         1, 0,
         1, 1
     };
 
-    var indices = new int[] {
+    var indices = new int[]{
         0, 1, 2,
         3, 1, 2
     };
@@ -60,7 +60,7 @@ public class WallRenderer implements GameObjectRenderer<Wall> {
   public void render(WindowSize windowSize, Wall gameObject) {
     var pos = gameObject.getPosition()
         .getSceneCoordinate(windowSize, gameObject.getSceneObjectDimensions());
-    var model = new ModelMatrix(new RendererCoordinate(pos.getX(), pos.getY(), pos.getZ()),
+    var model = new ModelMatrix(new RendererCoordinate(pos.x(), pos.y(), pos.z()),
         0,
         1).getMatrix();
 
@@ -74,8 +74,8 @@ public class WallRenderer implements GameObjectRenderer<Wall> {
 
   @Override
   public void cleanup() {
-    normalMesh.getMesh().cleanup();
-    resourceManager.free(normalMesh.getTexture().getTextureName());
+    normalMesh.mesh().cleanup();
+    resourceManager.free(normalMesh.texture().textureName());
     resourceManager.free(shaderProgram.getShaderProgramName());
   }
 }

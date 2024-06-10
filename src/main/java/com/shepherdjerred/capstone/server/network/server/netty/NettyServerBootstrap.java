@@ -8,10 +8,11 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.util.concurrent.DefaultThreadFactory;
+import lombok.extern.log4j.Log4j2;
+
 import java.net.SocketAddress;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class NettyServerBootstrap implements Runnable {

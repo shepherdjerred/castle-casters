@@ -1,8 +1,8 @@
 package com.shepherdjerred.capstone.game.objects.background;
 
-import com.shepherdjerred.capstone.engine.object.SceneObjectDimensions;
 import com.shepherdjerred.capstone.engine.object.GameObject;
 import com.shepherdjerred.capstone.engine.object.GameObjectRenderer;
+import com.shepherdjerred.capstone.engine.object.SceneObjectDimensions;
 import com.shepherdjerred.capstone.engine.scene.position.ScenePositioner;
 import com.shepherdjerred.capstone.engine.window.WindowSize;
 import lombok.AllArgsConstructor;
@@ -18,15 +18,15 @@ import lombok.ToString;
 @AllArgsConstructor
 public class StaticBackground implements GameObject {
 
-  private boolean isInitialized;
   private final GameObjectRenderer<StaticBackground> renderer;
+  private final Type type;
+  private boolean isInitialized;
   @Setter
   private ScenePositioner position;
-  private final Type type;
 
   public StaticBackground(GameObjectRenderer<StaticBackground> renderer,
-      ScenePositioner position,
-      Type type) {
+                          ScenePositioner position,
+                          Type type) {
     this.renderer = renderer;
     this.position = position;
     this.type = type;

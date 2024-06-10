@@ -15,7 +15,7 @@ public class BackgroundScenePositioner implements ScenePositioner {
 
   @Override
   public SceneCoordinate getSceneCoordinate(WindowSize windowSize,
-      SceneObjectDimensions sceneObjectDimensions) {
+                                            SceneObjectDimensions sceneObjectDimensions) {
     return new SceneCoordinate(0, 0, z);
   }
 }

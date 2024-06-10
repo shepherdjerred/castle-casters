@@ -4,13 +4,14 @@ import com.github.bentorfs.ai.common.TreeNode;
 import com.github.bentorfs.ai.search.asearch.AStarSearchNode;
 import com.shepherdjerred.capstone.logic.board.Coordinate;
 import com.shepherdjerred.capstone.logic.board.QuoridorBoard;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
+
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Log4j2
 @ToString(exclude = {"board", "goals"})

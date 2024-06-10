@@ -4,7 +4,7 @@ import java.time.Instant;
 
 public interface SavedGame {
 
-  String getName();
+  String name();
 
-  Instant getTime();
+  Instant time();
 }

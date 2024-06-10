@@ -15,6 +15,9 @@ import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePosi
 import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePositioner.HorizontalPosition;
 import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePositioner.VerticalPosition;
 import com.shepherdjerred.capstone.engine.window.WindowSize;
+import com.shepherdjerred.capstone.events.Event;
+import com.shepherdjerred.capstone.events.EventBus;
+import com.shepherdjerred.capstone.events.handlers.EventHandlerFrame;
 import com.shepherdjerred.capstone.game.event.events.StartGameEvent;
 import com.shepherdjerred.capstone.game.event.events.TryStartGameEvent;
 import com.shepherdjerred.capstone.game.network.manager.event.ShutdownNetworkEvent;
@@ -25,29 +28,27 @@ import com.shepherdjerred.capstone.game.objects.textbutton.TextButton;
 import com.shepherdjerred.capstone.game.scenes.game.GameScene;
 import com.shepherdjerred.capstone.game.scenes.lobby.host.SimpleSceneRenderer;
 import com.shepherdjerred.capstone.game.scenes.mainmenu.MainMenuScene;
-import com.shepherdjerred.capstone.events.Event;
-import com.shepherdjerred.capstone.events.EventBus;
-import com.shepherdjerred.capstone.events.handlers.EventHandlerFrame;
 import com.shepherdjerred.capstone.logic.board.BoardSettings;
 import com.shepherdjerred.capstone.logic.match.Match;
 import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
+
 import java.util.HashSet;
 import java.util.Set;
 
 public class LobbyDetailsScene extends InteractableUIScene {
 
   private final boolean isHost;
-  private QuoridorPlayer player;
-  private Lobby lobby;
+  private final QuoridorPlayer player;
+  private final Lobby lobby;
   private final EventBus<Event> eventBus;
   private final EventHandlerFrame<Event> eventHandlerFrame;
 
   public LobbyDetailsScene(EventBus<Event> eventBus,
-      ResourceManager resourceManager,
-      WindowSize windowSize,
-      QuoridorPlayer player,
-      Lobby lobby,
-      boolean isHost) {
+                           ResourceManager resourceManager,
+                           WindowSize windowSize,
+                           QuoridorPlayer player,
+                           Lobby lobby,
+                           boolean isHost) {
     super(windowSize,
         resourceManager,
         new SimpleSceneRenderer(resourceManager, windowSize),
@@ -64,9 +65,9 @@ public class LobbyDetailsScene extends InteractableUIScene {
   private void createEventHandlerFrame() {
     eventHandlerFrame.registerHandler(StartGameEvent.class, (event) -> {
       var lobbySettings = lobby.getLobbySettings();
-      var matchSettings = lobbySettings.getMatchSettings();
-      var map = lobbySettings.getGameMap();
-      var boardSettings = new BoardSettings(map.getBoardSize(), matchSettings.getPlayerCount());
+      var matchSettings = lobbySettings.matchSettings();
+      var map = lobbySettings.gameMap();
+      var boardSettings = new BoardSettings(map.getBoardSize(), matchSettings.playerCount());
       var match = Match.from(matchSettings, boardSettings);
 
       var scene = new GameScene(resourceManager,
@@ -122,13 +123,11 @@ public class LobbyDetailsScene extends InteractableUIScene {
         24,
         new SceneObjectDimensions(100, 50),
         Type.GENERIC,
-        () -> {
-          eventBus.dispatch(new TryStartGameEvent());
-        });
+        () -> eventBus.dispatch(new TryStartGameEvent()));
 
     // TODO handle name updates
     var lobbyName = new Text(resourceManager,
-        lobby.getLobbySettings().getName(),
+        lobby.getLobbySettings().name(),
         FontName.M5X7,
         Color.white(),
         24,

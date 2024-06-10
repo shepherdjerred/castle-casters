@@ -1,9 +1,5 @@
 package com.shepherdjerred.capstone.game.objects.checkbox;
 
-import static com.shepherdjerred.capstone.engine.graphics.texture.TextureName.MAIN_MENU_BUTTON;
-import static com.shepherdjerred.capstone.engine.graphics.texture.TextureName.MAIN_MENU_BUTTON_CLICKED;
-import static com.shepherdjerred.capstone.engine.graphics.texture.TextureName.MAIN_MENU_BUTTON_HOVERED;
-
 import com.shepherdjerred.capstone.engine.graphics.RendererCoordinate;
 import com.shepherdjerred.capstone.engine.graphics.matrices.ModelMatrix;
 import com.shepherdjerred.capstone.engine.graphics.mesh.Mesh;
@@ -12,10 +8,12 @@ import com.shepherdjerred.capstone.engine.graphics.shader.ShaderProgram;
 import com.shepherdjerred.capstone.engine.graphics.shader.ShaderProgramName;
 import com.shepherdjerred.capstone.engine.graphics.shader.ShaderUniform;
 import com.shepherdjerred.capstone.engine.graphics.texture.Texture;
+import com.shepherdjerred.capstone.engine.object.ClickableAbstractGameObject.State;
 import com.shepherdjerred.capstone.engine.object.GameObjectRenderer;
 import com.shepherdjerred.capstone.engine.resource.ResourceManager;
 import com.shepherdjerred.capstone.engine.window.WindowSize;
-import com.shepherdjerred.capstone.engine.object.ClickableAbstractGameObject.State;
+
+import static com.shepherdjerred.capstone.engine.graphics.texture.TextureName.*;
 
 public class CheckboxRenderer implements GameObjectRenderer<Checkbox> {
 
@@ -31,8 +29,8 @@ public class CheckboxRenderer implements GameObjectRenderer<Checkbox> {
 
   @Override
   public void initialize(Checkbox gameObject) throws Exception {
-    var width = gameObject.getSceneObjectDimensions().getWidth();
-    var height = gameObject.getSceneObjectDimensions().getHeight();
+    var width = gameObject.getSceneObjectDimensions().width();
+    var height = gameObject.getSceneObjectDimensions().height();
 
     var normalTexture = (Texture) resourceManager.get(MAIN_MENU_BUTTON);
     var hoveredTexture = (Texture) resourceManager.get(MAIN_MENU_BUTTON_HOVERED);
@@ -40,21 +38,21 @@ public class CheckboxRenderer implements GameObjectRenderer<Checkbox> {
 
     shaderProgram = resourceManager.get(ShaderProgramName.DEFAULT);
 
-    var vertices = new float[] {
+    var vertices = new float[]{
         0, 0, 0,
         0, height, 0,
         width, 0, 0,
         width, height, 0
     };
 
-    var textureCoordinates = new float[] {
+    var textureCoordinates = new float[]{
         0, 0,
         0, 1,
         1, 0,
         1, 1
     };
 
-    var indices = new int[] {
+    var indices = new int[]{
         0, 1, 2,
         3, 1, 2
     };
@@ -70,7 +68,7 @@ public class CheckboxRenderer implements GameObjectRenderer<Checkbox> {
   public void render(WindowSize windowSize, Checkbox gameObject) {
     var pos = gameObject.getPosition()
         .getSceneCoordinate(windowSize, gameObject.getSceneObjectDimensions());
-    var model = new ModelMatrix(new RendererCoordinate(pos.getX(), pos.getY(), pos.getZ()),
+    var model = new ModelMatrix(new RendererCoordinate(pos.x(), pos.y(), pos.z()),
         0,
         1).getMatrix();
 
@@ -90,9 +88,9 @@ public class CheckboxRenderer implements GameObjectRenderer<Checkbox> {
 
   @Override
   public void cleanup() {
-    clickedMesh.getMesh().cleanup();
-    hoveredMesh.getMesh().cleanup();
-    normalMesh.getMesh().cleanup();
+    clickedMesh.mesh().cleanup();
+    hoveredMesh.mesh().cleanup();
+    normalMesh.mesh().cleanup();
     resourceManager.free(MAIN_MENU_BUTTON);
     resourceManager.free(MAIN_MENU_BUTTON_HOVERED);
     resourceManager.free(MAIN_MENU_BUTTON_CLICKED);

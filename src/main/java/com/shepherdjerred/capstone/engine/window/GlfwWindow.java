@@ -1,54 +1,8 @@
 package com.shepherdjerred.capstone.engine.window;
 
-import static org.lwjgl.glfw.GLFW.GLFW_CONTEXT_VERSION_MAJOR;
-import static org.lwjgl.glfw.GLFW.GLFW_CONTEXT_VERSION_MINOR;
-import static org.lwjgl.glfw.GLFW.GLFW_OPENGL_CORE_PROFILE;
-import static org.lwjgl.glfw.GLFW.GLFW_OPENGL_DEBUG_CONTEXT;
-import static org.lwjgl.glfw.GLFW.GLFW_OPENGL_FORWARD_COMPAT;
-import static org.lwjgl.glfw.GLFW.GLFW_OPENGL_PROFILE;
-import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
-import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
-import static org.lwjgl.glfw.GLFW.GLFW_RESIZABLE;
-import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
-import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
-import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
-import static org.lwjgl.glfw.GLFW.glfwDefaultWindowHints;
-import static org.lwjgl.glfw.GLFW.glfwDestroyWindow;
-import static org.lwjgl.glfw.GLFW.glfwGetPrimaryMonitor;
-import static org.lwjgl.glfw.GLFW.glfwGetVideoMode;
-import static org.lwjgl.glfw.GLFW.glfwInit;
-import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
-import static org.lwjgl.glfw.GLFW.glfwPollEvents;
-import static org.lwjgl.glfw.GLFW.glfwSetCursorEnterCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetCursorPosCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetErrorCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetFramebufferSizeCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetKeyCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetMouseButtonCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetScrollCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetWindowCloseCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetWindowPos;
-import static org.lwjgl.glfw.GLFW.glfwShowWindow;
-import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
-import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
-import static org.lwjgl.glfw.GLFW.glfwTerminate;
-import static org.lwjgl.glfw.GLFW.glfwWindowHint;
-import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
-import static org.lwjgl.opengl.GL11.GL_FALSE;
-import static org.lwjgl.opengl.GL11.GL_TRUE;
-import static org.lwjgl.system.MemoryUtil.NULL;
-
 import com.shepherdjerred.capstone.engine.events.CloseApplicationEvent;
 import com.shepherdjerred.capstone.engine.events.WindowResizeEvent;
-import com.shepherdjerred.capstone.engine.events.input.InputEvent;
-import com.shepherdjerred.capstone.engine.events.input.KeyPressedEvent;
-import com.shepherdjerred.capstone.engine.events.input.KeyReleasedEvent;
-import com.shepherdjerred.capstone.engine.events.input.MouseButtonDownEvent;
-import com.shepherdjerred.capstone.engine.events.input.MouseButtonUpEvent;
-import com.shepherdjerred.capstone.engine.events.input.MouseEnterEvent;
-import com.shepherdjerred.capstone.engine.events.input.MouseLeaveEvent;
-import com.shepherdjerred.capstone.engine.events.input.MouseMoveEvent;
-import com.shepherdjerred.capstone.engine.events.input.MouseScrollEvent;
+import com.shepherdjerred.capstone.engine.events.input.*;
 import com.shepherdjerred.capstone.engine.input.keyboard.GlfwKeyCodeConverter;
 import com.shepherdjerred.capstone.engine.input.keyboard.Key;
 import com.shepherdjerred.capstone.engine.input.mouse.GlfwMouseCodeConverter;
@@ -57,7 +11,6 @@ import com.shepherdjerred.capstone.engine.input.mouse.MouseCoordinate;
 import com.shepherdjerred.capstone.engine.input.mouse.MouseTracker;
 import com.shepherdjerred.capstone.events.Event;
 import com.shepherdjerred.capstone.events.EventBus;
-import java.util.Optional;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.lwjgl.glfw.Callbacks;
@@ -67,22 +20,29 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.system.Callback;
 import org.lwjgl.system.Configuration;
 
+import java.util.Optional;
+
+import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.GL_FALSE;
+import static org.lwjgl.opengl.GL11.GL_TRUE;
+import static org.lwjgl.system.MemoryUtil.NULL;
+
 @Log4j2
 public class GlfwWindow implements Window {
 
   @Getter
-  private WindowSettings windowSettings;
-  private long windowHandle;
+  private final WindowSettings windowSettings;
   private final GlfwKeyCodeConverter keyCodeConverter;
   private final GlfwMouseCodeConverter mouseCodeConverter;
   private final EventBus<Event> eventBus;
   private final MouseTracker mouseTracker;
+  private long windowHandle;
   private Callback errorCallback;
   private boolean shouldClose;
 
   public GlfwWindow(WindowSettings windowSettings,
-      MouseTracker mouseTracker,
-      EventBus<Event> eventBus) {
+                    MouseTracker mouseTracker,
+                    EventBus<Event> eventBus) {
     this.windowSettings = windowSettings;
     this.keyCodeConverter = new GlfwKeyCodeConverter();
     this.mouseCodeConverter = new GlfwMouseCodeConverter();
@@ -210,9 +170,9 @@ public class GlfwWindow implements Window {
   }
 
   private void createWindow() {
-    windowHandle = glfwCreateWindow(windowSettings.getWindowSize().getWidth(),
-        windowSettings.getWindowSize().getHeight(),
-        windowSettings.getTitle(),
+    windowHandle = glfwCreateWindow(windowSettings.windowSize().width(),
+        windowSettings.windowSize().height(),
+        windowSettings.title(),
         NULL,
         NULL);
     if (windowHandle == NULL) {
@@ -222,8 +182,8 @@ public class GlfwWindow implements Window {
     GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
     glfwSetWindowPos(windowHandle,
-        (vidmode.width() - windowSettings.getWindowSize().getWidth()) / 2,
-        (vidmode.height() - windowSettings.getWindowSize().getHeight()) / 2
+        (vidmode.width() - windowSettings.windowSize().width()) / 2,
+        (vidmode.height() - windowSettings.windowSize().height()) / 2
     );
 
     glfwMakeContextCurrent(windowHandle);

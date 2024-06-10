@@ -9,12 +9,13 @@ import com.shepherdjerred.capstone.common.player.Player;
 import com.shepherdjerred.capstone.logic.match.MatchSettings;
 import com.shepherdjerred.capstone.logic.player.PlayerCount;
 import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
-import java.util.Optional;
-import java.util.UUID;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import org.ajbrown.namemachine.NameGenerator;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @ToString
 @EqualsAndHashCode
@@ -27,33 +28,30 @@ public class Lobby {
   private final PlayerSlots playerSlots;
   private final ElementCounts elementCounts;
 
+  private Lobby(UUID uuid,
+                LobbySettings lobbySettings,
+                PlayerSlots playerSlots,
+                ElementCounts elementCounts) {
+    this.lobbySettings = lobbySettings;
+    this.playerSlots = playerSlots;
+    this.elementCounts = elementCounts;
+    this.uuid = uuid;
+  }
+
   public static Lobby fromDefaultLobbySettings(String lobbyName) {
     var lobbySettings = new LobbySettings(lobbyName,
         new MatchSettings(10, QuoridorPlayer.ONE, PlayerCount.TWO),
         LobbyType.LOCAL,
         false,
         GameMap.GRASS);
-    var playerCount = lobbySettings.getMatchSettings().getPlayerCount();
-    var playerSlots = PlayerSlots.forPlayerCount(playerCount);
-    var elementCounts = new ElementCounts();
-    return new Lobby(UUID.randomUUID(), lobbySettings, playerSlots, elementCounts);
+    return from(lobbySettings);
   }
 
   public static Lobby from(LobbySettings lobbySettings) {
-    var playerCount = lobbySettings.getMatchSettings().getPlayerCount();
+    var playerCount = lobbySettings.matchSettings().playerCount();
     var playerSlots = PlayerSlots.forPlayerCount(playerCount);
     var elementCounts = new ElementCounts();
     return new Lobby(UUID.randomUUID(), lobbySettings, playerSlots, elementCounts);
-  }
-
-  private Lobby(UUID uuid,
-      LobbySettings lobbySettings,
-      PlayerSlots playerSlots,
-      ElementCounts elementCounts) {
-    this.lobbySettings = lobbySettings;
-    this.playerSlots = playerSlots;
-    this.elementCounts = elementCounts;
-    this.uuid = uuid;
   }
 
   public Lobby setLobbySettings(LobbySettings lobbySettings) {
@@ -104,7 +102,7 @@ public class Lobby {
 
   public Lobby addPlayer(Player player) {
     var newPlayerSlots = playerSlots.addPlayer(player);
-    var newElementCounts = elementCounts.increment(player.getElement());
+    var newElementCounts = elementCounts.increment(player.element());
     return new Lobby(uuid, lobbySettings, newPlayerSlots, newElementCounts);
   }
 
@@ -116,9 +114,9 @@ public class Lobby {
   public Lobby updatePlayer(QuoridorPlayer playerId, Player newPlayer) {
     var oldPlayer = playerSlots.getPlayer(playerId);
     var newElementCounts = elementCounts;
-    if (oldPlayer.getElement() != newPlayer.getElement()) {
-      newElementCounts = newElementCounts.decrement(oldPlayer.getElement());
-      newElementCounts = newElementCounts.increment(newPlayer.getElement());
+    if (oldPlayer.element() != newPlayer.element()) {
+      newElementCounts = newElementCounts.decrement(oldPlayer.element());
+      newElementCounts = newElementCounts.increment(newPlayer.element());
     }
     var newPlayerSlots = playerSlots.setPlayer(playerId, newPlayer);
     return new Lobby(uuid, lobbySettings, newPlayerSlots, newElementCounts);
@@ -127,7 +125,7 @@ public class Lobby {
   public Lobby removePlayer(QuoridorPlayer playerId) {
     var player = playerSlots.getPlayer(playerId);
     var newPlayerSlots = playerSlots.removePlayer(playerId);
-    var newElementCounts = elementCounts.decrement(player.getElement());
+    var newElementCounts = elementCounts.decrement(player.element());
     return new Lobby(uuid, lobbySettings, newPlayerSlots, newElementCounts);
   }
 

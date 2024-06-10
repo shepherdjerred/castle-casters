@@ -13,7 +13,7 @@ public class SceneTransitionEventHandler implements EventHandler<SceneTransition
   @Override
   public void handle(SceneTransitionEvent sceneTransitionEvent) {
     try {
-      sceneTransitioner.transition(sceneTransitionEvent.getNewScene());
+      sceneTransitioner.transition(sceneTransitionEvent.newScene());
     } catch (Exception e) {
       throw new RuntimeException("Error transitioning scenes", e);
     }

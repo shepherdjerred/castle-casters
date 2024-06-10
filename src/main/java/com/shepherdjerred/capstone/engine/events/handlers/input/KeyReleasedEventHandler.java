@@ -1,9 +1,5 @@
 package com.shepherdjerred.capstone.engine.events.handlers.input;
 
-import static com.shepherdjerred.capstone.engine.input.keyboard.Key.EIGHT;
-import static com.shepherdjerred.capstone.engine.input.keyboard.Key.NINE;
-import static com.shepherdjerred.capstone.engine.input.keyboard.Key.ZERO;
-
 import com.shepherdjerred.capstone.engine.events.ToggleBlendingEvent;
 import com.shepherdjerred.capstone.engine.events.ToggleDepthEvent;
 import com.shepherdjerred.capstone.engine.events.ToggleWireframeEvent;
@@ -13,6 +9,8 @@ import com.shepherdjerred.capstone.events.EventBus;
 import com.shepherdjerred.capstone.events.handlers.EventHandler;
 import lombok.AllArgsConstructor;
 
+import static com.shepherdjerred.capstone.engine.input.keyboard.Key.*;
+
 @AllArgsConstructor
 public class KeyReleasedEventHandler implements EventHandler<KeyReleasedEvent> {
 
@@ -20,7 +18,7 @@ public class KeyReleasedEventHandler implements EventHandler<KeyReleasedEvent> {
 
   @Override
   public void handle(KeyReleasedEvent keyReleasedEvent) {
-    var key = keyReleasedEvent.getKey();
+    var key = keyReleasedEvent.key();
     if (key == ZERO) {
       eventBus.dispatch(new ToggleWireframeEvent());
     }

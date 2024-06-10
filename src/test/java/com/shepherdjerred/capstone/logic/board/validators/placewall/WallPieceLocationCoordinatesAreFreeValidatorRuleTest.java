@@ -1,9 +1,9 @@
 package com.shepherdjerred.capstone.logic.board.validators.placewall;
 
 
-import com.shepherdjerred.capstone.logic.board.QuoridorBoard;
 import com.shepherdjerred.capstone.logic.board.BoardSettings;
 import com.shepherdjerred.capstone.logic.board.Coordinate;
+import com.shepherdjerred.capstone.logic.board.QuoridorBoard;
 import com.shepherdjerred.capstone.logic.board.WallLocation;
 import com.shepherdjerred.capstone.logic.match.Match;
 import com.shepherdjerred.capstone.logic.player.PlayerCount;
@@ -47,7 +47,7 @@ public class WallPieceLocationCoordinatesAreFreeValidatorRuleTest {
         new Coordinate(10, 1));
 
     board = board.placeWall(QuoridorPlayer.ONE, wall);
-    when(match.getBoard()).thenReturn(board);
+    when(match.board()).thenReturn(board);
 
     var turnOne = new PlaceWallTurn(QuoridorPlayer.ONE, wall);
     var turnTwo = new PlaceWallTurn(QuoridorPlayer.ONE, offsetWallOnLeft);

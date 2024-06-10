@@ -7,10 +7,11 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioDatagramChannel;
 import io.netty.util.concurrent.DefaultThreadFactory;
-import java.net.InetSocketAddress;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+
+import java.net.InetSocketAddress;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Log4j2
 @RequiredArgsConstructor

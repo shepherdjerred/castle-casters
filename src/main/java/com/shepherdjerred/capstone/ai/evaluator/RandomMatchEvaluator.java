@@ -3,6 +3,7 @@ package com.shepherdjerred.capstone.ai.evaluator;
 import com.shepherdjerred.capstone.logic.match.Match;
 import com.shepherdjerred.capstone.logic.match.MatchStatus.Status;
 import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
+
 import java.util.Random;
 
 public class RandomMatchEvaluator implements MatchEvaluator {
@@ -20,8 +21,8 @@ public class RandomMatchEvaluator implements MatchEvaluator {
   }
 
   private double getScoreForDefeat(Match match, QuoridorPlayer playerId) {
-    if (match.getMatchStatus().getStatus() == Status.VICTORY
-        && match.getMatchStatus().getVictor() != playerId) {
+    if (match.matchStatus().status() == Status.VICTORY
+        && match.matchStatus().victor() != playerId) {
       return MIN_SCORE;
     } else {
       return 0;
@@ -29,7 +30,7 @@ public class RandomMatchEvaluator implements MatchEvaluator {
   }
 
   private double getScoreForVictory(Match match, QuoridorPlayer playerId) {
-    if (match.getMatchStatus().getVictor() == playerId) {
+    if (match.matchStatus().victor() == playerId) {
       return MAX_SCORE;
     } else {
       return 0;

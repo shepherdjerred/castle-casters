@@ -18,6 +18,6 @@ public class ToggleWireframeEventHandler implements EventHandler<ToggleWireframe
     } else {
       OpenGlHelper.disableWireframe();
     }
-    log.info("Wireframe: " + isWireframe);
+    log.info("Wireframe: {}", isWireframe);
   }
 }

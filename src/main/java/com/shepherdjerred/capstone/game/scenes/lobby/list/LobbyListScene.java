@@ -16,6 +16,9 @@ import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePosi
 import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePositioner.HorizontalPosition;
 import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePositioner.VerticalPosition;
 import com.shepherdjerred.capstone.engine.window.WindowSize;
+import com.shepherdjerred.capstone.events.Event;
+import com.shepherdjerred.capstone.events.EventBus;
+import com.shepherdjerred.capstone.events.handlers.EventHandlerFrame;
 import com.shepherdjerred.capstone.game.event.events.IdentifyPlayerEvent;
 import com.shepherdjerred.capstone.game.network.discovery.ServerInformation;
 import com.shepherdjerred.capstone.game.network.discovery.event.ServerDiscoveredEvent;
@@ -32,17 +35,11 @@ import com.shepherdjerred.capstone.game.scenes.lobby.details.LobbyDetailsScene;
 import com.shepherdjerred.capstone.game.scenes.lobby.host.HostLobbyScene;
 import com.shepherdjerred.capstone.game.scenes.lobby.host.SimpleSceneRenderer;
 import com.shepherdjerred.capstone.game.scenes.mainmenu.MainMenuScene;
-import com.shepherdjerred.capstone.events.Event;
-import com.shepherdjerred.capstone.events.EventBus;
-import com.shepherdjerred.capstone.events.handlers.EventHandlerFrame;
 import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
-import java.net.InetSocketAddress;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
 import lombok.extern.log4j.Log4j2;
+
+import java.net.InetSocketAddress;
+import java.util.*;
 
 @Log4j2
 public class LobbyListScene extends InteractableUIScene {
@@ -53,8 +50,8 @@ public class LobbyListScene extends InteractableUIScene {
   private boolean isConnecting;
 
   public LobbyListScene(EventBus<Event> eventBus,
-      ResourceManager resourceManager,
-      WindowSize windowSize) {
+                        ResourceManager resourceManager,
+                        WindowSize windowSize) {
     super(windowSize,
         resourceManager,
         new SimpleSceneRenderer(resourceManager, windowSize),
@@ -81,13 +78,13 @@ public class LobbyListScene extends InteractableUIScene {
     int taken;
     int total;
 
-    if (serverInformation.getLobby() == null) {
+    if (serverInformation.lobby() == null) {
       name = "???";
       taken = -1;
       total = -1;
     } else {
-      var lobby = serverInformation.getLobby();
-      name = lobby.getLobbySettings().getName();
+      var lobby = serverInformation.lobby();
+      name = lobby.getLobbySettings().name();
       taken = lobby.getTakenSlots();
       total = lobby.getMaxSlots();
     }
@@ -114,7 +111,7 @@ public class LobbyListScene extends InteractableUIScene {
             isConnecting = true;
             eventBus.registerHandlerFrame(connectingEventHandlerFrame);
             eventBus.dispatch(new StartClientEvent());
-            var discoveryAddress = (InetSocketAddress) serverInformation.getAddress();
+            var discoveryAddress = (InetSocketAddress) serverInformation.address();
             var gameAddress = new InetSocketAddress(discoveryAddress.getHostName(),
                 Constants.GAME_PORT);
             eventBus.dispatch(new ConnectServerEvent(gameAddress));
@@ -124,7 +121,7 @@ public class LobbyListScene extends InteractableUIScene {
                   resourceManager,
                   windowSize,
                   QuoridorPlayer.TWO,
-                  serverInformation.getLobby(),
+                  serverInformation.lobby(),
                   true);
               eventBus.dispatch(new SceneTransitionEvent(scene));
             });
@@ -137,10 +134,10 @@ public class LobbyListScene extends InteractableUIScene {
   private void createEventHandler() {
     eventHandlerFrame.registerHandler(ServerDiscoveredEvent.class,
         event -> {
-          var eventServerInfo = event.getServerInformation();
+          var eventServerInfo = event.serverInformation();
 
           for (ServerInformation info : serverInfoMap.keySet()) {
-            if (eventServerInfo.getLobby().getUuid().equals(info.getLobby().getUuid())) {
+            if (eventServerInfo.lobby().getUuid().equals(info.lobby().getUuid())) {
               return;
             }
           }

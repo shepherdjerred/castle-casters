@@ -6,9 +6,10 @@ import com.shepherdjerred.capstone.ai.alphabeta.pruning.rules.NodePruningRule;
 import com.shepherdjerred.capstone.ai.evaluator.MatchEvaluator;
 import com.shepherdjerred.capstone.logic.match.Match;
 import com.shepherdjerred.capstone.logic.turn.Turn;
-import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+
+import java.util.Set;
 
 @Log4j2
 @AllArgsConstructor

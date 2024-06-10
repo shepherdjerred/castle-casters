@@ -8,10 +8,10 @@ import com.shepherdjerred.capstone.engine.graphics.shader.ShaderProgram;
 import com.shepherdjerred.capstone.engine.graphics.shader.ShaderProgramName;
 import com.shepherdjerred.capstone.engine.graphics.shader.ShaderUniform;
 import com.shepherdjerred.capstone.engine.graphics.texture.Texture;
+import com.shepherdjerred.capstone.engine.object.ClickableAbstractGameObject.State;
 import com.shepherdjerred.capstone.engine.object.GameObjectRenderer;
 import com.shepherdjerred.capstone.engine.resource.ResourceManager;
 import com.shepherdjerred.capstone.engine.window.WindowSize;
-import com.shepherdjerred.capstone.engine.object.ClickableAbstractGameObject.State;
 
 public class ButtonRenderer implements GameObjectRenderer<Button> {
 
@@ -27,8 +27,8 @@ public class ButtonRenderer implements GameObjectRenderer<Button> {
 
   @Override
   public void initialize(Button gameObject) throws Exception {
-    var width = gameObject.getSceneObjectDimensions().getWidth();
-    var height = gameObject.getSceneObjectDimensions().getHeight();
+    var width = gameObject.getSceneObjectDimensions().width();
+    var height = gameObject.getSceneObjectDimensions().height();
 
     var mapper = new ButtonTextureMapper();
     var textures = mapper.get(gameObject.getType());
@@ -39,21 +39,21 @@ public class ButtonRenderer implements GameObjectRenderer<Button> {
 
     shaderProgram = resourceManager.get(ShaderProgramName.DEFAULT);
 
-    var vertices = new float[] {
+    var vertices = new float[]{
         0, 0, 0,
         0, height, 0,
         width, 0, 0,
         width, height, 0
     };
 
-    var textureCoordinates = new float[] {
+    var textureCoordinates = new float[]{
         0, 0,
         0, 1,
         1, 0,
         1, 1
     };
 
-    var indices = new int[] {
+    var indices = new int[]{
         0, 1, 2,
         3, 1, 2
     };
@@ -69,7 +69,7 @@ public class ButtonRenderer implements GameObjectRenderer<Button> {
   public void render(WindowSize windowSize, Button gameObject) {
     var pos = gameObject.getPosition()
         .getSceneCoordinate(windowSize, gameObject.getSceneObjectDimensions());
-    var model = new ModelMatrix(new RendererCoordinate(pos.getX(), pos.getY(), pos.getZ()),
+    var model = new ModelMatrix(new RendererCoordinate(pos.x(), pos.y(), pos.z()),
         0,
         1).getMatrix();
 
@@ -89,12 +89,12 @@ public class ButtonRenderer implements GameObjectRenderer<Button> {
 
   @Override
   public void cleanup() {
-    clickedMesh.getMesh().cleanup();
-    hoveredMesh.getMesh().cleanup();
-    normalMesh.getMesh().cleanup();
-    resourceManager.free(normalMesh.getTexture().getTextureName());
-    resourceManager.free(clickedMesh.getTexture().getTextureName());
-    resourceManager.free(hoveredMesh.getTexture().getTextureName());
+    clickedMesh.mesh().cleanup();
+    hoveredMesh.mesh().cleanup();
+    normalMesh.mesh().cleanup();
+    resourceManager.free(normalMesh.texture().textureName());
+    resourceManager.free(clickedMesh.texture().textureName());
+    resourceManager.free(hoveredMesh.texture().textureName());
     resourceManager.free(shaderProgram.getShaderProgramName());
   }
 }

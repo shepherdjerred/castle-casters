@@ -12,8 +12,8 @@ public class DestinationPieceIsEmptyValidatorRule implements ValidatorRule<MoveP
 
   @Override
   public TurnValidationResult validate(Match match, MovePawnTurn turn) {
-    var destination = turn.getDestination();
-    if (match.getBoard().isEmpty(destination)) {
+    var destination = turn.destination();
+    if (match.board().isEmpty(destination)) {
       return new TurnValidationResult();
     } else {
       return new TurnValidationResult(ErrorMessage.DESTINATION_NOT_EMPTY);

@@ -13,22 +13,22 @@ import lombok.ToString;
 @ToString
 public class Logo implements GameObject {
 
-  @Getter
-  private boolean isInitialized;
   private final GameObjectRenderer<Logo> renderer;
-  @Setter
-  @Getter
-  private ScenePositioner position;
   private final double aspectRatio;
   private final int height;
   @Getter
   private final Type type;
+  @Getter
+  private boolean isInitialized;
+  @Setter
+  @Getter
+  private ScenePositioner position;
 
   public Logo(ResourceManager resourceManager,
-      ScenePositioner position,
-      double aspectRatio,
-      int height,
-      Type type) {
+              ScenePositioner position,
+              double aspectRatio,
+              int height,
+              Type type) {
     this.renderer = new LogoRenderer(resourceManager);
     this.position = position;
     this.aspectRatio = aspectRatio;

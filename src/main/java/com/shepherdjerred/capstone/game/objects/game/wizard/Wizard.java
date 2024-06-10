@@ -7,19 +7,18 @@ import com.shepherdjerred.capstone.engine.object.SceneObjectDimensions;
 import com.shepherdjerred.capstone.engine.resource.ResourceManager;
 import com.shepherdjerred.capstone.engine.scene.position.ScenePositioner;
 import com.shepherdjerred.capstone.engine.window.WindowSize;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 public class Wizard implements GameObject {
 
-  @Getter
-  private boolean isInitialized;
   private final GameObjectRenderer<Wizard> renderer;
   @Getter
   private final Element element;
+  @Getter
+  private final SceneObjectDimensions sceneObjectDimensions;
+  @Getter
+  private boolean isInitialized;
   @Getter
   @Setter
   private ScenePositioner position;
@@ -29,13 +28,11 @@ public class Wizard implements GameObject {
   @Getter
   private int frame;
   private float frameAccumulator;
-  @Getter
-  private final SceneObjectDimensions sceneObjectDimensions;
 
   public Wizard(ResourceManager resourceManager,
-      ScenePositioner position,
-      Element element,
-      SceneObjectDimensions sceneObjectDimensions) {
+                ScenePositioner position,
+                Element element,
+                SceneObjectDimensions sceneObjectDimensions) {
     this.position = position;
     this.renderer = new WizardRenderer(resourceManager);
     this.element = element;
@@ -91,12 +88,7 @@ public class Wizard implements GameObject {
   }
 
   @Getter
-  @ToString
-  @AllArgsConstructor
-  @EqualsAndHashCode
-  public static class SpriteState {
+  public record SpriteState(State state, int frame) {
 
-    private final State state;
-    private final int frame;
   }
 }

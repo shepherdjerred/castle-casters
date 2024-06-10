@@ -2,18 +2,23 @@ package com.shepherdjerred.capstone.logic.match;
 
 import com.shepherdjerred.capstone.logic.player.PlayerCount;
 import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 @ToString
 @EqualsAndHashCode
 public class WallBank {
 
   public final Map<QuoridorPlayer, Integer> playerWalls;
+
+  private WallBank(Map<QuoridorPlayer, Integer> playerWalls) {
+    this.playerWalls = playerWalls;
+  }
 
   public static WallBank from(PlayerCount playerCount, int numberOfWalls) {
     Map<QuoridorPlayer, Integer> walls = new HashMap<>();
@@ -26,10 +31,6 @@ public class WallBank {
     }
     quoridorPlayers.forEach(player -> walls.put(player, numberOfWalls));
     return new WallBank(walls);
-  }
-
-  private WallBank(Map<QuoridorPlayer, Integer> playerWalls) {
-    this.playerWalls = playerWalls;
   }
 
   public int getWallsLeft(QuoridorPlayer quoridorPlayer) {

@@ -1,12 +1,7 @@
 package com.shepherdjerred.capstone.logic.serialization;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import com.google.gson.*;
+
 import java.lang.reflect.Type;
 
 public class AbstractClassGsonAdapter<T> implements JsonSerializer<T>, JsonDeserializer<T> {
@@ -16,8 +11,8 @@ public class AbstractClassGsonAdapter<T> implements JsonSerializer<T>, JsonDeser
 
   @Override
   public JsonElement serialize(T objectToSerialize,
-      Type type,
-      JsonSerializationContext jsonSerializationContext) {
+                               Type type,
+                               JsonSerializationContext jsonSerializationContext) {
     var objectAsJson = new JsonObject();
     objectAsJson.addProperty(CLASS, objectToSerialize.getClass().getCanonicalName());
     objectAsJson.add(DATA, jsonSerializationContext.serialize(objectToSerialize));
@@ -26,8 +21,8 @@ public class AbstractClassGsonAdapter<T> implements JsonSerializer<T>, JsonDeser
 
   @Override
   public T deserialize(JsonElement objectAsJsonElement,
-      Type type,
-      JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+                       Type type,
+                       JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
     var objectAsJsonObject = objectAsJsonElement.getAsJsonObject();
     var objectClassName = objectAsJsonObject.getAsJsonPrimitive(CLASS).getAsString();
     var objectClass = classNameToClass(objectClassName);
@@ -37,7 +32,7 @@ public class AbstractClassGsonAdapter<T> implements JsonSerializer<T>, JsonDeser
   /**
    * Helper method to get the className of the object to be deserialized.
    */
-  private Class classNameToClass(String className) {
+  private Class<?> classNameToClass(String className) {
     try {
       return Class.forName(className);
     } catch (ClassNotFoundException e) {

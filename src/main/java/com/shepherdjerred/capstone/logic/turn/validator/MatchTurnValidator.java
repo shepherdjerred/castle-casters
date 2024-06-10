@@ -5,6 +5,7 @@ import com.shepherdjerred.capstone.logic.turn.Turn;
 import com.shepherdjerred.capstone.logic.turn.validator.rules.ValidatorRule;
 import com.shepherdjerred.capstone.logic.turn.validator.rules.match.MatchStatusValidatorRule;
 import com.shepherdjerred.capstone.logic.turn.validator.rules.match.PlayerTurnValidatorRule;
+
 import java.util.HashSet;
 import java.util.Set;
 

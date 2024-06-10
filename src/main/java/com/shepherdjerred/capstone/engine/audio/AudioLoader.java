@@ -1,18 +1,16 @@
 package com.shepherdjerred.capstone.engine.audio;
 
-import static org.lwjgl.openal.AL10.AL_FORMAT_MONO16;
-import static org.lwjgl.openal.AL10.AL_FORMAT_STEREO16;
-import static org.lwjgl.openal.AL10.alBufferData;
-import static org.lwjgl.openal.AL10.alGenBuffers;
-import static org.lwjgl.stb.STBVorbis.stb_vorbis_decode_memory;
-import static org.lwjgl.system.libc.LibCStdlib.free;
-
 import com.shepherdjerred.capstone.engine.resource.ByteBufferLoader;
 import com.shepherdjerred.capstone.engine.resource.ResourceFileLocator;
 import com.shepherdjerred.capstone.engine.resource.ResourceLoader;
-import java.nio.ShortBuffer;
 import lombok.AllArgsConstructor;
 import org.lwjgl.system.MemoryStack;
+
+import java.nio.ShortBuffer;
+
+import static org.lwjgl.openal.AL10.*;
+import static org.lwjgl.stb.STBVorbis.stb_vorbis_decode_memory;
+import static org.lwjgl.system.libc.LibCStdlib.free;
 
 @AllArgsConstructor
 public class AudioLoader implements ResourceLoader<AudioName, Audio> {

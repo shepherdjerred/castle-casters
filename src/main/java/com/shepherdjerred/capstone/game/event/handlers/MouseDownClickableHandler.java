@@ -16,8 +16,8 @@ public class MouseDownClickableHandler implements EventHandler<MouseButtonDownEv
   public void handle(MouseButtonDownEvent mouseButtonDownEvent) {
     scene.getGameObjects().forEach(element -> {
       if (element instanceof Clickable) {
-        var orig = mouseButtonDownEvent.getMouseCoordinate();
-        var coord = new SceneCoordinate(orig.getX(), orig.getY(), 0);
+        var orig = mouseButtonDownEvent.mouseCoordinate();
+        var coord = new SceneCoordinate(orig.x(), orig.y(), 0);
         if (((Clickable) element).contains(coord)) {
           ((Clickable) element).onClickBegin();
         }

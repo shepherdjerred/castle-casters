@@ -13,12 +13,13 @@ import com.shepherdjerred.capstone.logic.turn.PlaceWallTurn;
 import com.shepherdjerred.capstone.logic.turn.Turn;
 import com.shepherdjerred.capstone.logic.turn.notation.NotationToTurnConverter;
 import com.shepherdjerred.capstone.logic.turn.notation.TurnToNotationConverter;
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.Scanner;
-import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @AllArgsConstructor
@@ -56,11 +57,11 @@ public class PlayerVersusAiView implements View {
         var input = scanner.next();
 
         if (input.equals("UNDO")) {
-          if (match.getMatchHistory().isEmpty()) {
+          if (match.matchHistory().isEmpty()) {
             System.out.println("No history to undo");
             continue;
           }
-          match = match.getMatchHistory().pop().getMatch().getMatchHistory().pop().getMatch();
+          match = match.matchHistory().pop().match().matchHistory().pop().match();
           continue;
         } else if (input.equals("EXIT")) {
           return Optional.of(new MainMenuView(scanner));
@@ -76,12 +77,12 @@ public class PlayerVersusAiView implements View {
         }
 
         if (turn instanceof MovePawnTurn) {
-          var playerPawn = match.getBoard().getPawnLocation(activePlayer);
+          var playerPawn = match.board().getPawnLocation(activePlayer);
           turn = new NormalMovePawnTurn(activePlayer,
               playerPawn,
-              ((MovePawnTurn) turn).getDestination());
+              ((MovePawnTurn) turn).destination());
         } else if (turn instanceof PlaceWallTurn) {
-          turn = new PlaceWallTurn(activePlayer, ((PlaceWallTurn) turn).getLocation());
+          turn = new PlaceWallTurn(activePlayer, ((PlaceWallTurn) turn).location());
         }
 
         if (turn != null) {
@@ -91,12 +92,12 @@ public class PlayerVersusAiView implements View {
         }
       }
 
-      if (match.getMatchStatus().getStatus() == Status.VICTORY) {
+      if (match.matchStatus().status() == Status.VICTORY) {
         shouldContinue = false;
       }
     }
 
-    System.out.println("WINNER: " + match.getMatchStatus().getVictor());
+    System.out.println("WINNER: " + match.matchStatus().victor());
 
     return Optional.of(new MainMenuView(scanner));
   }

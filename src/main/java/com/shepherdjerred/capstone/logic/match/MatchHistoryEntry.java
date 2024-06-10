@@ -1,19 +1,13 @@
 package com.shepherdjerred.capstone.logic.match;
 
 import com.shepherdjerred.capstone.logic.turn.Turn;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * @param match A Match state.
+ * @param turn  A Turn applied to the Match state to create a new Match state.
+ */
 @Getter
-@AllArgsConstructor
-public class MatchHistoryEntry {
+public record MatchHistoryEntry(Match match, Turn turn) {
 
-  /**
-   * A Match state.
-   */
-  private final Match match;
-  /**
-   * A Turn applied to the Match state to create a new Match state.
-   */
-  private final Turn turn;
 }

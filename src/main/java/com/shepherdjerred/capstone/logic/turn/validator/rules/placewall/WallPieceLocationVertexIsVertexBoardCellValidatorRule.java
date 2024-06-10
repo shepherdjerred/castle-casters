@@ -10,9 +10,9 @@ public class WallPieceLocationVertexIsVertexBoardCellValidatorRule implements Va
 
   @Override
   public TurnValidationResult validate(Match match, PlaceWallTurn turn) {
-    var location = turn.getLocation();
-    var vertex = location.getVertex();
-    var board = match.getBoard();
+    var location = turn.location();
+    var vertex = location.vertex();
+    var board = match.board();
     if (board.isWallVertexBoardCell(vertex)) {
       return new TurnValidationResult();
     } else {

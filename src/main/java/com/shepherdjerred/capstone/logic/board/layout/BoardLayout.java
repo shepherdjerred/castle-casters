@@ -3,11 +3,7 @@ package com.shepherdjerred.capstone.logic.board.layout;
 import com.shepherdjerred.capstone.logic.board.BoardSettings;
 import com.shepherdjerred.capstone.logic.board.Coordinate;
 import com.shepherdjerred.capstone.logic.board.exception.CoordinateOutOfBoundsException;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 /**
  * Represents the Quoridor board layout. In a standard 9x9 game of Quoridor, the boardCells array
@@ -33,7 +29,7 @@ public class BoardLayout {
    * Creates a new board layout.
    */
   public static BoardLayout from(BoardSettings boardSettings,
-      BoardLayoutInitializer initializer) {
+                                 BoardLayoutInitializer initializer) {
     var boardCells = initializer.createBoardCells(boardSettings);
     return new BoardLayout(boardSettings.getGridSize(), boardCells);
   }
@@ -46,7 +42,7 @@ public class BoardLayout {
    */
   public BoardCell getBoardCell(Coordinate coordinate) {
     if (isCoordinateValid(coordinate)) {
-      return boardCells[coordinate.getX()][coordinate.getY()];
+      return boardCells[coordinate.x()][coordinate.y()];
     } else {
       throw new CoordinateOutOfBoundsException(coordinate);
     }
@@ -80,8 +76,8 @@ public class BoardLayout {
    * @return True if the Coordinate is valid, false otherwise
    */
   public boolean isCoordinateValid(Coordinate coordinate) {
-    var x = coordinate.getX();
-    var y = coordinate.getY();
+    var x = coordinate.x();
+    var y = coordinate.y();
     return x >= 0
         && x <= gridSize - 1
         && y >= 0

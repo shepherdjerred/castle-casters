@@ -1,7 +1,5 @@
 package com.shepherdjerred.capstone.game.scenes.mainmenu;
 
-import static com.shepherdjerred.capstone.game.objects.button.Button.Type.GENERIC;
-
 import com.shepherdjerred.capstone.common.lobby.LobbySettings.LobbyType;
 import com.shepherdjerred.capstone.engine.events.CloseApplicationEvent;
 import com.shepherdjerred.capstone.engine.events.scene.SceneTransitionEvent;
@@ -17,6 +15,8 @@ import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePosi
 import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePositioner.HorizontalPosition;
 import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePositioner.VerticalPosition;
 import com.shepherdjerred.capstone.engine.window.WindowSize;
+import com.shepherdjerred.capstone.events.Event;
+import com.shepherdjerred.capstone.events.EventBus;
 import com.shepherdjerred.capstone.game.objects.background.parallax.ParallaxBackground;
 import com.shepherdjerred.capstone.game.objects.background.parallax.ParallaxBackground.Type;
 import com.shepherdjerred.capstone.game.objects.logo.Logo;
@@ -26,11 +26,12 @@ import com.shepherdjerred.capstone.game.scenes.help.HelpScene;
 import com.shepherdjerred.capstone.game.scenes.lobby.host.HostLobbyScene;
 import com.shepherdjerred.capstone.game.scenes.lobby.host.SimpleSceneRenderer;
 import com.shepherdjerred.capstone.game.scenes.lobby.list.LobbyListScene;
-import com.shepherdjerred.capstone.events.Event;
-import com.shepherdjerred.capstone.events.EventBus;
+import lombok.extern.log4j.Log4j2;
+
 import java.util.HashSet;
 import java.util.Set;
-import lombok.extern.log4j.Log4j2;
+
+import static com.shepherdjerred.capstone.game.objects.button.Button.Type.GENERIC;
 
 @Log4j2
 public class MainMenuScene extends InteractableUIScene {
@@ -40,8 +41,8 @@ public class MainMenuScene extends InteractableUIScene {
   private final com.shepherdjerred.capstone.game.scenes.mainmenu.MainMenuAudio sceneAudio;
 
   public MainMenuScene(ResourceManager resourceManager,
-      EventBus<Event> eventBus,
-      WindowSize windowSize) {
+                       EventBus<Event> eventBus,
+                       WindowSize windowSize) {
     super(windowSize,
         resourceManager,
         new SimpleSceneRenderer(resourceManager, windowSize),

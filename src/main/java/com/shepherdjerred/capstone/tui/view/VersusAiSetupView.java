@@ -13,12 +13,13 @@ import com.shepherdjerred.capstone.logic.board.BoardSettings;
 import com.shepherdjerred.capstone.logic.match.MatchSettings;
 import com.shepherdjerred.capstone.logic.player.PlayerCount;
 import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.Set;
-import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @AllArgsConstructor
@@ -28,8 +29,7 @@ public class VersusAiSetupView implements View {
 
   @Override
   public Optional<View> display() {
-    boolean shouldContinue = true;
-    while (shouldContinue) {
+    while (true) {
       QuoridorPlayer startingPlayer;
       QuoridorPlayer aiPlayer;
 

@@ -13,8 +13,8 @@ public class MoveIsDiagonalValidatorRule implements ValidatorRule<JumpPawnDiagon
 
   @Override
   public TurnValidationResult validate(Match match, JumpPawnDiagonalTurn turn) {
-    var source = turn.getSource();
-    var destination = turn.getDestination();
+    var source = turn.source();
+    var destination = turn.destination();
     if (Coordinate.areCoordinatesDiagonal(source, destination)) {
       return new TurnValidationResult();
     } else {

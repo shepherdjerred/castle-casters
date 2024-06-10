@@ -10,11 +10,11 @@ public class WallPieceLocationCoordinatesAreValidValidatorRule implements Valida
 
   @Override
   public TurnValidationResult validate(Match match, PlaceWallTurn turn) {
-    var location = turn.getLocation();
-    var c1 = location.getFirstCoordinate();
-    var vertex = location.getVertex();
-    var c2 = location.getSecondCoordinate();
-    var board = match.getBoard();
+    var location = turn.location();
+    var c1 = location.firstCoordinate();
+    var vertex = location.vertex();
+    var c2 = location.secondCoordinate();
+    var board = match.board();
     if (board.isCoordinateInvalid(c1)
         || board.isCoordinateInvalid(vertex)
         || board.isCoordinateInvalid(c2)) {

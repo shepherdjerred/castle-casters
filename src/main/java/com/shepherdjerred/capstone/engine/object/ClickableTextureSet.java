@@ -2,6 +2,7 @@ package com.shepherdjerred.capstone.engine.object;
 
 import com.shepherdjerred.capstone.engine.graphics.texture.TextureName;
 import com.shepherdjerred.capstone.engine.object.ClickableAbstractGameObject.State;
+
 import java.util.HashMap;
 import java.util.Map;
 

@@ -13,8 +13,8 @@ public class SourcePieceTypeIsPawnValidatorRule implements ValidatorRule<MovePaw
 
   @Override
   public TurnValidationResult validate(Match match, MovePawnTurn turn) {
-    var source = turn.getSource();
-    if (match.getBoard().getPiece(source) instanceof PawnPiece) {
+    var source = turn.source();
+    if (match.board().getPiece(source) instanceof PawnPiece) {
       return new TurnValidationResult();
     } else {
       return new TurnValidationResult(ErrorMessage.SOURCE_PIECE_NOT_PAWN);

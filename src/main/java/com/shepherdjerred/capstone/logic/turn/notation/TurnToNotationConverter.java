@@ -20,35 +20,35 @@ public class TurnToNotationConverter {
   }
 
   private String movePawnTurnToString(MovePawnTurn turn) {
-    var dest = turn.getDestination();
-    int y = yCoordToNotationInt(dest.getY());
-    char x = xCoordToNotationChar(dest.getX());
+    var dest = turn.destination();
+    int y = yCoordToNotationInt(dest.y());
+    char x = xCoordToNotationChar(dest.x());
     return String.format("%s%s", x, y);
   }
 
   private String placeWallTurnToString(PlaceWallTurn turn) {
-    var location = turn.getLocation();
+    var location = turn.location();
     var space = getLowerLeftPawnSpace(location);
     var direction = getWallOrientation(location);
-    int y = yCoordToNotationInt(space.getY());
-    char x = xCoordToNotationChar(space.getX());
+    int y = yCoordToNotationInt(space.y());
+    char x = xCoordToNotationChar(space.x());
     var directionChar = direction.toNotationChar();
     return String.format("%s%s%s", x, y, directionChar);
   }
 
   private Coordinate getLowerLeftPawnSpace(WallLocation location) {
-    return location.getVertex().toLeft().below();
+    return location.vertex().toLeft().below();
   }
 
   private WallOrientation getWallOrientation(WallLocation location) {
-    var c1 = location.getFirstCoordinate();
-    var c2 = location.getSecondCoordinate();
+    var c1 = location.firstCoordinate();
+    var c2 = location.secondCoordinate();
 
-    if (c1.getX() == c2.getX()) {
+    if (c1.x() == c2.x()) {
       return WallOrientation.VERTICAL;
     }
 
-    if (c1.getY() == c2.getY()) {
+    if (c1.y() == c2.y()) {
       return WallOrientation.HORIZONTAL;
     }
 

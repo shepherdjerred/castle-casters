@@ -1,22 +1,16 @@
 package com.shepherdjerred.capstone.ai.evaluator;
 
-import com.shepherdjerred.capstone.ai.evaluator.rules.AdjacentPawnsEvaluationRule;
-import com.shepherdjerred.capstone.ai.evaluator.rules.DefeatEvaluatorRule;
-import com.shepherdjerred.capstone.ai.evaluator.rules.EvaluatorRule;
-import com.shepherdjerred.capstone.ai.evaluator.rules.OpponentsShortestPathEvaluatorRule;
-import com.shepherdjerred.capstone.ai.evaluator.rules.RemainingWallsEvaluatorRule;
-import com.shepherdjerred.capstone.ai.evaluator.rules.ShortestPathEvaluatorRule;
-import com.shepherdjerred.capstone.ai.evaluator.rules.VictoryEvaluatorRule;
-import com.shepherdjerred.capstone.ai.evaluator.rules.WallsNearbyEvaluationRule;
+import com.shepherdjerred.capstone.ai.evaluator.rules.*;
 import com.shepherdjerred.capstone.logic.board.search.AStarBoardSearch;
 import com.shepherdjerred.capstone.logic.match.Match;
 import com.shepherdjerred.capstone.logic.match.PlayerGoals;
 import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
-import java.util.HashMap;
-import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Log4j2
 @ToString
@@ -29,14 +23,14 @@ public class WeightedMatchEvaluator implements MatchEvaluator {
   public double evaluateMatch(Match match, QuoridorPlayer optimizingPlayer) {
     Map<EvaluatorRule, Double> evaluators = new HashMap<>();
     evaluators.put(new ShortestPathEvaluatorRule(new AStarBoardSearch(), new PlayerGoals()),
-        weights.getShortestPathWeight());
+        weights.shortestPathWeight());
     evaluators.put(new DefeatEvaluatorRule(), 1.0);
-    evaluators.put(new AdjacentPawnsEvaluationRule(), weights.getAdjacentPawnsWeight());
+    evaluators.put(new AdjacentPawnsEvaluationRule(), weights.adjacentPawnsWeight());
     evaluators.put(new OpponentsShortestPathEvaluatorRule(new AStarBoardSearch(),
-        new PlayerGoals()), weights.getOpponentsShortestPathWeight());
-    evaluators.put(new RemainingWallsEvaluatorRule(), weights.getRemainingWallsWeight());
+        new PlayerGoals()), weights.opponentsShortestPathWeight());
+    evaluators.put(new RemainingWallsEvaluatorRule(), weights.remainingWallsWeight());
     evaluators.put(new VictoryEvaluatorRule(), 1.0);
-    evaluators.put(new WallsNearbyEvaluationRule(), weights.getWallsNearbyWeight());
+    evaluators.put(new WallsNearbyEvaluationRule(), weights.wallsNearbyWeight());
 
     var matchScore = evaluators.entrySet().stream()
         .map(entry -> {

@@ -1,8 +1,8 @@
 package com.shepherdjerred.capstone.logic.board.validators.placewall;
 
-import com.shepherdjerred.capstone.logic.board.QuoridorBoard;
 import com.shepherdjerred.capstone.logic.board.BoardSettings;
 import com.shepherdjerred.capstone.logic.board.Coordinate;
+import com.shepherdjerred.capstone.logic.board.QuoridorBoard;
 import com.shepherdjerred.capstone.logic.board.WallLocation;
 import com.shepherdjerred.capstone.logic.board.search.AStarBoardSearch;
 import com.shepherdjerred.capstone.logic.match.Match;
@@ -50,7 +50,7 @@ public class WallDoesntBlockPawnsValidatorTest {
     board = board.placeWall(QuoridorPlayer.ONE, rightWall);
     var turn = new PlaceWallTurn(QuoridorPlayer.ONE, topWall);
 
-    Mockito.when(match.getBoard()).thenReturn(board);
+    Mockito.when(match.board()).thenReturn(board);
 
     var actual = validator.validate(match, turn);
 

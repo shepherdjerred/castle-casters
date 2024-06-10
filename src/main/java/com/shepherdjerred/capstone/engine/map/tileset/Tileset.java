@@ -2,25 +2,16 @@ package com.shepherdjerred.capstone.engine.map.tileset;
 
 import com.shepherdjerred.capstone.engine.graphics.texture.TextureName;
 import com.shepherdjerred.capstone.engine.graphics.texture.TextureSheetCoordinates;
+import lombok.Getter;
+import lombok.extern.log4j.Log4j2;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
-import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Getter
-@ToString
-@AllArgsConstructor
-public class Tileset implements Comparable<Tileset> {
-
-  private final String name;
-  private final int firstTile;
-  private final int columns;
-  private final int rows;
-  private final int tileSize;
-  private final TextureName textureName;
+public record Tileset(String name, int firstTile, int columns, int rows, int tileSize,
+                      TextureName textureName) implements Comparable<Tileset> {
 
   /**
    * This is brittle, but it'll work.
@@ -55,6 +46,6 @@ public class Tileset implements Comparable<Tileset> {
 
   @Override
   public int compareTo(Tileset tileset) {
-    return this.firstTile - tileset.getFirstTile();
+    return this.firstTile - tileset.firstTile();
   }
 }

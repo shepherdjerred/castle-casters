@@ -12,8 +12,8 @@ public class SourceCoordinateIsValidValidatorRule implements ValidatorRule<MoveP
 
   @Override
   public TurnValidationResult validate(Match match, MovePawnTurn turn) {
-    var board = match.getBoard();
-    if (board.isCoordinateInvalid(turn.getSource())) {
+    var board = match.board();
+    if (board.isCoordinateInvalid(turn.source())) {
       return new TurnValidationResult(ErrorMessage.SOURCE_COORDINATE_INVALID);
     } else {
       return new TurnValidationResult();

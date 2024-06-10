@@ -50,7 +50,7 @@ public class NotationToTurnConverter {
   }
 
   private WallLocation getWallLocation(Coordinate coordinate,
-      WallOrientation orientation) {
+                                       WallOrientation orientation) {
     if (orientation == WallOrientation.HORIZONTAL) {
       var c1 = coordinate.above();
       var vertex = c1.toRight();

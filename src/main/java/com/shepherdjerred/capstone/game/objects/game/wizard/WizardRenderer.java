@@ -17,9 +17,10 @@ import com.shepherdjerred.capstone.engine.object.SceneObjectDimensions;
 import com.shepherdjerred.capstone.engine.resource.ResourceManager;
 import com.shepherdjerred.capstone.engine.window.WindowSize;
 import com.shepherdjerred.capstone.game.objects.game.wizard.Wizard.State;
+import lombok.extern.log4j.Log4j2;
+
 import java.util.HashMap;
 import java.util.Map;
-import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class WizardRenderer implements GameObjectRenderer<Wizard> {
@@ -49,24 +50,24 @@ public class WizardRenderer implements GameObjectRenderer<Wizard> {
   }
 
   private void createMeshForElementState(Element element,
-      State state,
-      SceneObjectDimensions dimensions,
-      boolean flip) throws Exception {
-    var width = dimensions.getWidth();
-    var height = dimensions.getHeight();
+                                         State state,
+                                         SceneObjectDimensions dimensions,
+                                         boolean flip) throws Exception {
+    var width = dimensions.width();
+    var height = dimensions.height();
 
     var mapper = new WizardTextureMapper();
     var stateTextureName = mapper.getTexture(element, state);
     Texture stateTexture = resourceManager.get(stateTextureName);
 
-    var walkingUpTextureSheet = new Spritesheet(stateTexture.getWidth(),
-        stateTexture.getHeight(),
+    var walkingUpTextureSheet = new Spritesheet(stateTexture.width(),
+        stateTexture.height(),
         32);
 
     var animatedMesh = new AnimatedTexturedMesh();
 
     for (int i = 0; i < walkingUpTextureSheet.getNumberOfVerticalTextures(); i++) {
-      var vertices = new float[] {
+      var vertices = new float[]{
           0, 0, 0,
           0, height, 0,
           width, 0, 0,
@@ -83,7 +84,7 @@ public class WizardRenderer implements GameObjectRenderer<Wizard> {
 
       var textureCoordinatesArray = textureCoordinates.asIndexedFloatArray();
 
-      var indices = new int[] {
+      var indices = new int[]{
           0, 1, 2,
           3, 1, 2
       };
@@ -100,7 +101,7 @@ public class WizardRenderer implements GameObjectRenderer<Wizard> {
   public void render(WindowSize windowSize, Wizard wizard) {
     var pos = wizard.getPosition()
         .getSceneCoordinate(windowSize, wizard.getSceneObjectDimensions());
-    var model = new ModelMatrix(new RendererCoordinate(pos.getX(), pos.getY(), pos.getZ()),
+    var model = new ModelMatrix(new RendererCoordinate(pos.x(), pos.y(), pos.z()),
         0,
         1).getMatrix();
 
@@ -114,8 +115,8 @@ public class WizardRenderer implements GameObjectRenderer<Wizard> {
   @Override
   public void cleanup() {
     meshes.values().forEach(animatedMesh -> animatedMesh.getMeshes().forEach(mesh -> {
-      resourceManager.free(mesh.getTexture().getTextureName());
-      mesh.getMesh().cleanup();
+      resourceManager.free(mesh.texture().textureName());
+      mesh.mesh().cleanup();
     }));
     resourceManager.free(shaderProgram.getShaderProgramName());
   }

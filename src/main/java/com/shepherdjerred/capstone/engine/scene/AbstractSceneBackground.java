@@ -7,14 +7,14 @@ import com.shepherdjerred.capstone.engine.scene.position.BackgroundScenePosition
 import com.shepherdjerred.capstone.engine.window.WindowSize;
 import lombok.Setter;
 
+@Setter
 public class AbstractSceneBackground extends AbstractGameObject {
 
-  @Setter
   private boolean isCleanupDisabled;
 
-  public AbstractSceneBackground(GameObjectRenderer renderer, WindowSize windowSize) {
+  public AbstractSceneBackground(GameObjectRenderer<?> renderer, WindowSize windowSize) {
     super(renderer,
-        new SceneObjectDimensions(windowSize.getWidth(), windowSize.getHeight()),
+        new SceneObjectDimensions(windowSize.width(), windowSize.height()),
         new BackgroundScenePositioner());
   }
 

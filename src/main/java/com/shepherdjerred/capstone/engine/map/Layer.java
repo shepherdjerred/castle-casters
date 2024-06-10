@@ -1,14 +1,10 @@
 package com.shepherdjerred.capstone.engine.map;
 
 import com.shepherdjerred.capstone.engine.graphics.texture.TextureName;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
 import lombok.Getter;
 import lombok.ToString;
+
+import java.util.*;
 
 @ToString
 public class Layer implements Comparable<Layer>, Iterable<MapTile> {
@@ -36,7 +32,7 @@ public class Layer implements Comparable<Layer>, Iterable<MapTile> {
       throw new IllegalArgumentException(coordinate + " is already contained in this map.");
     }
     tiles.put(coordinate, mapTile);
-    layerTextures.add(mapTile.getTextureName());
+    layerTextures.add(mapTile.textureName());
   }
 
   public Optional<MapTile> getTile(MapCoordinate coordinate) {
@@ -56,5 +52,4 @@ public class Layer implements Comparable<Layer>, Iterable<MapTile> {
   public Iterator<MapTile> iterator() {
     return tiles.values().iterator();
   }
-
 }

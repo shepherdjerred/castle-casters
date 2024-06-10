@@ -5,10 +5,11 @@ import com.shepherdjerred.capstone.network.packet.serialization.PacketSerializer
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.socket.DatagramPacket;
 import io.netty.handler.codec.MessageToMessageEncoder;
-import java.net.InetSocketAddress;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+
+import java.net.InetSocketAddress;
+import java.util.List;
 
 @Log4j2
 @AllArgsConstructor

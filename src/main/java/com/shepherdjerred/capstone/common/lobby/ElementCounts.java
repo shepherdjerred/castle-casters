@@ -1,10 +1,11 @@
 package com.shepherdjerred.capstone.common.lobby;
 
 import com.shepherdjerred.capstone.common.player.Element;
+import lombok.ToString;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import lombok.ToString;
 
 @ToString
 class ElementCounts {
@@ -41,8 +42,7 @@ class ElementCounts {
     var newElementCounts = new HashMap<>(elementCounts);
 
     if (newElementCounts.containsKey(e)) {
-      var currentValue = newElementCounts.get(e);
-      newElementCounts.put(e, currentValue + 1);
+      newElementCounts.compute(e, (k, currentValue) -> currentValue + 1);
     } else {
       newElementCounts.put(e, 1);
     }

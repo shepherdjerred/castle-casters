@@ -11,8 +11,8 @@ public class WallIsBetweenPivotAndSourceValidatorRule implements ValidatorRule<J
 
   @Override
   public TurnValidationResult validate(Match match, JumpPawnTurn turn) {
-    var pivot = turn.getPivot();
-    var src = turn.getSource();
+    var pivot = turn.pivot();
+    var src = turn.source();
     var dist = Coordinate.calculateManhattanDistance(pivot, src);
 
     // If the distance != 2 then we can't do this check
@@ -21,7 +21,7 @@ public class WallIsBetweenPivotAndSourceValidatorRule implements ValidatorRule<J
     }
 
     var coordinateBetween = Coordinate.calculateMidpoint(pivot, src);
-    if (match.getBoard().hasPiece(coordinateBetween)) {
+    if (match.board().hasPiece(coordinateBetween)) {
       return new TurnValidationResult(ErrorMessage.WALL_BETWEEN_PIVOT_AND_SOURCE);
     } else {
       return new TurnValidationResult();

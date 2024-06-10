@@ -8,8 +8,8 @@ import com.shepherdjerred.capstone.engine.scene.position.ScenePositioner;
 public class Wall extends AbstractGameObject {
 
   public Wall(ResourceManager resourceManager,
-      SceneObjectDimensions sceneObjectDimensions,
-      ScenePositioner position) {
+              SceneObjectDimensions sceneObjectDimensions,
+              ScenePositioner position) {
     super(new WallRenderer(resourceManager), sceneObjectDimensions, position);
   }
 }

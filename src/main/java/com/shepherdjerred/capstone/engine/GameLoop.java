@@ -1,15 +1,15 @@
 package com.shepherdjerred.capstone.engine;
 
-import static org.lwjgl.openal.AL10.AL_NO_ERROR;
-import static org.lwjgl.openal.AL10.alGetError;
-import static org.lwjgl.opengl.GL11.glGetError;
-
 import com.shepherdjerred.capstone.engine.graphics.ErrorConverter;
 import com.shepherdjerred.capstone.engine.input.mouse.MouseTracker;
 import com.shepherdjerred.capstone.engine.window.Window;
 import com.shepherdjerred.capstone.events.Event;
 import com.shepherdjerred.capstone.events.EventBus;
 import lombok.extern.log4j.Log4j2;
+
+import static org.lwjgl.openal.AL10.AL_NO_ERROR;
+import static org.lwjgl.openal.AL10.alGetError;
+import static org.lwjgl.opengl.GL11.glGetError;
 
 @Log4j2
 public class GameLoop implements Runnable {
@@ -24,11 +24,11 @@ public class GameLoop implements Runnable {
   private final int targetUpdatesPerSecond;
 
   public GameLoop(GameLogic gameLogic,
-      Window window,
-      EventBus<Event> eventBus,
-      MouseTracker mouseTracker,
-      int targetFramesPerSecond,
-      int targetUpdatesPerSecond) {
+                  Window window,
+                  EventBus<Event> eventBus,
+                  MouseTracker mouseTracker,
+                  int targetFramesPerSecond,
+                  int targetUpdatesPerSecond) {
     this.gameLogic = gameLogic;
     this.window = window;
     this.timer = new Timer();
@@ -41,7 +41,7 @@ public class GameLoop implements Runnable {
 
   public void initialize() throws Exception {
     window.initialize();
-    gameLogic.initialize(window.getWindowSettings().getWindowSize());
+    gameLogic.initialize(window.getWindowSettings().windowSize());
   }
 
   private void sync() {
@@ -49,6 +49,7 @@ public class GameLoop implements Runnable {
     double endTime = timer.getLastLoopTime() + loopSlot;
     while (timer.getTime() < endTime) {
       try {
+        //noinspection BusyWait
         Thread.sleep(1);
       } catch (InterruptedException ignored) {
       }
@@ -119,14 +120,14 @@ public class GameLoop implements Runnable {
     int errCode = glGetError();
     if (errCode != 0) {
       var converter = new ErrorConverter();
-      log.error("OpenGL error: " + converter.convert(errCode));
+      log.error("OpenGL error: {}", converter.convert(errCode));
     }
   }
 
   private void printOpenAlErrors() {
     int error = alGetError();
     if (error != AL_NO_ERROR) {
-      log.error("OpenAL error: " + error);
+      log.error("OpenAL error: {}", error);
     }
   }
 

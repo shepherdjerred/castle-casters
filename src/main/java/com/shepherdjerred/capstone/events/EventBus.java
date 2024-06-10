@@ -2,6 +2,7 @@ package com.shepherdjerred.capstone.events;
 
 import com.shepherdjerred.capstone.events.handlers.EventHandler;
 import com.shepherdjerred.capstone.events.handlers.EventHandlerFrame;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;

@@ -15,11 +15,11 @@ import lombok.Setter;
 
 public class MapObject implements GameObject {
 
-  @Getter
-  private boolean isInitialized;
   private final ResourceManager resourceManager;
   private final MapRenderer mapRenderer;
   private final GameMapName gameMapName;
+  @Getter
+  private boolean isInitialized;
   @Getter
   private MapLayers mapLayers;
   @Getter
@@ -30,7 +30,7 @@ public class MapObject implements GameObject {
   private int yOffset;
 
   public MapObject(ResourceManager resourceManager,
-      GameMapName gameMapName) {
+                   GameMapName gameMapName) {
     this.resourceManager = resourceManager;
     this.gameMapName = gameMapName;
     this.mapRenderer = new MapRenderer(resourceManager);

@@ -11,14 +11,11 @@ public class ShaderProgramLoader implements ResourceLoader<ShaderProgramName, Sh
 
   @Override
   public ShaderProgram get(ShaderProgramName identifier) throws Exception {
-    switch (identifier) {
-      case DEFAULT:
-        return getDefaultShaderProgram();
-      case TEXT:
-        return getTextShaderProgram();
-      default:
-        throw new UnsupportedOperationException("Unknown shader program: " + identifier);
-    }
+    return switch (identifier) {
+      case DEFAULT -> getDefaultShaderProgram();
+      case TEXT -> getTextShaderProgram();
+      default -> throw new UnsupportedOperationException("Unknown shader program: " + identifier);
+    };
   }
 
   private ShaderProgram getDefaultShaderProgram() throws Exception {

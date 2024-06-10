@@ -21,15 +21,15 @@ public class Color {
     this.alpha = 1;
   }
 
-  public float[] toRgbFloatArray() {
-    return new float[] {red, blue, green};
-  }
-
   public static Color white() {
     return new Color(1, 1, 1);
   }
 
   public static Color black() {
     return new Color(0, 0, 0);
+  }
+
+  public float[] toRgbFloatArray() {
+    return new float[]{red, blue, green};
   }
 }

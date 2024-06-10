@@ -6,17 +6,14 @@ import com.shepherdjerred.capstone.logic.piece.NullPiece;
 import com.shepherdjerred.capstone.logic.piece.Piece;
 import com.shepherdjerred.capstone.logic.piece.WallPiece;
 import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
+import lombok.*;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
 
 /**
  * Represents the pieces and their locations on a board.
@@ -39,7 +36,7 @@ public class BoardPieces {
    * Creates a new BoardPieces object.
    */
   public static BoardPieces from(BoardSettings boardSettings,
-      BoardPiecesInitializer boardPiecesInitializer) {
+                                 BoardPiecesInitializer boardPiecesInitializer) {
     var gridSize = boardSettings.getGridSize();
     Map<QuoridorPlayer, Coordinate> pawnLocations = boardPiecesInitializer.getInitialPawnLocations(
         boardSettings);
@@ -87,7 +84,7 @@ public class BoardPieces {
    * Moves a pawn.
    *
    * @param quoridorPlayer The owner of the pawn to move
-   * @param destination The new location of the pawn
+   * @param destination    The new location of the pawn
    * @return The BoardPieces after the move
    */
   public BoardPieces movePawn(QuoridorPlayer quoridorPlayer, Coordinate destination) {
@@ -107,14 +104,14 @@ public class BoardPieces {
    * Places a wall.
    *
    * @param quoridorPlayer The owner of the wall to place
-   * @param c1 First coordinate of the wall
-   * @param c2 Second coordinate of the wall
+   * @param c1             First coordinate of the wall
+   * @param c2             Second coordinate of the wall
    * @return The BoardPieces after the move
    */
   public BoardPieces placeWall(QuoridorPlayer quoridorPlayer,
-      Coordinate c1,
-      Coordinate vertex,
-      Coordinate c2) {
+                               Coordinate c1,
+                               Coordinate vertex,
+                               Coordinate c2) {
     var newPiecesMap = new HashMap<>(pieces);
     newPiecesMap.put(c1, new WallPiece(quoridorPlayer));
     newPiecesMap.put(vertex, new WallPiece(quoridorPlayer));

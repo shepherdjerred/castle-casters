@@ -19,21 +19,21 @@ import lombok.Getter;
 
 public class TextButton implements GameObject, Clickable, Hoverable {
 
-  @Getter
-  private boolean isInitialized;
   private final Text text;
   private final Button button;
+  @Getter
+  private boolean isInitialized;
 
   public TextButton(ResourceManager resourceManager,
-      WindowSize windowSize,
-      ScenePositioner positioner,
-      String text,
-      FontName fontName,
-      Color color,
-      int fontSize,
-      SceneObjectDimensions dimensions,
-      Type type,
-      Runnable onClick) {
+                    WindowSize windowSize,
+                    ScenePositioner positioner,
+                    String text,
+                    FontName fontName,
+                    Color color,
+                    int fontSize,
+                    SceneObjectDimensions dimensions,
+                    Type type,
+                    Runnable onClick) {
     this.button = new Button(resourceManager,
         windowSize,
         positioner,
@@ -45,10 +45,10 @@ public class TextButton implements GameObject, Clickable, Hoverable {
         fontName,
         color,
         fontSize,
-        dimensions.getWidth(),
+        dimensions.width(),
         new ObjectRelativeScenePositioner(button,
             new SceneCoordinateOffset(0, 0),
-            (int) positioner.getSceneCoordinate(windowSize, dimensions).getZ() + 1));
+            (int) positioner.getSceneCoordinate(windowSize, dimensions).z() + 1));
   }
 
   @Override

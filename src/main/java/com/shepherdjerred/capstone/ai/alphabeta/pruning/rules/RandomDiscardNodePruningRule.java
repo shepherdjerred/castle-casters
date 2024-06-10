@@ -2,8 +2,9 @@ package com.shepherdjerred.capstone.ai.alphabeta.pruning.rules;
 
 import com.shepherdjerred.capstone.ai.alphabeta.pruning.PruningQuoridorNode;
 import com.shepherdjerred.capstone.logic.turn.MovePawnTurn;
-import java.util.Random;
 import lombok.AllArgsConstructor;
+
+import java.util.Random;
 
 @AllArgsConstructor
 public class RandomDiscardNodePruningRule implements NodePruningRule {

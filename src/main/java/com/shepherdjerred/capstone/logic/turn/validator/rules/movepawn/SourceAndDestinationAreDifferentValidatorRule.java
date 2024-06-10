@@ -12,7 +12,7 @@ public class SourceAndDestinationAreDifferentValidatorRule implements ValidatorR
 
   @Override
   public TurnValidationResult validate(Match match, MovePawnTurn turn) {
-    if (turn.getSource().equals(turn.getDestination())) {
+    if (turn.source().equals(turn.destination())) {
       return new TurnValidationResult(ErrorMessage.SOURCE_AND_DESTINATION_NOT_DIFFERENT);
     } else {
       return new TurnValidationResult();

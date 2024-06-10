@@ -1,14 +1,8 @@
 package com.shepherdjerred.capstone.engine.input.mouse;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 
-@ToString
 @Getter
-@AllArgsConstructor
-public class MouseCoordinate {
+public record MouseCoordinate(int x, int y) {
 
-  private final int x;
-  private final int y;
 }

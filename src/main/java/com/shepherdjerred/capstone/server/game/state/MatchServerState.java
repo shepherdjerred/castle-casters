@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j2;
 public class MatchServerState extends AbstractGameServerState {
 
   public MatchServerState(GameLogic gameLogic,
-      EventBus<Event> eventBus) {
+                          EventBus<Event> eventBus) {
     super(gameLogic, eventBus);
   }
 
@@ -28,18 +28,18 @@ public class MatchServerState extends AbstractGameServerState {
 
     frame.registerHandler(MatchStartedEvent.class, (event) -> {
       var gameState = gameLogic.getGameState();
-      var match = gameState.getMatch();
+      var match = gameState.match();
       var nextPlayerId = match.getActivePlayerId();
-      var nextPlayer = gameState.getLobby().getPlayer(nextPlayerId);
+      var nextPlayer = gameState.lobby().getPlayer(nextPlayerId);
 
-      log.info(gameState.getLobby());
+      log.info(gameState.lobby());
       log.info(nextPlayer);
     });
 
     frame.registerHandler(DoAiTurnEvent.class, (event) -> {
       var gameState = gameLogic.getGameState();
 
-      var match = gameState.getMatch();
+      var match = gameState.match();
       var ai = new AlphaBetaQuoridorAi(new WeightedMatchEvaluator(new EvaluatorWeights(
           9612.407041694314,
           -7288.691596308785,
@@ -55,8 +55,8 @@ public class MatchServerState extends AbstractGameServerState {
     frame.registerHandler(TryDoTurnEvent.class, (event) -> {
       var gameState = gameLogic.getGameState();
 
-      var match = gameState.getMatch();
-      var turn = event.getTurn();
+      var match = gameState.match();
+      var turn = event.turn();
 
       try {
         var newMatch = match.doTurn(turn);
@@ -67,16 +67,16 @@ public class MatchServerState extends AbstractGameServerState {
         eventBus.dispatch(new DoTurnEvent(turn));
 
         var nextPlayerId = newMatch.getActivePlayerId();
-        var nextPlayer = gameState.getLobby().getPlayer(nextPlayerId);
+        var nextPlayer = gameState.lobby().getPlayer(nextPlayerId);
 
-        log.info(gameState.getLobby());
-        log.info(gameState.getMatch());
+        log.info(gameState.lobby());
+        log.info(gameState.match());
 
         if (nextPlayer instanceof AiPlayer) {
           log.info("Doing AI turn...");
           eventBus.dispatch(new DoAiTurnEvent(nextPlayer));
         } else {
-          log.info("Next player is not an AI " + nextPlayer);
+          log.info("Next player is not an AI {}", nextPlayer);
         }
       } catch (Exception e) {
         log.error("Error doing turn", e);

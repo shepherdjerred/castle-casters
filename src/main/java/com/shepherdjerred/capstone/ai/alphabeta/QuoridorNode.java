@@ -8,23 +8,16 @@ import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
 import com.shepherdjerred.capstone.logic.turn.Turn;
 import com.shepherdjerred.capstone.logic.turn.generator.TurnGenerator;
 import com.shepherdjerred.capstone.logic.turn.validator.TurnValidatorFactory;
+import lombok.Getter;
+import lombok.extern.log4j.Log4j2;
+
 import java.util.Collection;
 import java.util.stream.Collectors;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
-import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Getter
-@ToString(exclude = {"match", "matchEvaluator"})
-@AllArgsConstructor
-public class QuoridorNode implements IQuoridorNode {
-
-  private final QuoridorPlayer optimizingPlayer;
-  private final Match match;
-  private final Turn turn;
-  private final MatchEvaluator matchEvaluator;
+public record QuoridorNode(QuoridorPlayer optimizingPlayer, Match match, Turn turn,
+                           MatchEvaluator matchEvaluator) implements IQuoridorNode {
 
   @Override
   public Collection<TreeNode> getChildNodes() {
@@ -42,7 +35,7 @@ public class QuoridorNode implements IQuoridorNode {
 
   @Override
   public boolean isSolutionNode() {
-    return match.getMatchStatus().getStatus() == Status.VICTORY;
+    return match.matchStatus().status() == Status.VICTORY;
   }
 
   @Override

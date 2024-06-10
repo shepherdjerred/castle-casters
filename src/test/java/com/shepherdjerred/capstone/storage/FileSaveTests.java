@@ -19,10 +19,10 @@ import java.time.Instant;
 
 public class FileSaveTests {
 
-  private Match match = Match.from(new MatchSettings(10, QuoridorPlayer.ONE, PlayerCount.TWO),
+  private final Match match = Match.from(new MatchSettings(10, QuoridorPlayer.ONE, PlayerCount.TWO),
       new BoardSettings(9, PlayerCount.TWO));
-  private Path currentRelativePath = Paths.get("").toAbsolutePath();
-  private FilesystemSavedGameRepository repository = new FilesystemSavedGameRepository(currentRelativePath);
+  private final Path currentRelativePath = Paths.get("").toAbsolutePath();
+  private final FilesystemSavedGameRepository repository = new FilesystemSavedGameRepository(currentRelativePath);
 
   @Test
   public void testSaves() throws IOException {

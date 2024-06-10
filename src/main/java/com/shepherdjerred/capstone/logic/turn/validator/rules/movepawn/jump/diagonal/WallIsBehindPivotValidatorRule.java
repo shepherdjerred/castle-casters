@@ -14,10 +14,10 @@ public class WallIsBehindPivotValidatorRule implements ValidatorRule<JumpPawnDia
 
   @Override
   public TurnValidationResult validate(Match match, JumpPawnDiagonalTurn turn) {
-    var board = match.getBoard();
-    var src = turn.getSource();
-    var dest = turn.getDestination();
-    var pivot = turn.getPivot();
+    var board = match.board();
+    var src = turn.source();
+    var dest = turn.destination();
+    var pivot = turn.pivot();
 
     if (board.isCoordinateInvalid(src) || board.isCoordinateInvalid(dest)
         || board.isCoordinateInvalid(pivot)) {
@@ -26,20 +26,20 @@ public class WallIsBehindPivotValidatorRule implements ValidatorRule<JumpPawnDia
 
     Direction direction = null;
 
-    if (pivot.getX() == dest.getX()) {
-      if (src.getY() - dest.getY() > 0) {
+    if (pivot.x() == dest.x()) {
+      if (src.y() - dest.y() > 0) {
         direction = Direction.RIGHT;
-      } else if (src.getY() - dest.getY() < 0) {
+      } else if (src.y() - dest.y() < 0) {
         direction = Direction.LEFT;
       } else {
         throw new UnsupportedOperationException();
       }
     }
 
-    if (pivot.getY() == dest.getY()) {
-      if (src.getX() - dest.getX() < 0) {
+    if (pivot.y() == dest.y()) {
+      if (src.x() - dest.x() < 0) {
         direction = Direction.DOWN;
-      } else if (src.getX() - dest.getX() > 0) {
+      } else if (src.x() - dest.x() > 0) {
         direction = Direction.UP;
       } else {
         throw new UnsupportedOperationException();
@@ -61,11 +61,11 @@ public class WallIsBehindPivotValidatorRule implements ValidatorRule<JumpPawnDia
     }
 
     if (board.isCoordinateInvalid(coordinateToCheck)) {
-      log.debug("No wall behind pivot " + turn + " " + direction);
+      log.debug("No wall behind pivot {} {}", turn, direction);
       return new TurnValidationResult(ErrorMessage.NO_WALL_BEHIND_PIVOT);
     }
 
-    if (match.getBoard().hasWall(coordinateToCheck)) {
+    if (match.board().hasWall(coordinateToCheck)) {
       return new TurnValidationResult();
     } else {
       return new TurnValidationResult(ErrorMessage.NO_WALL_BEHIND_PIVOT);

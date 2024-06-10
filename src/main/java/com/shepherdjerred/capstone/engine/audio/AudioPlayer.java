@@ -1,16 +1,5 @@
 package com.shepherdjerred.capstone.engine.audio;
 
-import static org.lwjgl.openal.AL10.AL_BUFFER;
-import static org.lwjgl.openal.AL10.alSourcePlay;
-import static org.lwjgl.openal.AL10.alSourcei;
-import static org.lwjgl.openal.ALC10.ALC_DEFAULT_DEVICE_SPECIFIER;
-import static org.lwjgl.openal.ALC10.alcCloseDevice;
-import static org.lwjgl.openal.ALC10.alcCreateContext;
-import static org.lwjgl.openal.ALC10.alcDestroyContext;
-import static org.lwjgl.openal.ALC10.alcGetString;
-import static org.lwjgl.openal.ALC10.alcMakeContextCurrent;
-import static org.lwjgl.openal.ALC10.alcOpenDevice;
-
 import com.shepherdjerred.capstone.engine.events.audio.PlayAudioEvent;
 import com.shepherdjerred.capstone.events.Event;
 import com.shepherdjerred.capstone.events.EventBus;
@@ -20,12 +9,15 @@ import org.lwjgl.openal.AL;
 import org.lwjgl.openal.ALC;
 import org.lwjgl.openal.ALCCapabilities;
 
+import static org.lwjgl.openal.AL10.*;
+import static org.lwjgl.openal.ALC10.*;
+
 @Log4j2
 @RequiredArgsConstructor
 public class AudioPlayer {
 
-  private SourcedAudio currentAudio = null;
   private final EventBus<Event> eventBus;
+  private SourcedAudio currentAudio = null;
   private long device;
   private long context;
 
@@ -45,14 +37,14 @@ public class AudioPlayer {
 
   private void play(SourcedAudio sourcedAudio) {
     // TODO this could be better.
-    if (currentAudio == null || sourcedAudio.getAudio().getAudioName() != currentAudio.getAudio()
-        .getAudioName()) {
+    if (currentAudio == null || sourcedAudio.audio().audioName() != currentAudio.audio()
+        .audioName()) {
       currentAudio = sourcedAudio;
       log.info("Playing music");
-      alSourcei(sourcedAudio.getAlSourceName(),
+      alSourcei(sourcedAudio.alSourceName(),
           AL_BUFFER,
-          sourcedAudio.getAudio().getAlBufferName());
-      alSourcePlay(sourcedAudio.getAlSourceName());
+          sourcedAudio.audio().alBufferName());
+      alSourcePlay(sourcedAudio.alSourceName());
     } else {
       log.info("Skipping music since it's already playing.");
     }
@@ -60,7 +52,7 @@ public class AudioPlayer {
 
   private void setupListener() {
     eventBus.registerHandler(PlayAudioEvent.class,
-        playAudioEvent -> play(playAudioEvent.getAudio()));
+        playAudioEvent -> play(playAudioEvent.audio()));
   }
 
   public void cleanup() {

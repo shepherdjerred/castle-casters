@@ -9,13 +9,14 @@ import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePosi
 import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePositioner.HorizontalPosition;
 import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePositioner.VerticalPosition;
 import com.shepherdjerred.capstone.engine.window.WindowSize;
-import com.shepherdjerred.capstone.game.objects.logo.Logo;
-import com.shepherdjerred.capstone.game.scenes.mainmenu.MainMenuScene;
 import com.shepherdjerred.capstone.events.Event;
 import com.shepherdjerred.capstone.events.EventBus;
+import com.shepherdjerred.capstone.game.objects.logo.Logo;
+import com.shepherdjerred.capstone.game.scenes.mainmenu.MainMenuScene;
+import lombok.extern.log4j.Log4j2;
+
 import java.util.HashSet;
 import java.util.Set;
-import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class TeamIntroScene extends AbstractUIScene {
@@ -25,8 +26,8 @@ public class TeamIntroScene extends AbstractUIScene {
   private boolean hasTransitioned = false;
 
   public TeamIntroScene(ResourceManager resourceManager,
-      EventBus<Event> eventBus,
-      WindowSize windowSize) {
+                        EventBus<Event> eventBus,
+                        WindowSize windowSize) {
     super(resourceManager,
         windowSize,
         new TeamIntroRenderer(resourceManager, windowSize));

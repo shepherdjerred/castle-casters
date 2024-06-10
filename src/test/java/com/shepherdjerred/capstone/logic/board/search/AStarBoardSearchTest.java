@@ -1,14 +1,15 @@
 package com.shepherdjerred.capstone.logic.board.search;
 
 
-import com.shepherdjerred.capstone.logic.board.QuoridorBoard;
 import com.shepherdjerred.capstone.logic.board.BoardSettings;
 import com.shepherdjerred.capstone.logic.board.Coordinate;
+import com.shepherdjerred.capstone.logic.board.QuoridorBoard;
 import com.shepherdjerred.capstone.logic.player.PlayerCount;
-import java.util.HashSet;
-import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class AStarBoardSearchTest {
 
@@ -32,4 +33,5 @@ public class AStarBoardSearchTest {
     dest.add(new Coordinate(0, 8));
 
     Assertions.assertTrue(search.hasPathToAnyDestination(board, src, dest));
-  }}
+  }
+}

@@ -6,8 +6,9 @@ import com.shepherdjerred.capstone.network.packet.serialization.PacketJsonSerial
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.DatagramChannel;
 import io.netty.handler.logging.LoggingHandler;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import lombok.AllArgsConstructor;
+
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 @AllArgsConstructor
 public class DiscoveryChannelInitializer extends ChannelInitializer<DatagramChannel> {

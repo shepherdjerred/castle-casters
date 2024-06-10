@@ -1,6 +1,7 @@
 package com.shepherdjerred.capstone.logic.turn.validator;
 
 import com.google.common.collect.Sets;
+
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;

@@ -4,11 +4,12 @@ import com.shepherdjerred.capstone.engine.object.SceneObjectDimensions;
 import com.shepherdjerred.capstone.engine.resource.ResourceManager;
 import com.shepherdjerred.capstone.engine.scene.AbstractSceneBackground;
 import com.shepherdjerred.capstone.engine.window.WindowSize;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.util.Random;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import lombok.Getter;
-import lombok.ToString;
 
 /**
  * A background spanning the entire window.
@@ -19,7 +20,7 @@ public class ParallaxBackground extends AbstractSceneBackground {
   @Getter
   private final Type type;
   @Getter
-  private SortedMap<Integer, SortedMap<Integer, Float>> instances;
+  private final SortedMap<Integer, SortedMap<Integer, Float>> instances;
   private final ParallaxBackgroundData parallaxBackgroundData;
 
   public ParallaxBackground(ResourceManager resourceManager, WindowSize windowSize, Type type) {

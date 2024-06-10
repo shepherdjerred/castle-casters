@@ -4,6 +4,7 @@ import com.shepherdjerred.capstone.common.Constants;
 import com.shepherdjerred.capstone.common.GameState;
 import com.shepherdjerred.capstone.common.chat.ChatHistory;
 import com.shepherdjerred.capstone.common.lobby.Lobby;
+
 import java.net.InetSocketAddress;
 
 public class Main {

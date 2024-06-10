@@ -11,19 +11,19 @@ import lombok.Setter;
 public abstract class HoverableAbstractGameObject extends AbstractGameObject implements Hoverable,
     Collidable {
 
-  @Setter
-  private CollisionDetector collisionDetector;
   private final Runnable onHover;
   private final Runnable onUnhover;
+  @Setter
+  private CollisionDetector collisionDetector;
   @Getter
   private boolean isHovered;
 
   public HoverableAbstractGameObject(GameObjectRenderer renderer,
-      SceneObjectDimensions objectDimensions,
-      ScenePositioner positioner,
-      CollisionDetector collisionDetector,
-      Runnable onHover,
-      Runnable onUnhover) {
+                                     SceneObjectDimensions objectDimensions,
+                                     ScenePositioner positioner,
+                                     CollisionDetector collisionDetector,
+                                     Runnable onHover,
+                                     Runnable onUnhover) {
     super(renderer, objectDimensions, positioner);
     this.collisionDetector = collisionDetector;
     this.onHover = onHover;
@@ -31,9 +31,9 @@ public abstract class HoverableAbstractGameObject extends AbstractGameObject imp
   }
 
   public HoverableAbstractGameObject(GameObjectRenderer renderer,
-      SceneObjectDimensions objectDimensions,
-      ScenePositioner positioner,
-      CollisionDetector collisionDetector, Runnable onHover) {
+                                     SceneObjectDimensions objectDimensions,
+                                     ScenePositioner positioner,
+                                     CollisionDetector collisionDetector, Runnable onHover) {
     super(renderer, objectDimensions, positioner);
     this.collisionDetector = collisionDetector;
     this.onHover = onHover;
@@ -41,9 +41,9 @@ public abstract class HoverableAbstractGameObject extends AbstractGameObject imp
   }
 
   public HoverableAbstractGameObject(GameObjectRenderer renderer,
-      SceneObjectDimensions objectDimensions,
-      ScenePositioner positioner,
-      CollisionDetector collisionDetector) {
+                                     SceneObjectDimensions objectDimensions,
+                                     ScenePositioner positioner,
+                                     CollisionDetector collisionDetector) {
     super(renderer, objectDimensions, positioner);
     this.collisionDetector = collisionDetector;
     this.onHover = null;

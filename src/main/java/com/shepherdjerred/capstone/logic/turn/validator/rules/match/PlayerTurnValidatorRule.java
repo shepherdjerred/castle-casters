@@ -10,7 +10,7 @@ public class PlayerTurnValidatorRule implements ValidatorRule<Turn> {
 
   @Override
   public TurnValidationResult validate(Match match, Turn turn) {
-    if (turn.getCauser() == match.getActivePlayerId()) {
+    if (turn.causer() == match.getActivePlayerId()) {
       return new TurnValidationResult();
     } else {
       return new TurnValidationResult(ErrorMessage.NOT_CAUSERS_TURN);

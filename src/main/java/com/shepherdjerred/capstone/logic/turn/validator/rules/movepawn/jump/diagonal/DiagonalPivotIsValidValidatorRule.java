@@ -11,9 +11,9 @@ public class DiagonalPivotIsValidValidatorRule implements ValidatorRule<JumpPawn
 
   @Override
   public TurnValidationResult validate(Match match, JumpPawnDiagonalTurn turn) {
-    var src = turn.getSource();
-    var dest = turn.getDestination();
-    var pivot = turn.getPivot();
+    var src = turn.source();
+    var dest = turn.destination();
+    var pivot = turn.pivot();
 
     if (Coordinate.calculateManhattanDistance(src, pivot) == 2
         && Coordinate.calculateManhattanDistance(pivot, dest) == 2

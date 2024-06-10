@@ -9,7 +9,7 @@ public class PlaceWallTurnEnactor implements TurnEnactor {
   /**
    * Takes the steps to transform a given board state by the parameters in a turn.
    *
-   * @param turn The turn to use when transforming the board
+   * @param turn  The turn to use when transforming the board
    * @param board The board state
    * @return The board state transformed by the turn
    */
@@ -23,6 +23,6 @@ public class PlaceWallTurnEnactor implements TurnEnactor {
   }
 
   private QuoridorBoard enactPlaceWallTurn(PlaceWallTurn turn, QuoridorBoard board) {
-    return board.placeWall(turn.getCauser(), turn.getLocation());
+    return board.placeWall(turn.causer(), turn.location());
   }
 }

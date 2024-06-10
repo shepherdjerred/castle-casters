@@ -16,12 +16,12 @@ import lombok.extern.log4j.Log4j2;
 public class TeamIntroRenderer implements SceneRenderer<TeamIntroScene> {
 
   private final ResourceManager resourceManager;
-  private WindowSize windowSize;
+  private final WindowSize windowSize;
   private ProjectionMatrix projectionMatrix;
   private ShaderProgram defaultShaderProgram;
 
   public TeamIntroRenderer(ResourceManager resourceManager,
-      WindowSize windowSize) {
+                           WindowSize windowSize) {
     this.resourceManager = resourceManager;
     this.windowSize = windowSize;
   }

@@ -8,7 +8,7 @@ import com.shepherdjerred.capstone.engine.scene.SceneCoordinate;
 public interface Collidable {
 
   /**
-   * Returns whether or not a coordinate is contained within an object.
+   * Returns whether a coordinate is contained within an object.
    *
    * @param sceneCoordinate The coordinate to test
    * @return True if the object contains the coordinate, false otherwise

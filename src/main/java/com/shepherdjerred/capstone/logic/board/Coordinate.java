@@ -1,22 +1,40 @@
 package com.shepherdjerred.capstone.logic.board;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
-@ToString
-@EqualsAndHashCode
-public class Coordinate {
+public record Coordinate(int x, int y) {
 
-  private final int x;
-  private final int y;
+  public static boolean areCoordinatesCardinal(Coordinate left, Coordinate right) {
+    return (left.x != right.x && left.y == right.y)
+        || (left.x == right.x && left.y != right.y);
+  }
 
-  public Coordinate(int x, int y) {
-//    Preconditions.checkArgument(x >= 0);
-//    Preconditions.checkArgument(y >= 0);
-    this.x = x;
-    this.y = y;
+  public static boolean areCoordinatesDiagonal(Coordinate left, Coordinate right) {
+    return left.x != right.x
+        && left.y != right.y;
+  }
+
+  /**
+   * Gets the midpoint between two Coordinates. <a href="https://www.purplemath.com/modules/midpoint.htm">...</a>
+   */
+  public static Coordinate calculateMidpoint(Coordinate left, Coordinate right) {
+    if (areCoordinatesDiagonal(left, right)) {
+      throw new IllegalArgumentException("Cannot return a midpoint between diagonal coordinates");
+    }
+    if (calculateManhattanDistance(left, right) / 2 != 1) {
+      throw new IllegalArgumentException("Distance between points must be odd");
+    }
+    int x = (left.x + right.x) / 2;
+    int y = (left.y + right.y) / 2;
+    return new Coordinate(x, y);
+  }
+
+  /**
+   * Calculates the manhattan distance between two Coordinates. <a href="https://math.stackexchange.com/questions/139600/how-do-i-calculate-euclidean-and-manhattan-distance-by-hand">...</a>
+   */
+  public static int calculateManhattanDistance(Coordinate left, Coordinate right) {
+    return Math.abs(left.x - right.x) + Math.abs(left.y - right.y);
   }
 
   public Coordinate fromOffset(int xOffset, int yOffset) {
@@ -74,37 +92,5 @@ public class Coordinate {
 
   public int getManhattanDistanceTo(Coordinate coordinate) {
     return calculateManhattanDistance(this, coordinate);
-  }
-
-  public static boolean areCoordinatesCardinal(Coordinate left, Coordinate right) {
-    return (left.x != right.x && left.y == right.y)
-        || (left.x == right.x && left.y != right.y);
-  }
-
-  public static boolean areCoordinatesDiagonal(Coordinate left, Coordinate right) {
-    return left.x != right.x
-        && left.y != right.y;
-  }
-
-  /**
-   * Gets the midpoint between two Coordinates. https://www.purplemath.com/modules/midpoint.htm
-   */
-  public static Coordinate calculateMidpoint(Coordinate left, Coordinate right) {
-    if (areCoordinatesDiagonal(left, right)) {
-      throw new IllegalArgumentException("Cannot return a midpoint between diagonal coordinates");
-    }
-    if (calculateManhattanDistance(left, right) / 2 != 1) {
-      throw new IllegalArgumentException("Distance between points must be odd");
-    }
-    int x = (left.x + right.x) / 2;
-    int y = (left.y + right.y) / 2;
-    return new Coordinate(x, y);
-  }
-
-  /**
-   * Calculates the manhattan distance between two Coordinates. https://math.stackexchange.com/questions/139600/how-do-i-calculate-euclidean-and-manhattan-distance-by-hand
-   */
-  public static int calculateManhattanDistance(Coordinate left, Coordinate right) {
-    return Math.abs(left.x - right.x) + Math.abs(left.y - right.y);
   }
 }

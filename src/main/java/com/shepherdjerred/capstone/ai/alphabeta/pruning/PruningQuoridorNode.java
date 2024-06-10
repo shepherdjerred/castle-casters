@@ -10,13 +10,14 @@ import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
 import com.shepherdjerred.capstone.logic.turn.Turn;
 import com.shepherdjerred.capstone.logic.turn.generator.TurnGenerator;
 import com.shepherdjerred.capstone.logic.turn.validator.TurnValidatorFactory;
-import java.util.Collection;
-import java.util.Set;
-import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
+
+import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Log4j2
 @Getter
@@ -67,7 +68,7 @@ public class PruningQuoridorNode implements IQuoridorNode {
 
   @Override
   public boolean isSolutionNode() {
-    return match.getMatchStatus().getStatus() == Status.VICTORY;
+    return match.matchStatus().status() == Status.VICTORY;
   }
 
   @Override

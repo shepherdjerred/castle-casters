@@ -15,24 +15,24 @@ import lombok.ToString;
 @ToString
 public class Text implements GameObject {
 
-  @Getter
-  private boolean isInitialized;
-  private TextRenderer renderer;
+  private final TextRenderer renderer;
   private final String text;
   private final FontName fontName;
   private final Color color;
   private final int size;
   private final int maxWidth;
+  @Getter
+  private boolean isInitialized;
   @Setter
   private ScenePositioner position;
 
   public Text(ResourceManager resourceManager,
-      String text,
-      FontName fontName,
-      Color color,
-      int size,
-      int maxWidth,
-      ScenePositioner position) {
+              String text,
+              FontName fontName,
+              Color color,
+              int size,
+              int maxWidth,
+              ScenePositioner position) {
     this.text = text;
     this.fontName = fontName;
     this.color = color;

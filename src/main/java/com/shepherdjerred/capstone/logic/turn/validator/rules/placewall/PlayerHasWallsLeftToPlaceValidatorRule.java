@@ -10,7 +10,7 @@ public class PlayerHasWallsLeftToPlaceValidatorRule implements ValidatorRule<Pla
 
   @Override
   public TurnValidationResult validate(Match match, PlaceWallTurn turn) {
-    var player = turn.getCauser();
+    var player = turn.causer();
     if (match.getWallsLeft(player) > 0) {
       return new TurnValidationResult();
     } else {

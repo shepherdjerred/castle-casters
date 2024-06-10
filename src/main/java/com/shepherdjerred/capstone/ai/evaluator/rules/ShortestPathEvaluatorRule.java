@@ -18,12 +18,12 @@ public class ShortestPathEvaluatorRule implements EvaluatorRule {
 
   @Override
   public double evaluate(Match match, QuoridorPlayer player) {
-    var maxDistance = match.getBoard().getBoardSize() * 2;
+    var maxDistance = match.board().getBoardSize() * 2;
     var goals = playerGoals.getGoalCoordinatesForPlayer(player,
-        match.getBoard().getGridSize());
+        match.board().getGridSize());
 //    log.info(new MatchFormatter().matchToString(match));
-    return maxDistance - boardSearch.getShortestPathToAnyDestination(match.getBoard(),
-        match.getBoard().getPawnLocation(player),
+    return maxDistance - boardSearch.getShortestPathToAnyDestination(match.board(),
+        match.board().getPawnLocation(player),
         goals);
   }
 }

@@ -22,10 +22,10 @@ import com.shepherdjerred.capstone.engine.resource.ResourceManager;
 import com.shepherdjerred.capstone.engine.scene.Scene;
 import com.shepherdjerred.capstone.engine.scene.SceneTransitioner;
 import com.shepherdjerred.capstone.engine.window.WindowSize;
-import com.shepherdjerred.capstone.game.network.manager.NetworkManager;
-import com.shepherdjerred.capstone.game.scenes.teamintro.TeamIntroScene;
 import com.shepherdjerred.capstone.events.Event;
 import com.shepherdjerred.capstone.events.EventBus;
+import com.shepherdjerred.capstone.game.network.manager.NetworkManager;
+import com.shepherdjerred.capstone.game.scenes.teamintro.TeamIntroScene;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -112,7 +112,7 @@ public class CastleCastersGame implements GameLogic {
 
     if (resourceManager.hasAllocatedResources()) {
       var references = resourceManager.getReferenceCounter();
-      log.warn("Resource leak(s) detected: " + references);
+      log.warn("Resource leak(s) detected: {}", references);
     } else {
       log.info("No resource leaks detected :)");
     }

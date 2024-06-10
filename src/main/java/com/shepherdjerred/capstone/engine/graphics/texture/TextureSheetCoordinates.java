@@ -38,7 +38,7 @@ public class TextureSheetCoordinates {
 
   // TODO better name
   public float[] firstHalf() {
-    return new float[] {
+    return new float[]{
         topLeft.getX(), topLeft.getY(),
         bottomLeft.getX(), bottomLeft.getY(),
         topRight.getX(), topRight.getY()
@@ -47,7 +47,7 @@ public class TextureSheetCoordinates {
 
   // TODO better name
   public float[] secondHalf() {
-    return new float[] {
+    return new float[]{
         bottomRight.getX(), bottomRight.getY(),
         bottomLeft.getX(), bottomLeft.getY(),
         topRight.getX(), topRight.getY()
@@ -55,7 +55,7 @@ public class TextureSheetCoordinates {
   }
 
   public float[] asFloatArray() {
-    return new float[] {
+    return new float[]{
         topLeft.getX(), topLeft.getY(),
         bottomLeft.getX(), bottomLeft.getY(),
         topRight.getX(), topRight.getY(),
@@ -66,7 +66,7 @@ public class TextureSheetCoordinates {
   }
 
   public float[] asIndexedFloatArray() {
-    return new float[] {
+    return new float[]{
         topLeft.getX(), topLeft.getY(),
         bottomLeft.getX(), bottomLeft.getY(),
         topRight.getX(), topRight.getY(),
@@ -75,7 +75,7 @@ public class TextureSheetCoordinates {
   }
 
   public float[] asHorizontallyFlippedArray() {
-    return new float[] {
+    return new float[]{
         topRight.getX(), topRight.getY(),
         bottomRight.getX(), bottomRight.getY(),
         topLeft.getX(), topLeft.getY(),

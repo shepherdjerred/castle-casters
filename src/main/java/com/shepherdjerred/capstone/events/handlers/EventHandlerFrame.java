@@ -1,19 +1,20 @@
 package com.shepherdjerred.capstone.events.handlers;
 
 import com.shepherdjerred.capstone.events.Event;
+import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import lombok.Getter;
 
 /**
  * Used to easily add/remove multiple handlers all at once.
  */
+@Getter
 @SuppressWarnings("unchecked")
 public class EventHandlerFrame<T extends Event> {
 
-  @Getter
   private final Map<Class<T>, Set<EventHandler<T>>> handlers;
 
   public EventHandlerFrame() {

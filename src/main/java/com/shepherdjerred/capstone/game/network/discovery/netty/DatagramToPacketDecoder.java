@@ -6,9 +6,10 @@ import com.shepherdjerred.capstone.network.packet.serialization.PacketJsonSerial
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.socket.DatagramPacket;
 import io.netty.handler.codec.MessageToMessageDecoder;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+
+import java.util.List;
 
 @Log4j2
 @AllArgsConstructor
@@ -23,7 +24,7 @@ public class DatagramToPacketDecoder extends MessageToMessageDecoder<DatagramPac
     msg.content().readBytes(bytes);
     var packet = serializer.fromBytes(bytes);
     var broadcastPacket = (ServerBroadcastPacket) packet;
-    var info = new ServerInformation(msg.sender(), broadcastPacket.getLobby());
+    var info = new ServerInformation(msg.sender(), broadcastPacket.lobby());
     out.add(info);
   }
 }

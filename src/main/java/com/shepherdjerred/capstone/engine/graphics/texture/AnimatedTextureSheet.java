@@ -1,7 +1,8 @@
 package com.shepherdjerred.capstone.engine.graphics.texture;
 
-import java.util.Map;
 import lombok.AllArgsConstructor;
+
+import java.util.Map;
 
 @AllArgsConstructor
 public class AnimatedTextureSheet {

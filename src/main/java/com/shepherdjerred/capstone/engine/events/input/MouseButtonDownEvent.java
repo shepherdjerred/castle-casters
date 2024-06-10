@@ -2,15 +2,9 @@ package com.shepherdjerred.capstone.engine.events.input;
 
 import com.shepherdjerred.capstone.engine.input.mouse.MouseButton;
 import com.shepherdjerred.capstone.engine.input.mouse.MouseCoordinate;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
-@ToString
-@AllArgsConstructor
-public class MouseButtonDownEvent implements InputEvent {
+public record MouseButtonDownEvent(MouseButton button, MouseCoordinate mouseCoordinate) implements InputEvent {
 
-  private final MouseButton button;
-  private final MouseCoordinate mouseCoordinate;
 }

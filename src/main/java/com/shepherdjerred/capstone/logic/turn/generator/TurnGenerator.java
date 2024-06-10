@@ -3,18 +3,13 @@ package com.shepherdjerred.capstone.logic.turn.generator;
 import com.shepherdjerred.capstone.logic.board.Coordinate;
 import com.shepherdjerred.capstone.logic.board.WallLocation;
 import com.shepherdjerred.capstone.logic.match.Match;
-import com.shepherdjerred.capstone.logic.turn.JumpPawnDiagonalTurn;
-import com.shepherdjerred.capstone.logic.turn.JumpPawnStraightTurn;
-import com.shepherdjerred.capstone.logic.turn.JumpPawnTurn;
-import com.shepherdjerred.capstone.logic.turn.MovePawnTurn;
-import com.shepherdjerred.capstone.logic.turn.NormalMovePawnTurn;
-import com.shepherdjerred.capstone.logic.turn.PlaceWallTurn;
-import com.shepherdjerred.capstone.logic.turn.Turn;
+import com.shepherdjerred.capstone.logic.turn.*;
 import com.shepherdjerred.capstone.logic.turn.validator.TurnValidatorFactory;
+import lombok.AllArgsConstructor;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
-import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class TurnGenerator {
@@ -71,7 +66,7 @@ public class TurnGenerator {
     Set<NormalMovePawnTurn> turns = new HashSet<>();
 
     var player = match.getActivePlayerId();
-    var pawnLocation = match.getBoard().getPawnLocation(player);
+    var pawnLocation = match.board().getPawnLocation(player);
 
     var coordLeft = pawnLocation.toLeft(2);
     var coordRight = pawnLocation.toRight(2);
@@ -96,14 +91,14 @@ public class TurnGenerator {
     Set<JumpPawnTurn> turns = new HashSet<>();
 
     var player = match.getActivePlayerId();
-    var pawnLocation = match.getBoard().getPawnLocation(player);
+    var pawnLocation = match.board().getPawnLocation(player);
 
     var coordLeft = pawnLocation.toLeft(2);
     var coordRight = pawnLocation.toRight(2);
     var coordAbove = pawnLocation.above(2);
     var coordBelow = pawnLocation.below(2);
 
-    if (match.getBoard().hasPiece(coordLeft)) {
+    if (match.board().hasPiece(coordLeft)) {
       var diagAbove = coordLeft.above(2);
       var diagBelow = coordLeft.below(2);
       var straight = coordLeft.toLeft(2);
@@ -117,7 +112,7 @@ public class TurnGenerator {
       turns.add(straightMove);
     }
 
-    if (match.getBoard().hasPiece(coordRight)) {
+    if (match.board().hasPiece(coordRight)) {
       var diagAbove = coordRight.above(2);
       var diagBelow = coordRight.below(2);
       var straight = coordRight.toRight(2);
@@ -131,7 +126,7 @@ public class TurnGenerator {
       turns.add(straightMove);
     }
 
-    if (match.getBoard().hasPiece(coordAbove)) {
+    if (match.board().hasPiece(coordAbove)) {
       var diagLeft = coordAbove.toLeft(2);
       var diagRight = coordAbove.toRight(2);
       var straight = coordAbove.above(2);
@@ -145,7 +140,7 @@ public class TurnGenerator {
       turns.add(straightMove);
     }
 
-    if (match.getBoard().hasPiece(coordBelow)) {
+    if (match.board().hasPiece(coordBelow)) {
       var diagLeft = coordBelow.toLeft(2);
       var diagRight = coordBelow.toRight(2);
       var straight = coordBelow.below(2);
@@ -166,7 +161,7 @@ public class TurnGenerator {
     Set<PlaceWallTurn> turns = new HashSet<>();
     var player = match.getActivePlayerId();
 
-    var gridSize = match.getBoard().getGridSize();
+    var gridSize = match.board().getGridSize();
     for (int x = 0; x < gridSize - 1; x++) {
       for (int y = 0; y < gridSize - 1; y++) {
         // Vertical walls

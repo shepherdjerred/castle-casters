@@ -12,13 +12,13 @@ public class DestinationBoardCellTypeIsPawnValidatorRule implements ValidatorRul
 
   @Override
   public TurnValidationResult validate(Match match, MovePawnTurn turn) {
-    var destination = turn.getDestination();
+    var destination = turn.destination();
 
-    if (match.getBoard().isCoordinateInvalid(destination)) {
+    if (match.board().isCoordinateInvalid(destination)) {
       return new TurnValidationResult(true);
     }
 
-    if (match.getBoard().isPawnBoardCell(destination)) {
+    if (match.board().isPawnBoardCell(destination)) {
       return new TurnValidationResult();
     } else {
       return new TurnValidationResult(ErrorMessage.DESTINATION_CELL_TYPE_NOT_PAWN);

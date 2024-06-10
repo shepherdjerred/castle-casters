@@ -37,30 +37,30 @@ public class MatchTurnEnactor {
 
   public Match enactTurnUnchecked(Turn turn, Match match) {
     var enactor = turnEnactorFactory.getEnactor(turn);
-    var board = match.getBoard();
+    var board = match.board();
 
     var newBoard = enactor.enactTurn(turn, board);
     var newMatchStatus = matchStatusUpdater.updateMatchStatus(turn, match);
 
     // TODO I think this would be better to do in the turn specific handler, but I'm not sure how that can be done well
-    var newWallPool = match.getWallBank();
+    var newWallPool = match.wallBank();
     if (turn instanceof PlaceWallTurn) {
-      newWallPool = newWallPool.takeWall(turn.getCauser());
+      newWallPool = newWallPool.takeWall(turn.causer());
     }
 
-    var matchHistory = match.getMatchHistory();
+    var matchHistory = match.matchHistory();
     var newHistory = matchHistory.push(new MatchHistoryEntry(match, turn));
 
-    var matchSettings = match.getMatchSettings();
+    var matchSettings = match.matchSettings();
 
-    var newActivePlayerTracker = match.getActivePlayerTracker().getNextActivePlayerTracker();
+    var newActivePlayerTracker = match.activePlayerTracker().getNextActivePlayerTracker();
 
     return new Match(newBoard,
         matchSettings,
         newWallPool,
         newMatchStatus,
         newHistory,
-        match.getMatchTurnEnactor(),
+        match.matchTurnEnactor(),
         newActivePlayerTracker);
   }
 }

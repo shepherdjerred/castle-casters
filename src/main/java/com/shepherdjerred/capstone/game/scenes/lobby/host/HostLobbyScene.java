@@ -21,6 +21,8 @@ import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePosi
 import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePositioner.HorizontalPosition;
 import com.shepherdjerred.capstone.engine.scene.position.WindowRelativeScenePositioner.VerticalPosition;
 import com.shepherdjerred.capstone.engine.window.WindowSize;
+import com.shepherdjerred.capstone.events.Event;
+import com.shepherdjerred.capstone.events.EventBus;
 import com.shepherdjerred.capstone.game.event.events.FillSlotsWithAiEvent;
 import com.shepherdjerred.capstone.game.network.event.ServerConnectedEvent;
 import com.shepherdjerred.capstone.game.network.manager.event.ConnectServerEvent;
@@ -33,27 +35,26 @@ import com.shepherdjerred.capstone.game.objects.text.Text;
 import com.shepherdjerred.capstone.game.objects.textbutton.TextButton;
 import com.shepherdjerred.capstone.game.scenes.lobby.details.LobbyDetailsScene;
 import com.shepherdjerred.capstone.game.scenes.mainmenu.MainMenuScene;
-import com.shepherdjerred.capstone.events.Event;
-import com.shepherdjerred.capstone.events.EventBus;
 import com.shepherdjerred.capstone.logic.match.MatchSettings;
 import com.shepherdjerred.capstone.logic.player.PlayerCount;
 import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
+import lombok.extern.log4j.Log4j2;
+
 import java.net.InetSocketAddress;
 import java.util.HashSet;
 import java.util.Set;
-import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class HostLobbyScene extends InteractableUIScene {
 
+  private final LobbySettings lobbySettings;
+  private final GameMapName mapName = GameMapName.GRASS;
   private boolean isServerStarting;
-  private LobbySettings lobbySettings;
-  private GameMapName mapName = GameMapName.GRASS;
 
   public HostLobbyScene(EventBus<Event> eventBus,
-      ResourceManager resourceManager,
-      WindowSize windowSize,
-      LobbyType lobbyType) {
+                        ResourceManager resourceManager,
+                        WindowSize windowSize,
+                        LobbyType lobbyType) {
     super(windowSize,
         resourceManager,
         new com.shepherdjerred.capstone.game.scenes.lobby.host.SimpleSceneRenderer(
@@ -132,7 +133,7 @@ public class HostLobbyScene extends InteractableUIScene {
             eventBus.dispatch(new ConnectServerEvent(new InetSocketAddress(Constants.GAME_PORT)));
 
             eventBus.registerHandler(ServerConnectedEvent.class, (event) -> {
-              if (lobbySettings.getLobbyType().equals(LobbyType.LOCAL)) {
+              if (lobbySettings.lobbyType().equals(LobbyType.LOCAL)) {
                 eventBus.dispatch(new FillSlotsWithAiEvent());
               }
 

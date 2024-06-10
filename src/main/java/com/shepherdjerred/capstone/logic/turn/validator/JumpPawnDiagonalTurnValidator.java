@@ -6,6 +6,7 @@ import com.shepherdjerred.capstone.logic.turn.validator.rules.ValidatorRule;
 import com.shepherdjerred.capstone.logic.turn.validator.rules.movepawn.jump.diagonal.DiagonalPivotIsValidValidatorRule;
 import com.shepherdjerred.capstone.logic.turn.validator.rules.movepawn.jump.diagonal.MoveIsDiagonalValidatorRule;
 import com.shepherdjerred.capstone.logic.turn.validator.rules.movepawn.jump.diagonal.WallIsBehindPivotValidatorRule;
+
 import java.util.HashSet;
 import java.util.Set;
 

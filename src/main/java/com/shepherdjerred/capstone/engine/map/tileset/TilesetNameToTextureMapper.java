@@ -1,10 +1,11 @@
 package com.shepherdjerred.capstone.engine.map.tileset;
 
-import static com.shepherdjerred.capstone.engine.graphics.texture.TextureName.*;
-
 import com.shepherdjerred.capstone.engine.graphics.texture.TextureName;
+
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.shepherdjerred.capstone.engine.graphics.texture.TextureName.*;
 
 /**
  * Maps the names of tilesets to textures.

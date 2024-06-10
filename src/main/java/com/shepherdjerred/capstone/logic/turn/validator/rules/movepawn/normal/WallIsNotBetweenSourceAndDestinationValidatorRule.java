@@ -13,15 +13,15 @@ public class WallIsNotBetweenSourceAndDestinationValidatorRule implements Valida
 
   @Override
   public TurnValidationResult validate(Match match, NormalMovePawnTurn turn) {
-    var dist = Coordinate.calculateManhattanDistance(turn.getSource(), turn.getDestination());
+    var dist = Coordinate.calculateManhattanDistance(turn.source(), turn.destination());
 
     // If the distance != 2 then we can't do this check
     if (dist != 2) {
       return new TurnValidationResult(ErrorMessage.COULD_NOT_RUN_VALIDATOR);
     }
 
-    var coordinateBetween = Coordinate.calculateMidpoint(turn.getSource(), turn.getDestination());
-    if (match.getBoard().hasPiece(coordinateBetween)) {
+    var coordinateBetween = Coordinate.calculateMidpoint(turn.source(), turn.destination());
+    if (match.board().hasPiece(coordinateBetween)) {
       return new TurnValidationResult(ErrorMessage.WALL_BETWEEN_SOURCE_AND_DESTINATION);
     } else {
       return new TurnValidationResult();

@@ -20,8 +20,9 @@ import io.jenetics.Genotype;
 import io.jenetics.engine.Codec;
 import io.jenetics.engine.Problem;
 import io.jenetics.util.DoubleRange;
-import java.util.function.Function;
 import lombok.extern.log4j.Log4j2;
+
+import java.util.function.Function;
 
 @Log4j2
 public class WeightsProblem implements Problem<EvaluatorWeights, DoubleGene, Integer> {
@@ -71,7 +72,7 @@ public class WeightsProblem implements Problem<EvaluatorWeights, DoubleGene, Int
     log.info("Simulating AI match");
 
     int currentTurn = 1;
-    while (match.getMatchStatus().getStatus() == Status.IN_PROGRESS) {
+    while (match.matchStatus().status() == Status.IN_PROGRESS) {
 
       Turn aiTurn;
       if (match.getActivePlayerId() == QuoridorPlayer.ONE) {
@@ -89,17 +90,17 @@ public class WeightsProblem implements Problem<EvaluatorWeights, DoubleGene, Int
       }
 
       if (currentTurn < 10) {
-        log.info("TURN: " + currentTurn);
+        log.info("TURN: {}", currentTurn);
       } else if (currentTurn % 10 == 0 && currentTurn < 100) {
-        log.info("TURN: " + currentTurn);
+        log.info("TURN: {}", currentTurn);
       } else if (currentTurn % 50 == 0) {
-        log.info("TURN: " + currentTurn);
+        log.info("TURN: {}", currentTurn);
       }
     }
 
-    log.info(match.getMatchStatus().getVictor());
+    log.info(match.matchStatus().victor());
 
-    if (match.getMatchStatus().getVictor() == QuoridorPlayer.ONE) {
+    if (match.matchStatus().victor() == QuoridorPlayer.ONE) {
       return currentTurn * -1;
     } else {
       return Integer.MIN_VALUE;

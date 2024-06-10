@@ -12,6 +12,6 @@ public class MouseMoveEventHandler implements EventHandler<MouseMoveEvent> {
 
   @Override
   public void handle(MouseMoveEvent mouseMoveEvent) {
-    mouseTracker.setMousePosition(mouseMoveEvent.getNewMousePosition());
+    mouseTracker.setMousePosition(mouseMoveEvent.newMousePosition());
   }
 }

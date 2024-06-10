@@ -12,9 +12,9 @@ public class SourcePieceIsOwnedByCauserValidatorRule implements ValidatorRule<Mo
 
   @Override
   public TurnValidationResult validate(Match match, MovePawnTurn turn) {
-    var source = turn.getSource();
-    var mover = turn.getCauser();
-    var sourcePieceOwner = match.getBoard().getPiece(source).getOwner();
+    var source = turn.source();
+    var mover = turn.causer();
+    var sourcePieceOwner = match.board().getPiece(source).owner();
 
     if (mover == sourcePieceOwner) {
       return new TurnValidationResult();

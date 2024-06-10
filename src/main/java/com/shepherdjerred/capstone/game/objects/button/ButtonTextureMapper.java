@@ -1,19 +1,14 @@
 package com.shepherdjerred.capstone.game.objects.button;
 
-import static com.shepherdjerred.capstone.engine.graphics.texture.TextureName.GENERIC_BUTTON;
-import static com.shepherdjerred.capstone.engine.graphics.texture.TextureName.GENERIC_BUTTON_CLICKED;
-import static com.shepherdjerred.capstone.engine.graphics.texture.TextureName.GENERIC_BUTTON_HOVERED;
-import static com.shepherdjerred.capstone.engine.graphics.texture.TextureName.MAIN_MENU_BUTTON;
-import static com.shepherdjerred.capstone.engine.graphics.texture.TextureName.MAIN_MENU_BUTTON_CLICKED;
-import static com.shepherdjerred.capstone.engine.graphics.texture.TextureName.MAIN_MENU_BUTTON_HOVERED;
-import static com.shepherdjerred.capstone.engine.graphics.texture.TextureName.UNKNOWN;
-import static com.shepherdjerred.capstone.game.objects.button.Button.Type.GENERIC;
-import static com.shepherdjerred.capstone.game.objects.button.Button.Type.HOME;
-
 import com.shepherdjerred.capstone.engine.object.ClickableTextureSet;
 import com.shepherdjerred.capstone.game.objects.button.Button.Type;
+
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.shepherdjerred.capstone.engine.graphics.texture.TextureName.*;
+import static com.shepherdjerred.capstone.game.objects.button.Button.Type.GENERIC;
+import static com.shepherdjerred.capstone.game.objects.button.Button.Type.HOME;
 
 public class ButtonTextureMapper {
 

@@ -1,7 +1,5 @@
 package com.shepherdjerred.capstone.game.scenes.game;
 
-import static com.shepherdjerred.capstone.game.Constants.RENDER_TILE_RESOLUTION;
-
 import com.shepherdjerred.capstone.common.player.Element;
 import com.shepherdjerred.capstone.engine.events.input.KeyPressedEvent;
 import com.shepherdjerred.capstone.engine.events.input.KeyReleasedEvent;
@@ -18,32 +16,26 @@ import com.shepherdjerred.capstone.engine.scene.Scene;
 import com.shepherdjerred.capstone.engine.scene.position.MapCoordinateScenePositioner;
 import com.shepherdjerred.capstone.engine.scene.position.SceneCoordinateOffset;
 import com.shepherdjerred.capstone.engine.window.WindowSize;
+import com.shepherdjerred.capstone.events.Event;
+import com.shepherdjerred.capstone.events.EventBus;
+import com.shepherdjerred.capstone.events.handlers.EventHandler;
+import com.shepherdjerred.capstone.events.handlers.EventHandlerFrame;
 import com.shepherdjerred.capstone.game.event.events.DoTurnEvent;
 import com.shepherdjerred.capstone.game.event.events.TryDoTurnEvent;
 import com.shepherdjerred.capstone.game.objects.game.map.MapObject;
 import com.shepherdjerred.capstone.game.objects.game.wall.Wall;
 import com.shepherdjerred.capstone.game.objects.game.wizard.Wizard;
-import com.shepherdjerred.capstone.events.Event;
-import com.shepherdjerred.capstone.events.EventBus;
-import com.shepherdjerred.capstone.events.handlers.EventHandler;
-import com.shepherdjerred.capstone.events.handlers.EventHandlerFrame;
 import com.shepherdjerred.capstone.logic.board.Coordinate;
 import com.shepherdjerred.capstone.logic.board.WallLocation;
 import com.shepherdjerred.capstone.logic.match.Match;
 import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
-import com.shepherdjerred.capstone.logic.turn.JumpPawnDiagonalTurn;
-import com.shepherdjerred.capstone.logic.turn.JumpPawnStraightTurn;
-import com.shepherdjerred.capstone.logic.turn.MovePawnTurn;
-import com.shepherdjerred.capstone.logic.turn.NormalMovePawnTurn;
-import com.shepherdjerred.capstone.logic.turn.PlaceWallTurn;
-import com.shepherdjerred.capstone.logic.turn.Turn;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import com.shepherdjerred.capstone.logic.turn.*;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
+
+import java.util.*;
+
+import static com.shepherdjerred.capstone.game.Constants.RENDER_TILE_RESOLUTION;
 
 @Log4j2
 public class GameScene implements Scene {
@@ -55,19 +47,14 @@ public class GameScene implements Scene {
   private final Set<GameObject> gameObjects;
   private final WindowSize windowSize;
   private final GameMapName gameMapName;
-  private MapObject mapObject;
   private final QuoridorPlayer player;
-  private Match match;
   private final EventHandlerFrame<Event> eventHandlerFrame;
   private final Map<Key, Boolean> pressedKeys;
   private final Map<QuoridorPlayer, Wizard> wizards;
+  private MapObject mapObject;
+  private Match match;
 
-  public GameScene(ResourceManager resourceManager,
-      EventBus<Event> eventBus,
-      GameMapName gameMapName,
-      Match match,
-      QuoridorPlayer player,
-      WindowSize windowSize) {
+  public GameScene(ResourceManager resourceManager, EventBus<Event> eventBus, GameMapName gameMapName, Match match, QuoridorPlayer player, WindowSize windowSize) {
     this.resourceManager = resourceManager;
     this.eventBus = eventBus;
     this.gameRenderer = new GameRenderer(resourceManager, eventBus, windowSize);
@@ -84,16 +71,13 @@ public class GameScene implements Scene {
 
   @Override
   public void initialize() throws Exception {
-    var players = match.getMatchSettings().getPlayerCount();
+    var players = match.matchSettings().playerCount();
     for (int i = 1; i < players.toInt() + 1; i++) {
       var player = QuoridorPlayer.fromInt(i);
-      var boardPos = match.getBoard().getPawnLocation(player);
+      var boardPos = match.board().getPawnLocation(player);
       var converter = new MapToQuoridorConverter();
       var mapPos = converter.convert(boardPos);
-      var wizard = new Wizard(resourceManager,
-          new MapCoordinateScenePositioner(new SceneCoordinateOffset(0, 0), mapPos, 10),
-          Element.FIRE,
-          new SceneObjectDimensions(32, 32));
+      var wizard = new Wizard(resourceManager, new MapCoordinateScenePositioner(new SceneCoordinateOffset(0, 0), mapPos, 10), Element.FIRE, new SceneObjectDimensions(32, 32));
       wizards.put(player, wizard);
     }
 
@@ -112,35 +96,30 @@ public class GameScene implements Scene {
     var turnHandler = new EventHandler<DoTurnEvent>() {
       @Override
       public void handle(DoTurnEvent event) {
-        var turn = event.getTurn();
+        var turn = event.turn();
         var player = match.getActivePlayerId();
         match = match.doTurn(turn);
 
         var converter = new MapToQuoridorConverter();
 
         if (turn instanceof MovePawnTurn) {
-          var boardPos = match.getBoard().getPawnLocation(player);
+          var boardPos = match.board().getPawnLocation(player);
           var mapPos = converter.convert(boardPos);
           var wizard = wizards.get(player);
-          wizard.setPosition(new MapCoordinateScenePositioner(new SceneCoordinateOffset(0, 0),
-              mapPos,
-              10));
+          wizard.setPosition(new MapCoordinateScenePositioner(new SceneCoordinateOffset(0, 0), mapPos, 10));
         }
         if (turn instanceof PlaceWallTurn) {
           // TO create wall and position it
-          var pos = ((PlaceWallTurn) turn).getLocation();
-          var coord1 = pos.getFirstCoordinate();
-          var coord2 = pos.getSecondCoordinate();
-          var coord3 = pos.getVertex();
+          var pos = ((PlaceWallTurn) turn).location();
+          var coord1 = pos.firstCoordinate();
+          var coord2 = pos.secondCoordinate();
+          var coord3 = pos.vertex();
           var mapCoord1 = converter.convert(coord1);
           var mapCoord2 = converter.convert(coord2);
           var mapCoord3 = converter.convert(coord3);
-          var wall1 = new Wall(resourceManager, new SceneObjectDimensions(24, 24),
-              new MapCoordinateScenePositioner(new SceneCoordinateOffset(0, 0), mapCoord1, 10));
-          var wall2 = new Wall(resourceManager, new SceneObjectDimensions(24, 24),
-              new MapCoordinateScenePositioner(new SceneCoordinateOffset(0, 0), mapCoord2, 10));
-          var wall3 = new Wall(resourceManager, new SceneObjectDimensions(24, 24),
-              new MapCoordinateScenePositioner(new SceneCoordinateOffset(0, 0), mapCoord3, 10));
+          var wall1 = new Wall(resourceManager, new SceneObjectDimensions(24, 24), new MapCoordinateScenePositioner(new SceneCoordinateOffset(0, 0), mapCoord1, 10));
+          var wall2 = new Wall(resourceManager, new SceneObjectDimensions(24, 24), new MapCoordinateScenePositioner(new SceneCoordinateOffset(0, 0), mapCoord2, 10));
+          var wall3 = new Wall(resourceManager, new SceneObjectDimensions(24, 24), new MapCoordinateScenePositioner(new SceneCoordinateOffset(0, 0), mapCoord3, 10));
 
           try {
             wall1.initialize();
@@ -160,14 +139,14 @@ public class GameScene implements Scene {
     var keyDownHandler = new EventHandler<KeyPressedEvent>() {
       @Override
       public void handle(KeyPressedEvent keyPressedEvent) {
-        pressedKeys.put(keyPressedEvent.getKey(), true);
+        pressedKeys.put(keyPressedEvent.key(), true);
       }
     };
 
     var keyUpHandler = new EventHandler<KeyReleasedEvent>() {
       @Override
       public void handle(KeyReleasedEvent keyReleasedEvent) {
-        pressedKeys.remove(keyReleasedEvent.getKey());
+        pressedKeys.remove(keyReleasedEvent.key());
       }
     };
 
@@ -185,8 +164,8 @@ public class GameScene implements Scene {
       var converter = new MapToQuoridorConverter();
 
       var tileSize = RENDER_TILE_RESOLUTION;
-      var mapX = (event.getMouseCoordinate().getX() / tileSize);
-      var mapY = (event.getMouseCoordinate().getY() / tileSize);
+      var mapX = (event.mouseCoordinate().x() / tileSize);
+      var mapY = (event.mouseCoordinate().y() / tileSize);
 
       var destination = converter.convert(new MapCoordinate(mapX, mapY));
 
@@ -196,44 +175,34 @@ public class GameScene implements Scene {
         return;
       }
 
-      if (event.getButton() == MouseButton.LEFT) {
+      if (event.button() == MouseButton.LEFT) {
         var turn = getMovePawnTurn(match, destination);
         turn.ifPresent(value -> eventBus.dispatch(new TryDoTurnEvent(value)));
-      } else if (event.getButton() == MouseButton.RIGHT) {
+      } else if (event.button() == MouseButton.RIGHT) {
         Turn turn;
         if (pressedKeys.getOrDefault(Key.V, false)) {
-          var posX = destination.getX();
-          var posY = destination.getY();
-          turn = new PlaceWallTurn(activePlayer,
-              new WallLocation(new Coordinate(posX, posY),
-                  new Coordinate(posX, posY + 1),
-                  new Coordinate(posX, posY + 2)));
+          var posX = destination.x();
+          var posY = destination.y();
+          turn = new PlaceWallTurn(activePlayer, new WallLocation(new Coordinate(posX, posY), new Coordinate(posX, posY + 1), new Coordinate(posX, posY + 2)));
         } else {
-          var posX = destination.getX();
-          var posY = destination.getY();
-          turn = new PlaceWallTurn(activePlayer,
-              new WallLocation(new Coordinate(posX, posY),
-                  new Coordinate(posX + 1, posY),
-                  new Coordinate(posX + 2, posY)));
+          var posX = destination.x();
+          var posY = destination.y();
+          turn = new PlaceWallTurn(activePlayer, new WallLocation(new Coordinate(posX, posY), new Coordinate(posX + 1, posY), new Coordinate(posX + 2, posY)));
         }
         eventBus.dispatch(new TryDoTurnEvent(turn));
-      } else {
-        return;
       }
-
-
     });
   }
 
   private Optional<Turn> getMovePawnTurn(Match match, Coordinate destination) {
-    var board = match.getBoard();
+    var board = match.board();
     var source = board.getPawnLocation(player);
 
     if (source.getManhattanDistanceTo(destination) == 4) {
-      var sourceX = source.getX();
-      var sourceY = source.getY();
-      var destX = destination.getX();
-      var destY = destination.getY();
+      var sourceX = source.x();
+      var sourceY = source.y();
+      var destX = destination.x();
+      var destY = destination.y();
       if (source.isCardinalTo(destination)) {
         Coordinate pivot;
         if (destX > sourceX) {
@@ -252,10 +221,7 @@ public class GameScene implements Scene {
           return Optional.empty();
         }
 
-        var jumpStraightTurn = new JumpPawnStraightTurn(player,
-            source,
-            destination,
-            pivot);
+        var jumpStraightTurn = new JumpPawnStraightTurn(player, source, destination, pivot);
         return Optional.of(jumpStraightTurn);
       } else {
         if (destY > sourceY) {

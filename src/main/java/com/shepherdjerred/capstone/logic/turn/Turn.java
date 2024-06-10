@@ -4,6 +4,6 @@ import com.shepherdjerred.capstone.logic.player.QuoridorPlayer;
 
 public interface Turn {
 
-  QuoridorPlayer getCauser();
+  QuoridorPlayer causer();
 }
 //

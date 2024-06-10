@@ -9,17 +9,17 @@ import com.shepherdjerred.capstone.engine.window.WindowSize;
 import lombok.Getter;
 import lombok.ToString;
 
+@Getter
 @ToString
 public class Checkbox extends ClickableAbstractGameObject {
 
-  @Getter
   private boolean isChecked;
 
   public Checkbox(ResourceManager resourceManager,
-      WindowSize windowSize,
-      ScenePositioner position,
-      SceneObjectDimensions sceneObjectDimensions,
-      Runnable onClick) {
+                  WindowSize windowSize,
+                  ScenePositioner position,
+                  SceneObjectDimensions sceneObjectDimensions,
+                  Runnable onClick) {
     super(new CheckboxRenderer(resourceManager), sceneObjectDimensions, position, null, onClick);
     setCollisionDetector(new GameObjectCollisionDetector(this, windowSize));
   }

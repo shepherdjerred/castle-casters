@@ -1,6 +1,7 @@
 package com.shepherdjerred.capstone.events;
 
 import com.shepherdjerred.capstone.events.handlers.EventHandler;
+
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Queue;

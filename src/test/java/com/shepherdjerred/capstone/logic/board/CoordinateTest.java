@@ -9,17 +9,13 @@ public class CoordinateTest {
   @Disabled
   @Test
   public void constructor_ThrowsException_WhenGivenNegativeX() {
-    Assertions.assertThrows(IllegalArgumentException.class, () -> {
-      new Coordinate(-1, 0);
-    });
+    Assertions.assertThrows(IllegalArgumentException.class, () -> new Coordinate(-1, 0));
   }
 
   @Disabled
   @Test
   public void constructor_ThrowsException_WhenGivenNegativeY() {
-    Assertions.assertThrows(IllegalArgumentException.class, () -> {
-      new Coordinate(0, -1);
-    });
+    Assertions.assertThrows(IllegalArgumentException.class, () -> new Coordinate(0, -1));
   }
 
   @Test
@@ -237,9 +233,7 @@ public class CoordinateTest {
     var c1 = new Coordinate(5, 5);
     var c2 = new Coordinate(6, 6);
 
-    Assertions.assertThrows(IllegalArgumentException.class, () -> {
-      Coordinate.calculateMidpoint(c1, c2);
-    });
+    Assertions.assertThrows(IllegalArgumentException.class, () -> Coordinate.calculateMidpoint(c1, c2));
   }
 
   @Test

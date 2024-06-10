@@ -19,8 +19,8 @@ public class VictoryEvaluationRuleTest {
     var match = Match.from(new MatchSettings(10, QuoridorPlayer.ONE, PlayerCount.TWO), new BoardSettings(9, PlayerCount.TWO));
     match = match.doTurnUnchecked(new NormalMovePawnTurn(QuoridorPlayer.ONE, null, new Coordinate(10, 16)));
 
-    System.out.println(match.getBoard().getPawnLocations());
-    System.out.println(match.getMatchStatus());
+    System.out.println(match.board().getPawnLocations());
+    System.out.println(match.matchStatus());
 
     var rule = new VictoryEvaluatorRule();
 

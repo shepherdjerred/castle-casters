@@ -2,6 +2,7 @@ package com.shepherdjerred.capstone.tui;
 
 import com.shepherdjerred.capstone.tui.view.MainMenuView;
 import com.shepherdjerred.capstone.tui.view.View;
+
 import java.util.Scanner;
 
 public class Main {

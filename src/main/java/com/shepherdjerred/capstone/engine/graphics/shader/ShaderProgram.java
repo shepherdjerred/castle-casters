@@ -1,40 +1,18 @@
 package com.shepherdjerred.capstone.engine.graphics.shader;
 
-import static org.lwjgl.opengl.GL20.GL_COMPILE_STATUS;
-import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
-import static org.lwjgl.opengl.GL20.GL_LINK_STATUS;
-import static org.lwjgl.opengl.GL20.GL_VALIDATE_STATUS;
-import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
-import static org.lwjgl.opengl.GL20.glAttachShader;
-import static org.lwjgl.opengl.GL20.glCompileShader;
-import static org.lwjgl.opengl.GL20.glCreateProgram;
-import static org.lwjgl.opengl.GL20.glCreateShader;
-import static org.lwjgl.opengl.GL20.glDeleteProgram;
-import static org.lwjgl.opengl.GL20.glDeleteShader;
-import static org.lwjgl.opengl.GL20.glDetachShader;
-import static org.lwjgl.opengl.GL20.glGetProgramInfoLog;
-import static org.lwjgl.opengl.GL20.glGetProgrami;
-import static org.lwjgl.opengl.GL20.glGetShaderInfoLog;
-import static org.lwjgl.opengl.GL20.glGetShaderi;
-import static org.lwjgl.opengl.GL20.glGetUniformLocation;
-import static org.lwjgl.opengl.GL20.glLinkProgram;
-import static org.lwjgl.opengl.GL20.glShaderSource;
-import static org.lwjgl.opengl.GL20.glUniform1i;
-import static org.lwjgl.opengl.GL20.glUniform3f;
-import static org.lwjgl.opengl.GL20.glUniformMatrix4fv;
-import static org.lwjgl.opengl.GL20.glUseProgram;
-import static org.lwjgl.opengl.GL20.glValidateProgram;
-
 import com.shepherdjerred.capstone.engine.graphics.shader.code.ShaderCodeLoader;
 import com.shepherdjerred.capstone.engine.resource.Resource;
-import java.io.IOException;
-import java.nio.FloatBuffer;
-import java.util.HashMap;
-import java.util.Map;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.joml.Matrix4f;
 import org.lwjgl.system.MemoryStack;
+
+import java.io.IOException;
+import java.nio.FloatBuffer;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.lwjgl.opengl.GL20.*;
 
 @Log4j2
 public class ShaderProgram implements Resource {
@@ -129,7 +107,7 @@ public class ShaderProgram implements Resource {
 
     glValidateProgram(shaderProgramId);
     if (glGetProgrami(shaderProgramId, GL_VALIDATE_STATUS) == 0) {
-      log.warn("Warning validating ShaderCode code: " + glGetProgramInfoLog(shaderProgramId, 1024));
+      log.warn("Warning validating ShaderCode code: {}", glGetProgramInfoLog(shaderProgramId, 1024));
     }
   }
 

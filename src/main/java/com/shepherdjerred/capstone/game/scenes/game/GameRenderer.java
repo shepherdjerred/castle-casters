@@ -18,15 +18,15 @@ public class GameRenderer implements SceneRenderer<GameScene> {
 
   private final ResourceManager resourceManager;
   private final EventBus<Event> eventBus;
-  private WindowSize windowSize;
+  private final WindowSize windowSize;
+  private final EventHandlerFrame<Event> eventHandlerFrame;
   private ProjectionMatrix projectionMatrix;
   private ShaderProgram textShaderProgram;
   private ShaderProgram defaultShaderProgram;
-  private final EventHandlerFrame<Event> eventHandlerFrame;
 
   public GameRenderer(ResourceManager resourceManager,
-      EventBus<Event> eventBus,
-      WindowSize windowSize) {
+                      EventBus<Event> eventBus,
+                      WindowSize windowSize) {
     this.resourceManager = resourceManager;
     this.eventBus = eventBus;
     this.eventHandlerFrame = new EventHandlerFrame<>();

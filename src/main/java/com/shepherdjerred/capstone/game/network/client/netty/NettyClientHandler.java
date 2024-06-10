@@ -7,9 +7,10 @@ import com.shepherdjerred.capstone.game.network.event.ServerDisconnectedEvent;
 import com.shepherdjerred.capstone.network.packet.packets.Packet;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Log4j2
 @AllArgsConstructor
@@ -30,7 +31,7 @@ public class NettyClientHandler extends ChannelDuplexHandler {
   @Override
   public void channelRead(ChannelHandlerContext ctx, Object msg) {
     var packet = (Packet) msg;
-    log.info("Received a packet: " + packet);
+    log.info("Received a packet: {}", packet);
     eventQueue.add(new PacketReceivedEvent(packet));
   }
 }
