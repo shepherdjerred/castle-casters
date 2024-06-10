@@ -1,4 +1,6 @@
 VERSION --try 0.8
+PROJECT sjerred/castle-casters
+
 ARG --global mvn_cache="type=cache,target=/root/.m2/repository,id=mvn,sharing=shared"
 
 ci:
