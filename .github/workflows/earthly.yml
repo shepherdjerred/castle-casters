@@ -1,8 +1,13 @@
 name: Earthly CI
 
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
 on:
   push:
-    branches: [main]
+    branches: [ main ]
 jobs:
   prod:
     name: Build
@@ -17,4 +22,18 @@ jobs:
         with:
           ref: ${{ github.event.inputs.ref }}
       - name: build
-        run: earthly --ci --sat lamport --org sjerred +ci
+        run: earthly --ci --sat lamport --org --output sjerred +ci
+      - name: Save artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: castle-casters.jar
+          path: castle-casters.jar
+      - name: test
+        run: earthly --ci --sat lamport --org --output sjerred +test
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Unit Tests
+          path: surefire-reports/*.xml
+          reporter: java-junit
