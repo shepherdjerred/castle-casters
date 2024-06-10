@@ -22,14 +22,14 @@ jobs:
         with:
           ref: ${{ github.event.inputs.ref }}
       - name: build
-        run: earthly --ci --sat lamport --org --output sjerred +ci
+        run: earthly --ci --sat lamport --org sjerred --output +ci
       - name: Save artifacts
         uses: actions/upload-artifact@v2
         with:
           name: castle-casters.jar
           path: castle-casters.jar
       - name: test
-        run: earthly --ci --sat lamport --org --output sjerred +test
+        run: earthly --ci --sat lamport --org sjerred --output +test
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: success() || failure()
