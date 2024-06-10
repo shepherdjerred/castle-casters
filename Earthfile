@@ -1,5 +1,6 @@
 VERSION --try 0.8
-PROJECT sjerred/castle-casters
+FROM maven:3-amazoncorretto-21
+WORKDIR /workspace
 
 ARG --global mvn_cache="type=cache,target=/root/.m2/repository,id=mvn,sharing=shared"
 
@@ -7,14 +8,14 @@ ci:
   BUILD +build
 
 deps:
-  FROM maven:3-amazoncorretto-21
   COPY pom.xml .
   RUN --mount $mvn_cache mvn dependency:resolve
   RUN rm pom.xml
 
 src:
   FROM +deps
-  COPY src pom.xml .
+  COPY src src
+  COPY pom.xml .
 
 build:
   FROM +src
