@@ -4,6 +4,8 @@ import com.shepherdjerred.castlecasters.common.player.Element;
 import com.shepherdjerred.castlecasters.engine.events.input.KeyPressedEvent;
 import com.shepherdjerred.castlecasters.engine.events.input.KeyReleasedEvent;
 import com.shepherdjerred.castlecasters.engine.events.input.MouseButtonDownEvent;
+import com.shepherdjerred.castlecasters.engine.graphics.Color;
+import com.shepherdjerred.castlecasters.engine.graphics.font.FontName;
 import com.shepherdjerred.castlecasters.engine.input.keyboard.Key;
 import com.shepherdjerred.castlecasters.engine.input.mouse.MouseButton;
 import com.shepherdjerred.castlecasters.engine.map.GameMapName;
@@ -15,6 +17,7 @@ import com.shepherdjerred.castlecasters.engine.resource.ResourceManager;
 import com.shepherdjerred.castlecasters.engine.scene.Scene;
 import com.shepherdjerred.castlecasters.engine.scene.position.MapCoordinateScenePositioner;
 import com.shepherdjerred.castlecasters.engine.scene.position.SceneCoordinateOffset;
+import com.shepherdjerred.castlecasters.engine.scene.position.WindowRelativeScenePositioner;
 import com.shepherdjerred.castlecasters.engine.window.WindowSize;
 import com.shepherdjerred.castlecasters.events.Event;
 import com.shepherdjerred.castlecasters.events.EventBus;
@@ -25,6 +28,7 @@ import com.shepherdjerred.castlecasters.game.event.events.TryDoTurnEvent;
 import com.shepherdjerred.castlecasters.game.objects.game.map.MapObject;
 import com.shepherdjerred.castlecasters.game.objects.game.wall.Wall;
 import com.shepherdjerred.castlecasters.game.objects.game.wizard.Wizard;
+import com.shepherdjerred.castlecasters.game.objects.text.Text;
 import com.shepherdjerred.castlecasters.logic.board.Coordinate;
 import com.shepherdjerred.castlecasters.logic.board.WallLocation;
 import com.shepherdjerred.castlecasters.logic.match.Match;
@@ -54,7 +58,12 @@ public class GameScene implements Scene {
   private MapObject mapObject;
   private Match match;
 
-  public GameScene(ResourceManager resourceManager, EventBus<Event> eventBus, GameMapName gameMapName, Match match, QuoridorPlayer player, WindowSize windowSize) {
+  public GameScene(ResourceManager resourceManager,
+                   EventBus<Event> eventBus,
+                   GameMapName gameMapName,
+                   Match match,
+                   QuoridorPlayer player,
+                   WindowSize windowSize) {
     this.resourceManager = resourceManager;
     this.eventBus = eventBus;
     this.gameRenderer = new GameRenderer(resourceManager, eventBus, windowSize);
@@ -77,11 +86,29 @@ public class GameScene implements Scene {
       var boardPos = match.board().getPawnLocation(player);
       var converter = new MapToQuoridorConverter();
       var mapPos = converter.convert(boardPos);
-      var wizard = new Wizard(resourceManager, new MapCoordinateScenePositioner(new SceneCoordinateOffset(0, 0), mapPos, 10), Element.FIRE, new SceneObjectDimensions(32, 32));
+      var wizard = new Wizard(resourceManager,
+          new MapCoordinateScenePositioner(new SceneCoordinateOffset(0, 0), mapPos, 10),
+          Element.FIRE,
+          new SceneObjectDimensions(32, 32));
       wizards.put(player, wizard);
     }
 
     gameObjects.addAll(wizards.values());
+
+    // Let's show:
+    // - current turn
+    // - number of walls left for each player
+    // - victory/defeat message
+    gameObjects.add(new Text(resourceManager,
+        "Hello World!",
+        FontName.M5X7,
+        Color.white(),
+        12,
+        100,
+        new WindowRelativeScenePositioner(WindowRelativeScenePositioner.HorizontalPosition.LEFT,
+            WindowRelativeScenePositioner.VerticalPosition.TOP,
+            new SceneCoordinateOffset(0, 0),
+            10)));
 
     gameRenderer.initialize(this);
     for (GameObject gameObject : gameObjects) {
@@ -117,9 +144,15 @@ public class GameScene implements Scene {
           var mapCoord1 = converter.convert(coord1);
           var mapCoord2 = converter.convert(coord2);
           var mapCoord3 = converter.convert(coord3);
-          var wall1 = new Wall(resourceManager, new SceneObjectDimensions(24, 24), new MapCoordinateScenePositioner(new SceneCoordinateOffset(0, 0), mapCoord1, 10));
-          var wall2 = new Wall(resourceManager, new SceneObjectDimensions(24, 24), new MapCoordinateScenePositioner(new SceneCoordinateOffset(0, 0), mapCoord2, 10));
-          var wall3 = new Wall(resourceManager, new SceneObjectDimensions(24, 24), new MapCoordinateScenePositioner(new SceneCoordinateOffset(0, 0), mapCoord3, 10));
+          var wall1 = new Wall(resourceManager,
+              new SceneObjectDimensions(24, 24),
+              new MapCoordinateScenePositioner(new SceneCoordinateOffset(0, 0), mapCoord1, 10));
+          var wall2 = new Wall(resourceManager,
+              new SceneObjectDimensions(24, 24),
+              new MapCoordinateScenePositioner(new SceneCoordinateOffset(0, 0), mapCoord2, 10));
+          var wall3 = new Wall(resourceManager,
+              new SceneObjectDimensions(24, 24),
+              new MapCoordinateScenePositioner(new SceneCoordinateOffset(0, 0), mapCoord3, 10));
 
           try {
             wall1.initialize();
@@ -183,11 +216,17 @@ public class GameScene implements Scene {
         if (pressedKeys.getOrDefault(Key.V, false)) {
           var posX = destination.x();
           var posY = destination.y();
-          turn = new PlaceWallTurn(activePlayer, new WallLocation(new Coordinate(posX, posY), new Coordinate(posX, posY + 1), new Coordinate(posX, posY + 2)));
+          turn = new PlaceWallTurn(activePlayer,
+              new WallLocation(new Coordinate(posX, posY),
+                  new Coordinate(posX, posY + 1),
+                  new Coordinate(posX, posY + 2)));
         } else {
           var posX = destination.x();
           var posY = destination.y();
-          turn = new PlaceWallTurn(activePlayer, new WallLocation(new Coordinate(posX, posY), new Coordinate(posX + 1, posY), new Coordinate(posX + 2, posY)));
+          turn = new PlaceWallTurn(activePlayer,
+              new WallLocation(new Coordinate(posX, posY),
+                  new Coordinate(posX + 1, posY),
+                  new Coordinate(posX + 2, posY)));
         }
         eventBus.dispatch(new TryDoTurnEvent(turn));
       }
