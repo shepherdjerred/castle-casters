@@ -57,6 +57,7 @@ public class GameScene implements Scene {
   private final Map<QuoridorPlayer, Wizard> wizards;
   private MapObject mapObject;
   private Match match;
+  private Text text;
 
   public GameScene(ResourceManager resourceManager,
                    EventBus<Event> eventBus,
@@ -75,6 +76,7 @@ public class GameScene implements Scene {
     this.match = match;
     this.wizards = new HashMap<>();
     pressedKeys = new HashMap<>();
+
     createGameObjects();
   }
 
@@ -95,20 +97,6 @@ public class GameScene implements Scene {
 
     gameObjects.addAll(wizards.values());
 
-    // Let's show:
-    // - current turn
-    // - number of walls left for each player
-    // - victory/defeat message
-    gameObjects.add(new Text(resourceManager,
-        "Hello World!",
-        FontName.M5X7,
-        Color.white(),
-        12,
-        100,
-        new WindowRelativeScenePositioner(WindowRelativeScenePositioner.HorizontalPosition.LEFT,
-            WindowRelativeScenePositioner.VerticalPosition.TOP,
-            new SceneCoordinateOffset(0, 0),
-            10)));
 
     gameRenderer.initialize(this);
     for (GameObject gameObject : gameObjects) {
@@ -166,6 +154,36 @@ public class GameScene implements Scene {
           gameObjects.add(wall2);
           gameObjects.add(wall3);
         }
+
+        // remove the old text object
+        gameObjects.remove(text);
+        // Update text
+        var activePlayer = match.getActivePlayerId();
+        var nextPlayer = match.getNextActivePlayerId();
+        var textString = "Player " + activePlayer.toInt() + "'s turn";
+        if (activePlayer == player) {
+          textString += " (Your turn)";
+        }
+        textString += "\nNext player: " + nextPlayer.toInt();
+        // create a new text object with the updated text
+        text = new Text(resourceManager,
+            textString,
+            FontName.M5X7,
+            Color.white(),
+            12,
+            100,
+            new WindowRelativeScenePositioner(WindowRelativeScenePositioner.HorizontalPosition.LEFT,
+                WindowRelativeScenePositioner.VerticalPosition.TOP,
+                new SceneCoordinateOffset(0, 0),
+                10));
+        try {
+          text.initialize();
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+        // add the new text object
+        gameObjects.add(text);
+        // do we need to do any cleanup with the resource manager?
       }
     };
 

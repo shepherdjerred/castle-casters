@@ -32,10 +32,12 @@ public class PreLobbyState extends AbstractNetworkClientState {
     frame.registerHandler(IdentifyPlayerEvent.class,
         (event) -> networkClient.sendPacket(new PlayerDescriptionPacket(event.playerInformation())));
 
-    frame.registerHandler(ServerConnectedEvent.class, (event) -> eventBus.dispatch(new IdentifyPlayerEvent(new PlayerInformation(UUID.randomUUID(),
-        UUID.randomUUID().toString()))));
+    frame.registerHandler(ServerConnectedEvent.class,
+        (event) -> eventBus.dispatch(new IdentifyPlayerEvent(new PlayerInformation(UUID.randomUUID(),
+            UUID.randomUUID().toString()))));
 
-    frame.registerHandler(PlayerJoinEvent.class, (event) -> networkClient.transition(new LobbyClientState(eventBus, networkClient)));
+    frame.registerHandler(PlayerJoinEvent.class,
+        (event) -> networkClient.transition(new LobbyClientState(eventBus, networkClient)));
 
     frame.registerHandler(FillSlotsWithAiEvent.class, (event) -> networkClient.sendPacket(new FillSlotsWithAiPacket()));
 

@@ -49,7 +49,8 @@ public class MainMenuScene extends InteractableUIScene {
         eventBus);
     this.resourceManager = resourceManager;
     this.windowSize = windowSize;
-    this.sceneAudio = new com.shepherdjerred.castlecasters.game.scenes.mainmenu.MainMenuAudio(eventBus, resourceManager);
+    this.sceneAudio = new com.shepherdjerred.castlecasters.game.scenes.mainmenu.MainMenuAudio(eventBus,
+        resourceManager);
   }
 
   protected Set<GameObject> createGameObjects() {

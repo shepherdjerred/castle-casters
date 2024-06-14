@@ -16,7 +16,8 @@ public class VictoryEvaluationRuleTest {
 
   @Test
   public void evaluate_returnsMaxScore_whenPlayerHasWon() {
-    var match = Match.from(new MatchSettings(10, QuoridorPlayer.ONE, PlayerCount.TWO), new BoardSettings(9, PlayerCount.TWO));
+    var match = Match.from(new MatchSettings(10, QuoridorPlayer.ONE, PlayerCount.TWO),
+        new BoardSettings(9, PlayerCount.TWO));
     match = match.doTurnUnchecked(new NormalMovePawnTurn(QuoridorPlayer.ONE, null, new Coordinate(10, 16)));
 
     System.out.println(match.board().getPawnLocations());

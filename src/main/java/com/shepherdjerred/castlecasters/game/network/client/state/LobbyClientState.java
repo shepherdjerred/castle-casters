@@ -27,7 +27,8 @@ public class LobbyClientState extends AbstractNetworkClientState {
 
     frame.registerHandler(TryStartGameEvent.class, (event) -> networkClient.sendPacket(new StartMatchPacket()));
 
-    frame.registerHandler(StartGameEvent.class, (event) -> networkClient.transition(new MatchClientState(eventBus, networkClient)));
+    frame.registerHandler(StartGameEvent.class,
+        (event) -> networkClient.transition(new MatchClientState(eventBus, networkClient)));
 
     return frame;
   }

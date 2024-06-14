@@ -67,4 +67,16 @@ public record Match(QuoridorBoard board, MatchSettings matchSettings, WallBank w
   public QuoridorPlayer getNextActivePlayerId() {
     return activePlayerTracker.getNextActivePlayerId();
   }
+
+  @Override
+  public String toString() {
+    return "Match{" +
+        "activePlayerTracker=" + activePlayerTracker +
+        ", matchStatus=" + matchStatus +
+        ", wallBank=" + wallBank +
+        ", matchSettings=" + matchSettings +
+        ", board=" + board +
+        ", matchTurnEnactor=" + matchTurnEnactor +
+        '}';
+  }
 }

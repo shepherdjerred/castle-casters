@@ -29,7 +29,10 @@ public class Wizard implements GameObject {
   private int frame;
   private float frameAccumulator;
 
-  public Wizard(ResourceManager resourceManager, ScenePositioner position, Element element, SceneObjectDimensions sceneObjectDimensions) {
+  public Wizard(ResourceManager resourceManager,
+                ScenePositioner position,
+                Element element,
+                SceneObjectDimensions sceneObjectDimensions) {
     this.position = position;
     this.renderer = new WizardRenderer(resourceManager);
     this.element = element;
