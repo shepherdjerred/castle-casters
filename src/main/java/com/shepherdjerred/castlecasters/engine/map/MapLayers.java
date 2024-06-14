@@ -17,7 +17,7 @@ public class MapLayers implements Resource, Iterable<Layer> {
 
   public MapLayers(MapDimensions mapDimensions) {
     this.dimension = mapDimensions;
-    this.textureNames = new HashSet<>();
+    this.textureNames = new LinkedHashSet<>();
     layerMap = new TreeMap<>();
   }
 

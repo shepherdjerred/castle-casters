@@ -3,10 +3,7 @@ package com.shepherdjerred.castlecasters.events;
 import com.shepherdjerred.castlecasters.events.handlers.EventHandler;
 import com.shepherdjerred.castlecasters.events.handlers.EventHandlerFrame;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Non-thread-safe event bus.
@@ -18,8 +15,8 @@ public class EventBus<T extends Event> {
   private final Map<Class<T>, Set<EventHandler<T>>> handlers;
 
   public EventBus() {
-    this.genericHandlers = new HashSet<>();
-    this.handlers = new HashMap<>();
+    this.genericHandlers = new LinkedHashSet<>();
+    this.handlers = new LinkedHashMap<>();
   }
 
   public <U extends T> void register(Class<U> eventClass, EventHandler<U> handler) {
@@ -37,7 +34,7 @@ public class EventBus<T extends Event> {
   }
 
   public <U extends T> void removeHandler(Class<U> eventClass, EventHandler<U> handler) {
-    handlers.getOrDefault(eventClass, new HashSet<>()).remove(handler);
+    handlers.getOrDefault(eventClass, new LinkedHashSet<>()).remove(handler);
   }
 
   public void register(EventHandler<T> handler) {
@@ -75,14 +72,14 @@ public class EventBus<T extends Event> {
   }
 
   public void dispatch(T event) {
-    var handlers = new HashSet<>(getHandlers((Class<T>) event.getClass()));
+    var handlers = new LinkedHashSet<>(getHandlers((Class<T>) event.getClass()));
     handlers.forEach(handler -> handler.handle(event));
 
-    var genericHandlersCopy = new HashSet<>(genericHandlers);
+    var genericHandlersCopy = new LinkedHashSet<>(genericHandlers);
     genericHandlersCopy.forEach(handler -> handler.handle(event));
   }
 
   private Set<EventHandler<T>> getHandlers(Class<T> eventClass) {
-    return handlers.getOrDefault(eventClass, new HashSet<>());
+    return handlers.getOrDefault(eventClass, new LinkedHashSet<>());
   }
 }

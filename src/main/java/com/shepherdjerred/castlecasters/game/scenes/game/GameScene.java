@@ -68,7 +68,7 @@ public class GameScene implements Scene {
     this.resourceManager = resourceManager;
     this.eventBus = eventBus;
     this.gameRenderer = new GameRenderer(resourceManager, eventBus, windowSize);
-    this.gameObjects = new HashSet<>();
+    this.gameObjects = new LinkedHashSet<>();
     this.windowSize = windowSize;
     this.gameMapName = gameMapName;
     this.eventHandlerFrame = new EventHandlerFrame<>();

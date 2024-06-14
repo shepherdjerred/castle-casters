@@ -5,7 +5,7 @@ import com.shepherdjerred.castlecasters.engine.resource.ResourceManager;
 import com.shepherdjerred.castlecasters.engine.window.WindowSize;
 import com.shepherdjerred.castlecasters.game.objects.background.parallax.ParallaxBackground;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public abstract class AbstractUIScene implements UIScene {
@@ -22,12 +22,12 @@ public abstract class AbstractUIScene implements UIScene {
     this.resourceManager = resourceManager;
     this.windowSize = windowSize;
     this.sceneRenderer = sceneRenderer;
-    this.gameObjects = new HashSet<>();
+    this.gameObjects = new LinkedHashSet<>();
     background = null;
   }
 
   public Set<GameObject> getGameObjects() {
-    var objects = new HashSet<>(gameObjects);
+    var objects = new LinkedHashSet<>(gameObjects);
     if (background != null) {
       objects.add(background);
     }

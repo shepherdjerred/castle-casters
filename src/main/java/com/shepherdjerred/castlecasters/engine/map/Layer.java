@@ -20,7 +20,7 @@ public class Layer implements Comparable<Layer>, Iterable<MapTile> {
   public Layer(MapDimensions mapDimensions, int z) {
     this.dimension = mapDimensions;
     this.tiles = new HashMap<>();
-    this.layerTextures = new HashSet<>();
+    this.layerTextures = new LinkedHashSet<>();
     this.z = z;
   }
 

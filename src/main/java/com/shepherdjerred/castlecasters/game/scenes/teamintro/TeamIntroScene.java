@@ -15,7 +15,7 @@ import com.shepherdjerred.castlecasters.game.objects.logo.Logo;
 import com.shepherdjerred.castlecasters.game.scenes.mainmenu.MainMenuScene;
 import lombok.extern.log4j.Log4j2;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Log4j2
@@ -35,7 +35,7 @@ public class TeamIntroScene extends AbstractUIScene {
   }
 
   protected Set<GameObject> createGameObjects() {
-    Set<GameObject> gameObjects = new HashSet<>();
+    Set<GameObject> gameObjects = new LinkedHashSet<>();
 
     var logo = new Logo(resourceManager,
         new WindowRelativeScenePositioner(HorizontalPosition.CENTER,

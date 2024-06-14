@@ -2,10 +2,7 @@ package com.shepherdjerred.castlecasters.events;
 
 import com.shepherdjerred.castlecasters.events.handlers.EventHandler;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -20,7 +17,7 @@ public class ThreadSafeEventBus<T extends Event> {
 
   public ThreadSafeEventBus() {
     queue = new ConcurrentLinkedQueue<>();
-    genericHandlers = new HashSet<>();
+    genericHandlers = new LinkedHashSet<>();
     handlers = new ConcurrentHashMap<>();
   }
 
@@ -36,7 +33,7 @@ public class ThreadSafeEventBus<T extends Event> {
   }
 
   public <U extends T> void removeHandler(Class<U> eventClass, EventHandler<U> handler) {
-    handlers.getOrDefault(eventClass, new HashSet<>()).remove(handler);
+    handlers.getOrDefault(eventClass, new LinkedHashSet<>()).remove(handler);
   }
 
   @SuppressWarnings("unchecked")
@@ -60,6 +57,6 @@ public class ThreadSafeEventBus<T extends Event> {
   }
 
   private Set<EventHandler<T>> getHandlers(Class<T> eventClass) {
-    return handlers.getOrDefault(eventClass, new HashSet<>());
+    return handlers.getOrDefault(eventClass, new LinkedHashSet<>());
   }
 }

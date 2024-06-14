@@ -70,7 +70,7 @@
             <AppenderRef ref="Events"/>
             <AppenderRef ref="STDOUT"/>
         </Logger>
-        <Logger name="com.shepherdjerred.castlecasters.engine.resource" additivity="false" level="trace">
+        <Logger name="com.shepherdjerred.castlecasters.engine.resource" additivity="false" level="info">
             <AppenderRef ref="Resources"/>
             <AppenderRef ref="STDOUT"/>
         </Logger>

@@ -25,7 +25,7 @@ import com.shepherdjerred.castlecasters.engine.window.WindowSize;
 import com.shepherdjerred.castlecasters.events.Event;
 import com.shepherdjerred.castlecasters.events.EventBus;
 import com.shepherdjerred.castlecasters.game.network.manager.NetworkManager;
-import com.shepherdjerred.castlecasters.game.scenes.teamintro.TeamIntroScene;
+import com.shepherdjerred.castlecasters.game.scenes.mainmenu.MainMenuScene;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -77,8 +77,8 @@ public class CastleCastersGame implements GameLogic {
     this.windowSize = windowSize;
 
     var scene = getTeamScene(windowSize);
-    sceneTransitioner.initialize(scene);
     audioPlayer.initialize();
+    sceneTransitioner.initialize(scene);
     networkManager.initialize();
     registerEventHandlers();
   }
@@ -89,9 +89,11 @@ public class CastleCastersGame implements GameLogic {
   }
 
   private Scene getTeamScene(WindowSize windowSize) {
-    return new TeamIntroScene(resourceManager,
-        eventBus,
-        windowSize);
+    return new MainMenuScene(resourceManager, eventBus, windowSize);
+    // NOTE: this should be configurable
+//    return new TeamIntroScene(resourceManager,
+//        eventBus,
+//        windowSize);
   }
 
   @Override

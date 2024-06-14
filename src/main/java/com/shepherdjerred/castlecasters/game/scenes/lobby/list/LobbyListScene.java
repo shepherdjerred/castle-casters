@@ -156,7 +156,7 @@ public class LobbyListScene extends InteractableUIScene {
   }
 
   protected Set<GameObject> createGameObjects() {
-    Set<GameObject> gameObjects = new HashSet<>();
+    Set<GameObject> gameObjects = new LinkedHashSet<>();
 
     var title = new Text(resourceManager,
         "Lobby List",

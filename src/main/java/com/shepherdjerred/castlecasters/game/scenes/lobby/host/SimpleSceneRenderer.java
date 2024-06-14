@@ -37,7 +37,14 @@ public class SimpleSceneRenderer implements SceneRenderer<Scene> {
     textShaderProgram.bind();
     textShaderProgram.setUniform(ShaderUniform.PROJECTION_MATRIX, projectionMatrix.getMatrix());
 
-    scene.getGameObjects().forEach(element -> element.render(windowSize));
+    // sort by Z index
+    // this is important for transparency support
+    scene.getGameObjects().stream().sorted((left, right) -> {
+      var leftPos = left.getPosition()
+          .getSceneCoordinate(windowSize, left.getSceneObjectDimensions());
+      var rightPos = right.getPosition().getSceneCoordinate(windowSize, right.getSceneObjectDimensions());
+      return Float.compare(leftPos.z(), rightPos.z());
+    }).forEach(element -> element.render(windowSize));
   }
 
   @Override

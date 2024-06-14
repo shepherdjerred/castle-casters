@@ -32,7 +32,7 @@ import com.shepherdjerred.castlecasters.logic.board.BoardSettings;
 import com.shepherdjerred.castlecasters.logic.match.Match;
 import com.shepherdjerred.castlecasters.logic.player.QuoridorPlayer;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class LobbyDetailsScene extends InteractableUIScene {
@@ -81,7 +81,7 @@ public class LobbyDetailsScene extends InteractableUIScene {
   }
 
   protected Set<GameObject> createGameObjects() {
-    Set<GameObject> gameObjects = new HashSet<>();
+    Set<GameObject> gameObjects = new LinkedHashSet<>();
     var text = new Text(resourceManager,
         "Lobby",
         FontName.M5X7,

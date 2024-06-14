@@ -1,9 +1,6 @@
 package com.shepherdjerred.castlecasters.engine.graphics.mesh;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class AnimatedTexturedMesh {
 
@@ -14,7 +11,7 @@ public class AnimatedTexturedMesh {
   }
 
   public Set<TexturedMesh> getMeshes() {
-    return new HashSet<>(frames.values());
+    return new LinkedHashSet<>(frames.values());
   }
 
   public void render(int frame) {

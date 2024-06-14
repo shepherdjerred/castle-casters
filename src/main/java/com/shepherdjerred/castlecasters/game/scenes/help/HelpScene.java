@@ -21,7 +21,7 @@ import com.shepherdjerred.castlecasters.game.objects.textbutton.TextButton;
 import com.shepherdjerred.castlecasters.game.scenes.lobby.host.SimpleSceneRenderer;
 import com.shepherdjerred.castlecasters.game.scenes.mainmenu.MainMenuScene;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class HelpScene extends InteractableUIScene {
@@ -39,7 +39,7 @@ public class HelpScene extends InteractableUIScene {
   }
 
   protected Set<GameObject> createGameObjects() {
-    Set<GameObject> gameObjects = new HashSet<>();
+    Set<GameObject> gameObjects = new LinkedHashSet<>();
 
     var text = new Text(resourceManager,
         """

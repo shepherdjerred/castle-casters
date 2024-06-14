@@ -20,7 +20,6 @@ import com.shepherdjerred.castlecasters.events.EventBus;
 import com.shepherdjerred.castlecasters.game.objects.background.parallax.ParallaxBackground;
 import com.shepherdjerred.castlecasters.game.objects.background.parallax.ParallaxBackground.Type;
 import com.shepherdjerred.castlecasters.game.objects.logo.Logo;
-import com.shepherdjerred.castlecasters.game.objects.text.Text;
 import com.shepherdjerred.castlecasters.game.objects.textbutton.TextButton;
 import com.shepherdjerred.castlecasters.game.scenes.help.HelpScene;
 import com.shepherdjerred.castlecasters.game.scenes.lobby.host.HostLobbyScene;
@@ -28,7 +27,7 @@ import com.shepherdjerred.castlecasters.game.scenes.lobby.host.SimpleSceneRender
 import com.shepherdjerred.castlecasters.game.scenes.lobby.list.LobbyListScene;
 import lombok.extern.log4j.Log4j2;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import static com.shepherdjerred.castlecasters.game.objects.button.Button.Type.GENERIC;
@@ -38,7 +37,7 @@ public class MainMenuScene extends InteractableUIScene {
 
   private final ResourceManager resourceManager;
   private final WindowSize windowSize;
-  private final com.shepherdjerred.castlecasters.game.scenes.mainmenu.MainMenuAudio sceneAudio;
+  private final MainMenuAudio sceneAudio;
 
   public MainMenuScene(ResourceManager resourceManager,
                        EventBus<Event> eventBus,
@@ -49,12 +48,12 @@ public class MainMenuScene extends InteractableUIScene {
         eventBus);
     this.resourceManager = resourceManager;
     this.windowSize = windowSize;
-    this.sceneAudio = new com.shepherdjerred.castlecasters.game.scenes.mainmenu.MainMenuAudio(eventBus,
+    this.sceneAudio = new MainMenuAudio(eventBus,
         resourceManager);
   }
 
   protected Set<GameObject> createGameObjects() {
-    Set<GameObject> gameObjects = new HashSet<>();
+    Set<GameObject> gameObjects = new LinkedHashSet<>();
 
     var logo = new Logo(resourceManager,
         new WindowRelativeScenePositioner(HorizontalPosition.CENTER,
@@ -68,23 +67,11 @@ public class MainMenuScene extends InteractableUIScene {
     background = new ParallaxBackground(resourceManager, windowSize,
         Type.random());
 
-    var text = new Text(resourceManager,
-        "Castle Casters",
-        FontName.M5X7,
-        Color.white(),
-        12,
-        400,
-        new WindowRelativeScenePositioner(HorizontalPosition.RIGHT,
-            VerticalPosition.BOTTOM,
-            new SceneCoordinateOffset(-10, -10),
-            1)
-    );
-
     var buttonSize = new SceneObjectDimensions(200, 50);
 
     var singleplayerButton = new TextButton(resourceManager,
         windowSize,
-        new ObjectRelativeScenePositioner(logo, new SceneCoordinateOffset(0, 200), 10),
+        new ObjectRelativeScenePositioner(logo, new SceneCoordinateOffset(0, 200), 100),
         "Single Player",
         FontName.M5X7,
         Color.white(),
@@ -101,7 +88,7 @@ public class MainMenuScene extends InteractableUIScene {
 
     var multiplayerButton = new TextButton(resourceManager,
         windowSize,
-        new ObjectRelativeScenePositioner(singleplayerButton, new SceneCoordinateOffset(0, 75), 10),
+        new ObjectRelativeScenePositioner(singleplayerButton, new SceneCoordinateOffset(0, 75), 100),
         "Multiplayer",
         FontName.M5X7,
         Color.white(),
@@ -117,7 +104,7 @@ public class MainMenuScene extends InteractableUIScene {
 
     var helpButton = new TextButton(resourceManager,
         windowSize,
-        new ObjectRelativeScenePositioner(multiplayerButton, new SceneCoordinateOffset(0, 75), 10),
+        new ObjectRelativeScenePositioner(multiplayerButton, new SceneCoordinateOffset(0, 75), 100),
         "Help",
         FontName.M5X7,
         Color.white(),
@@ -131,7 +118,7 @@ public class MainMenuScene extends InteractableUIScene {
 
     var exitButton = new TextButton(resourceManager,
         windowSize,
-        new ObjectRelativeScenePositioner(helpButton, new SceneCoordinateOffset(0, 75), 10),
+        new ObjectRelativeScenePositioner(helpButton, new SceneCoordinateOffset(0, 75), 100),
         "Exit",
         FontName.M5X7,
         Color.white(),
@@ -145,7 +132,6 @@ public class MainMenuScene extends InteractableUIScene {
     gameObjects.add(helpButton);
     gameObjects.add(exitButton);
     gameObjects.add(logo);
-    gameObjects.add(text);
 
     return gameObjects;
   }

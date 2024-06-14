@@ -8,7 +8,7 @@ Cross-platform, tested on macOS and Windows.
 
 * Java 21
 * lwjgl
-  * OpenGL 3.3
+  * OpenGL 4.1
   * OpenAL
   * GLFW
   * stb

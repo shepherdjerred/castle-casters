@@ -4,7 +4,7 @@ import com.shepherdjerred.castlecasters.events.Event;
 import lombok.Getter;
 
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -28,10 +28,10 @@ public class EventHandlerFrame<T extends Event> {
   }
 
   public <U extends T> void removeHandler(Class<U> eventClass, EventHandler<U> handler) {
-    handlers.getOrDefault(eventClass, new HashSet<>()).remove(handler);
+    handlers.getOrDefault(eventClass, new LinkedHashSet<>()).remove(handler);
   }
 
   private Set<EventHandler<T>> getHandlers(Class<T> eventClass) {
-    return handlers.getOrDefault(eventClass, new HashSet<>());
+    return handlers.getOrDefault(eventClass, new LinkedHashSet<>());
   }
 }

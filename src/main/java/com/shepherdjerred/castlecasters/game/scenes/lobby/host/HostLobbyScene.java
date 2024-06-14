@@ -41,7 +41,7 @@ import com.shepherdjerred.castlecasters.logic.player.QuoridorPlayer;
 import lombok.extern.log4j.Log4j2;
 
 import java.net.InetSocketAddress;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Log4j2
@@ -69,7 +69,7 @@ public class HostLobbyScene extends InteractableUIScene {
   }
 
   protected Set<GameObject> createGameObjects() {
-    Set<GameObject> gameObjects = new HashSet<>();
+    Set<GameObject> gameObjects = new LinkedHashSet<>();
 
     var title = new Text(resourceManager,
         "Lobby Setup",
