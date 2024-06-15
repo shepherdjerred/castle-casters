@@ -12,11 +12,12 @@ import com.shepherdjerred.castlecasters.server.network.manager.events.StartNetwo
 import com.shepherdjerred.castlecasters.server.network.manager.events.StopBroadcastEvent;
 import com.shepherdjerred.castlecasters.server.network.manager.events.StopNetworkEvent;
 import com.shepherdjerred.castlecasters.server.network.server.NetworkServer;
+import lombok.extern.log4j.Log4j2;
 
 import java.net.SocketAddress;
 
+@Log4j2
 public class NetworkManager {
-
   private final SocketAddress broadcastAddress;
   private final SocketAddress gameAddress;
   private final EventBus<Event> eventBus;
@@ -70,6 +71,10 @@ public class NetworkManager {
   }
 
   public void update() {
-    networkServer.update();
+    if (networkServer != null){
+      networkServer.update();
+    } else {
+      log.error("Network server is null. This is expected if the server is shutting down.");
+    }
   }
 }

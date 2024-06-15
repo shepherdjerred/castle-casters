@@ -46,6 +46,7 @@ public class GameServer implements Runnable {
     eventBus.dispatch(new StartNetworkEvent());
 
     //noinspection InfiniteLoopStatement
+    // TODO: stop this when the host leaves the lobby
     while (true) {
       networkManager.update();
       try {

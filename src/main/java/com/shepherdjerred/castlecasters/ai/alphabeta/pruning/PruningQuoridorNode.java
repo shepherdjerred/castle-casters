@@ -61,7 +61,7 @@ public class PruningQuoridorNode implements IQuoridorNode {
         .collect(Collectors.toSet());
 
     this.childrenCount = children.size();
-    log.info(String.format("Depth: %s, Children %s", currentDepth, childrenCount));
+//    log.info(String.format("Depth: %s, Children %s", currentDepth, childrenCount));
 
     return children;
   }

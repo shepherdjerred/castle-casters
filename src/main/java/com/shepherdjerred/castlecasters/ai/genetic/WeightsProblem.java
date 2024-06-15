@@ -1,6 +1,7 @@
 package com.shepherdjerred.castlecasters.ai.genetic;
 
 import com.google.common.collect.ImmutableSet;
+import com.shepherdjerred.castlecasters.ai.IdealWeights;
 import com.shepherdjerred.castlecasters.ai.QuoridorAi;
 import com.shepherdjerred.castlecasters.ai.alphabeta.pruning.PruningAlphaBetaQuoridorAi;
 import com.shepherdjerred.castlecasters.ai.alphabeta.pruning.rules.PieceDistanceNodePruningRule;
@@ -26,7 +27,6 @@ import java.util.function.Function;
 
 @Log4j2
 public class WeightsProblem implements Problem<EvaluatorWeights, DoubleGene, Integer> {
-
   @Override
   public Function<EvaluatorWeights, Integer> fitness() {
     return weights -> {
@@ -34,23 +34,17 @@ public class WeightsProblem implements Problem<EvaluatorWeights, DoubleGene, Int
       var matchSettings = new MatchSettings(10, QuoridorPlayer.ONE, PlayerCount.TWO);
       var match = Match.from(matchSettings, boardSettings);
 
+      // this is the evaluator that we are trying to optimize
       var weightedEvaluator = new WeightedMatchEvaluator(weights);
-      var constantWeights = new EvaluatorWeights(
-          9612.407041694314,
-          -7288.691596308785,
-          9786.056427421212,
-          2396.69915479313,
-          476.91303038346996
-      );
-      var constantlyWeightedEvaluator = new WeightedMatchEvaluator(constantWeights);
+      // this is the evaluator with the best weights that we have found so far
+      var bestKnownEvaluator = new WeightedMatchEvaluator(IdealWeights.getIdealWeights());
 
       var pruningRules = ImmutableSet.of(
           new RandomDiscardNodePruningRule(60),
           new PieceDistanceNodePruningRule(3));
 
       var alphaBetaAi = new PruningAlphaBetaQuoridorAi(weightedEvaluator, 2, pruningRules);
-
-      var randomAi = new PruningAlphaBetaQuoridorAi(constantlyWeightedEvaluator, 2, pruningRules);
+      var randomAi = new PruningAlphaBetaQuoridorAi(bestKnownEvaluator, 2, pruningRules);
 
       return simulateAi(match, alphaBetaAi, randomAi);
     };
@@ -69,11 +63,10 @@ public class WeightsProblem implements Problem<EvaluatorWeights, DoubleGene, Int
   }
 
   private int simulateAi(Match match, QuoridorAi playerOne, QuoridorAi playerTwo) {
-    log.info("Simulating AI match");
+//    log.info("Simulating AI match");
 
     int currentTurn = 1;
     while (match.matchStatus().status() == Status.IN_PROGRESS) {
-
       Turn aiTurn;
       if (match.getActivePlayerId() == QuoridorPlayer.ONE) {
         aiTurn = playerOne.calculateBestTurn(match);
@@ -90,15 +83,15 @@ public class WeightsProblem implements Problem<EvaluatorWeights, DoubleGene, Int
       }
 
       if (currentTurn < 10) {
-        log.info("TURN 1: {}", currentTurn);
+//        log.info("TURN 1: {}", currentTurn);
       } else if (currentTurn % 10 == 0 && currentTurn < 100) {
-        log.info("TURN2 : {}", currentTurn);
+//        log.info("TURN2 : {}", currentTurn);
       } else if (currentTurn % 50 == 0) {
-        log.info("TURN 3: {}", currentTurn);
+//        log.info("TURN 3: {}", currentTurn);
       }
     }
 
-    log.info(match.matchStatus().victor());
+//    log.info(match.matchStatus().victor());
 
     if (match.matchStatus().victor() == QuoridorPlayer.ONE) {
       return currentTurn * -1;

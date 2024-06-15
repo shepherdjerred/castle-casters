@@ -1,7 +1,9 @@
 package com.shepherdjerred.castlecasters.tui.view;
 
+import com.shepherdjerred.castlecasters.ai.IdealWeights;
 import com.shepherdjerred.castlecasters.ai.evaluator.EvaluatorWeights;
 import com.shepherdjerred.castlecasters.ai.genetic.WeightsProblem;
+import io.jenetics.DoubleChromosome;
 import io.jenetics.DoubleGene;
 import io.jenetics.Genotype;
 import io.jenetics.engine.Engine;
@@ -10,6 +12,7 @@ import io.jenetics.engine.EvolutionStatistics;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import java.util.Collections;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -29,8 +32,17 @@ public class GeneticAiView implements View {
 
     final EvolutionStatistics<Integer, ?> statistics = EvolutionStatistics.ofNumber();
 
-    final Genotype<DoubleGene> gt = engine.stream()
-        .limit(100)
+    // create the initial population using the IdealWeights
+    final Genotype<DoubleGene> initialGenotype = Genotype.of(DoubleChromosome.of(
+        DoubleGene.of(IdealWeights.getIdealWeights().adjacentPawnsWeight(), -10000, 10000),
+        DoubleGene.of(IdealWeights.getIdealWeights().opponentsShortestPathWeight(), -10000, 10000),
+        DoubleGene.of(IdealWeights.getIdealWeights().remainingWallsWeight(), -10000, 10000),
+        DoubleGene.of(IdealWeights.getIdealWeights().shortestPathWeight(), -10000, 10000),
+        DoubleGene.of(IdealWeights.getIdealWeights().wallsNearbyWeight(), -10000, 10000)
+    ));
+
+    final Genotype<DoubleGene> gt = engine.stream(Collections.singleton(initialGenotype))
+        .limit(1000)
         .peek(statistics)
         .peek(result -> {
           var weights = problem.codec()
@@ -40,7 +52,6 @@ public class GeneticAiView implements View {
         })
         .peek(r -> {
           log.info(statistics);
-          System.out.println(statistics);
         })
         .collect(EvolutionResult.toBestGenotype());
 
