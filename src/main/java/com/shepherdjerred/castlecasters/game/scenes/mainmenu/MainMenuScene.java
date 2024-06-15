@@ -79,6 +79,7 @@ public class MainMenuScene extends InteractableUIScene {
         buttonSize,
         GENERIC,
         () -> {
+      log.info("Single player button clicked");
           var scene = new HostLobbyScene(eventBus,
               resourceManager,
               windowSize,

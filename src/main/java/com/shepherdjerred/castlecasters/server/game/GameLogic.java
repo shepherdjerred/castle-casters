@@ -11,7 +11,6 @@ import lombok.Setter;
 
 public class GameLogic {
 
-  private final EventBus<Event> eventBus;
   @Setter
   private Player host = null;
   @Getter
@@ -20,7 +19,6 @@ public class GameLogic {
   private GameServerState gameServerState;
 
   public GameLogic(GameState gameState, EventBus<Event> eventBus) {
-    this.eventBus = eventBus;
     this.gameServerState = new PreLobbyState(this, eventBus);
     this.gameState = gameState;
     gameServerState.enable();

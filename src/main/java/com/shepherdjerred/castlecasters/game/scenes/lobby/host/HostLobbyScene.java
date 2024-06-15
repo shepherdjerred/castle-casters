@@ -10,7 +10,6 @@ import com.shepherdjerred.castlecasters.common.lobby.LobbySettings.LobbyType;
 import com.shepherdjerred.castlecasters.engine.events.scene.SceneTransitionEvent;
 import com.shepherdjerred.castlecasters.engine.graphics.Color;
 import com.shepherdjerred.castlecasters.engine.graphics.font.FontName;
-import com.shepherdjerred.castlecasters.engine.map.GameMapName;
 import com.shepherdjerred.castlecasters.engine.object.GameObject;
 import com.shepherdjerred.castlecasters.engine.object.SceneObjectDimensions;
 import com.shepherdjerred.castlecasters.engine.resource.ResourceManager;
@@ -48,7 +47,6 @@ import java.util.Set;
 public class HostLobbyScene extends InteractableUIScene {
 
   private final LobbySettings lobbySettings;
-  private final GameMapName mapName = GameMapName.GRASS;
   private boolean isServerStarting;
 
   public HostLobbyScene(EventBus<Event> eventBus,
@@ -82,11 +80,23 @@ public class HostLobbyScene extends InteractableUIScene {
             new SceneCoordinateOffset(0, 100),
             0));
 
+    var lobbyText = String.format("Walls per player: %d\nStarting player: %s\nPlayer count: %s\nMap: %s",
+        lobbySettings.matchSettings().wallsPerPlayer(),
+        lobbySettings.matchSettings().startingQuoridorPlayer(),
+        lobbySettings.matchSettings().playerCount(),
+        lobbySettings.gameMap().name());
+
+    // add buttons to change:
+    // walls per player
+    // starting player
+    // player count
+    // map
+
     var lobbyDump = new Text(resourceManager,
-        lobbySettings.toString(),
+        lobbyText,
         FontName.M5X7,
         Color.white(),
-        12,
+        14,
         300,
         new ObjectRelativeScenePositioner(title, new SceneCoordinateOffset(0, 75), 1));
 
@@ -145,6 +155,8 @@ public class HostLobbyScene extends InteractableUIScene {
                   true);
               eventBus.dispatch(new SceneTransitionEvent(scene));
             });
+          } else {
+            log.warn("Server is already starting");
           }
         });
 

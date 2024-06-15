@@ -49,7 +49,6 @@ public class GameScene implements Scene {
   private final GameRenderer gameRenderer;
   @Getter
   private final Set<GameObject> gameObjects;
-  private final WindowSize windowSize;
   private final GameMapName gameMapName;
   private final QuoridorPlayer player;
   private final EventHandlerFrame<Event> eventHandlerFrame;
@@ -69,7 +68,6 @@ public class GameScene implements Scene {
     this.eventBus = eventBus;
     this.gameRenderer = new GameRenderer(resourceManager, eventBus, windowSize);
     this.gameObjects = new LinkedHashSet<>();
-    this.windowSize = windowSize;
     this.gameMapName = gameMapName;
     this.eventHandlerFrame = new EventHandlerFrame<>();
     this.player = player;
@@ -206,8 +204,7 @@ public class GameScene implements Scene {
     eventHandlerFrame.registerHandler(KeyReleasedEvent.class, keyUpHandler);
     eventHandlerFrame.registerHandler(MouseButtonDownEvent.class, (event) -> {
       var activePlayer = match.getActivePlayerId();
-      log.info(player);
-      log.info(match.getActivePlayerId());
+
       if (activePlayer != player) {
         return;
       }

@@ -30,21 +30,17 @@ public class GameEngine {
   private static final int TARGET_FRAMES_PER_SECOND = 60;
   private static final int TARGET_UPDATES_PER_SECOND = 20;
 
-  private final GameLogic gameLogic;
   private final Window window;
   private final EventBus<Event> eventBus;
   private final MouseTracker mouseTracker;
   private final GameLoop gameLoop;
 
   public GameEngine(GameLogic gameLogic, WindowSettings windowSettings, EventBus<Event> eventBus) {
-    this.gameLogic = gameLogic;
     this.eventBus = eventBus;
     this.mouseTracker = new MouseTracker(false, new MouseCoordinate(-1, -1));
     window = new GlfwWindow(windowSettings, mouseTracker, eventBus);
     gameLoop = new GameLoop(gameLogic,
         window,
-        eventBus,
-        mouseTracker,
         TARGET_FRAMES_PER_SECOND,
         TARGET_UPDATES_PER_SECOND);
   }

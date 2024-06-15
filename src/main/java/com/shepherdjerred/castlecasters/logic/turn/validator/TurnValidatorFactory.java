@@ -8,10 +8,10 @@ public class TurnValidatorFactory {
 
   public <T extends Turn> TurnValidator<T> getValidator(T turn) {
     TurnValidator<?> validator = switch (turn) {
-      case PlaceWallTurn placeWallTurn -> new PlaceWallTurnValidator();
-      case NormalMovePawnTurn normalMovePawnTurn -> new NormalMovePawnTurnValidator();
-      case JumpPawnStraightTurn jumpPawnStraightTurn -> new JumpPawnStraightTurnValidator();
-      case JumpPawnDiagonalTurn jumpPawnDiagonalTurn -> new JumpPawnDiagonalTurnValidator();
+      case PlaceWallTurn ignored -> new PlaceWallTurnValidator();
+      case NormalMovePawnTurn ignored -> new NormalMovePawnTurnValidator();
+      case JumpPawnStraightTurn ignored -> new JumpPawnStraightTurnValidator();
+      case JumpPawnDiagonalTurn ignored -> new JumpPawnDiagonalTurnValidator();
       case null, default -> throw new UnsupportedOperationException();
     };
 

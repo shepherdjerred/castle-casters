@@ -1,10 +1,7 @@
 package com.shepherdjerred.castlecasters.engine;
 
 import com.shepherdjerred.castlecasters.engine.graphics.ErrorConverter;
-import com.shepherdjerred.castlecasters.engine.input.mouse.MouseTracker;
 import com.shepherdjerred.castlecasters.engine.window.Window;
-import com.shepherdjerred.castlecasters.events.Event;
-import com.shepherdjerred.castlecasters.events.EventBus;
 import lombok.extern.log4j.Log4j2;
 
 import static org.lwjgl.openal.AL10.AL_NO_ERROR;
@@ -17,23 +14,17 @@ public class GameLoop implements Runnable {
   private final GameLogic gameLogic;
   private final Window window;
   private final Timer timer;
-  private final EventBus<Event> eventBus;
-  private final MouseTracker mouseTracker;
   private final Thread gameLoopThread;
   private final int targetFramesPerSecond;
   private final int targetUpdatesPerSecond;
 
   public GameLoop(GameLogic gameLogic,
                   Window window,
-                  EventBus<Event> eventBus,
-                  MouseTracker mouseTracker,
                   int targetFramesPerSecond,
                   int targetUpdatesPerSecond) {
     this.gameLogic = gameLogic;
     this.window = window;
     this.timer = new Timer();
-    this.eventBus = eventBus;
-    this.mouseTracker = mouseTracker;
     gameLoopThread = new Thread(this, "GAME_LOOP_THREAD");
     this.targetFramesPerSecond = targetFramesPerSecond;
     this.targetUpdatesPerSecond = targetUpdatesPerSecond;

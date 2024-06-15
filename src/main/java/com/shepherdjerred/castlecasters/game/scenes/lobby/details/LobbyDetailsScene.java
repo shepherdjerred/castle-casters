@@ -117,7 +117,7 @@ public class LobbyDetailsScene extends InteractableUIScene {
             VerticalPosition.BOTTOM,
             new SceneCoordinateOffset(-100, -100),
             1),
-        "Next",
+        "Start",
         FontName.M5X7,
         Color.white(),
         24,
@@ -134,8 +134,16 @@ public class LobbyDetailsScene extends InteractableUIScene {
         300,
         new ObjectRelativeScenePositioner(text, new SceneCoordinateOffset(0, 75), 1));
 
+    var lobbySettings = lobby.getLobbySettings();
+
+    var lobbyText = String.format("Walls per player: %d\nStarting player: %s\nPlayer count: %s\nMap: %s",
+        lobbySettings.matchSettings().wallsPerPlayer(),
+        lobbySettings.matchSettings().startingQuoridorPlayer(),
+        lobbySettings.matchSettings().playerCount(),
+        lobbySettings.gameMap().name());
+
     var lobbyDump = new Text(resourceManager,
-        lobby.toString(),
+        lobbyText,
         FontName.M5X7,
         Color.white(),
         24,

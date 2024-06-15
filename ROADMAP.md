@@ -14,9 +14,9 @@ There's no automated testing. That's kinda a problem.
 
 ## Bugs
 
-- [ ] Text rendering a bit funny
+- [x] Text rendering a bit funny
   - I think this is an issue related to depth. It looks like it's not blending correctly. The button and text issue are related.
   - There was an issue with non-deterministic. Switching from a `HashSet` to a `LinkedHashSet` fixed the issue. The bug now happens 100% of the time. I think it's because I need to draw the text and buttons _after_ the background. Easy!
-- [ ] Opacity for buttons doesn't always work
+- [x] Opacity for buttons doesn't always work
 - [ ] Resource leaks
 - [ ] Multiplayer networking doesn't seem to work

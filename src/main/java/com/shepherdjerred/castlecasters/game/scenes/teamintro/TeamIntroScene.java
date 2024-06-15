@@ -55,7 +55,8 @@ public class TeamIntroScene extends AbstractUIScene {
   public void updateState(float interval) {
     super.updateState(interval);
     time += interval;
-    if (time > 5 && !hasTransitioned) {
+    // TODO: make this configurable
+    if (time > 0 && !hasTransitioned) {
       eventBus.dispatch(new SceneTransitionEvent(new MainMenuScene(
           resourceManager,
           eventBus,

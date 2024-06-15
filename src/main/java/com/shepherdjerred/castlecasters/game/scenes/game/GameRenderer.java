@@ -21,7 +21,7 @@ public class GameRenderer implements SceneRenderer<GameScene> {
   private final WindowSize windowSize;
   private final EventHandlerFrame<Event> eventHandlerFrame;
   private ProjectionMatrix projectionMatrix;
-  private ShaderProgram textShaderProgram;
+//  private ShaderProgram textShaderProgram;
   private ShaderProgram defaultShaderProgram;
 
   public GameRenderer(ResourceManager resourceManager,
@@ -50,7 +50,7 @@ public class GameRenderer implements SceneRenderer<GameScene> {
 
   private void createShaderProgram() throws Exception {
     defaultShaderProgram = resourceManager.get(ShaderProgramName.DEFAULT);
-    textShaderProgram = resourceManager.get(ShaderProgramName.TEXT);
+//    textShaderProgram = resourceManager.get(ShaderProgramName.TEXT);
   }
 
   @Override

@@ -17,7 +17,6 @@ import org.lwjgl.glfw.Callbacks;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
-import org.lwjgl.system.Callback;
 import org.lwjgl.system.Configuration;
 
 import java.util.Optional;
@@ -37,7 +36,6 @@ public class GlfwWindow implements Window {
   private final EventBus<Event> eventBus;
   private final MouseTracker mouseTracker;
   private long windowHandle;
-  private Callback errorCallback;
   private boolean shouldClose;
 
   public GlfwWindow(WindowSettings windowSettings,
@@ -98,7 +96,7 @@ public class GlfwWindow implements Window {
   }
 
   private void createCallbacks() {
-    errorCallback = glfwSetErrorCallback((error, description) -> log.error(String.format(
+    glfwSetErrorCallback((error, description) -> log.error(String.format(
         "GLFW error [%s]: %s",
         Integer.toHexString(error),
         GLFWErrorCallback.getDescription(description))));
