@@ -24,7 +24,7 @@ jobs:
       - name: build
         run: earthly --ci --org sjerred --output +ci
       - name: Save artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: castle-casters.jar
           path: castle-casters.jar
