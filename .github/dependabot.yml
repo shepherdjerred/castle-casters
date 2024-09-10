@@ -12,7 +12,7 @@ updates:
       interval: "weekly"
       day: "sunday"
     ignore:
-      - dependency-name: "jenetics"
+      - dependency-name: "io.jenetics:jenetics"
     groups:
       production-dependencies:
         dependency-type: "production"
