@@ -24,7 +24,7 @@
     <lwjgl.version>3.3.4</lwjgl.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <immutables.version>2.10.1</immutables.version>
-    <log4j2.version>2.24.0</log4j2.version>
+    <log4j2.version>2.24.1</log4j2.version>
     <java.version>21</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -93,7 +93,7 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>4.8.6.3</version>
+        <version>4.8.6.4</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -202,7 +202,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-all</artifactId>
-      <version>4.1.113.Final</version>
+      <version>4.1.114.Final</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
@@ -405,7 +405,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>33.3.0-jre</version>
+      <version>33.3.1-jre</version>
     </dependency>
     <dependency>
       <groupId>com.google.code.gson</groupId>
