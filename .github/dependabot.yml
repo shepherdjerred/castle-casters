@@ -6,6 +6,8 @@ updates:
     schedule:
       interval: "weekly"
       day: "sunday"
+    assignees:
+      - shepherdjerred
   - package-ecosystem: "maven"
     directory: "/"
     schedule:
@@ -18,3 +20,5 @@ updates:
         dependency-type: "production"
       development-dependencies:
         dependency-type: "development"
+    assignees:
+      - shepherdjerred
