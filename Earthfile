@@ -20,7 +20,7 @@ src:
 build:
   FROM +src
   RUN --mount $mvn_cache mvn package
-  SAVE ARTIFACT target/castle-casters-1.0.0-SNAPSHOT.jar AS LOCAL castle-casters.jar
+  SAVE ARTIFACT target/castle-casters-1.0.0-SNAPSHOT-jar-with-dependencies.jar AS LOCAL castle-casters.jar
 
 test:
   FROM +src
