@@ -36,13 +36,15 @@ pipeline {
     }
 
     environment {
+        GITHUB_USERNAME = "shepherdjerred"
+        GITHUB_TOKEN = credentials('GITHUB_TOKEN')
         EARTHLY_TOKEN = credentials('EARTHLY_TOKEN')
     }
 
     stages {
         stage('Build') {
             steps {
-                sh 'earthly --ci --org sjerred --output +ci'
+                sh 'earthly --ci --secret GH_TOKEN=$GITHUB_TOKEN --sat=lamport --org sjerred --output +ci'
                 junit 'surefire-reports/*.xml'
                 archiveArtifacts artifacts: 'castle-casters.jar', allowEmptyArchive: true
             }
