@@ -36,8 +36,6 @@ pipeline {
     }
 
     environment {
-        GITHUB_USERNAME = "shepherdjerred"
-        GITHUB_TOKEN = credentials('GITHUB_TOKEN')
         EARTHLY_TOKEN = credentials('EARTHLY_TOKEN')
     }
 
