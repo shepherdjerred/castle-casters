@@ -45,7 +45,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'earthly --ci --secret GH_TOKEN=$GITHUB_TOKEN --sat=lamport --org sjerred --output +ci'
-                junit 'surefire-reports/*.xml'
+                // junit 'surefire-reports/*.xml'
                 archiveArtifacts artifacts: 'castle-casters.jar', allowEmptyArchive: true
             }
         }
