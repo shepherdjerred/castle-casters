@@ -1,3 +1,18 @@
+// =====================================================
+// DEPRECATED: This Jenkinsfile has been replaced
+// =====================================================
+//
+// This project has migrated from Earthly/Jenkins to GitHub Actions/Dagger.
+//
+// New CI/CD configuration:
+// - GitHub Actions: .github/workflows/ci.yaml
+// - Dagger Module: .dagger/
+//
+// See MIGRATION.md for details about the migration.
+//
+// This file is kept for reference and can be removed after successful migration.
+// =====================================================
+
 pipeline {
     agent {
         kubernetes {
