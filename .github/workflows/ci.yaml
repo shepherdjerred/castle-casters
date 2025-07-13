@@ -6,7 +6,7 @@ on:
   pull_request:
 
 env:
-  DAGGER_VERSION: "0.15.0"
+  DAGGER_VERSION: "0.18.12"
 
 jobs:
   dagger-ci:
