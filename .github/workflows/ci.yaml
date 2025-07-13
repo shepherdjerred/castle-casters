@@ -1,0 +1,87 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+env:
+  DAGGER_VERSION: "0.15.0"
+
+jobs:
+  dagger-ci:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install Dagger CLI
+        run: |
+          curl -L https://dl.dagger.io/dagger/install.sh | DAGGER_VERSION=${{ env.DAGGER_VERSION }} BIN_DIR=$HOME/.local/bin sh
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Install Dagger dependencies
+        working-directory: .dagger
+        run: |
+          bun install
+
+      - name: Verify Dagger installation
+        run: |
+          dagger version
+
+      - name: Run Dagger CI pipeline (production)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DAGGER_CLOUD_TOKEN: ${{ secrets.DAGGER_CLOUD_TOKEN }}
+        run: |
+          dagger call ci \
+            --source=. \
+            --version="1.0.${{ github.run_number }}" \
+            --git-sha="${{ github.sha }}" \
+            --env="prod"
+
+      - name: Run Dagger CI pipeline (development)
+        if: github.event_name == 'pull_request' || github.ref != 'refs/heads/main'
+        env:
+          DAGGER_CLOUD_TOKEN: ${{ secrets.DAGGER_CLOUD_TOKEN }}
+        run: |
+          dagger call ci \
+            --source=. \
+            --version="dev-${{ github.run_number }}" \
+            --git-sha="${{ github.sha }}" \
+            --env="dev"
+
+      - name: Extract artifacts
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          dagger call artifact --source=. export --path=./artifacts
+
+      - name: Upload artifacts
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: castle-casters-jar
+          path: ./artifacts/*.jar
+          retention-days: 30
+
+      - name: Generate coverage report
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          dagger call coverage --source=. export --path=./coverage
+
+      - name: Upload coverage report
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: ./coverage
+          retention-days: 30
