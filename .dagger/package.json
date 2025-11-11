@@ -5,11 +5,10 @@
   "scripts": {
     "build": "echo 'Dagger module ready'",
     "test": "echo 'No tests configured for Dagger module'",
-    "type-check": "bun tsc --noEmit",
+    "type-check": "bunx tsc --noEmit",
     "lint": "bunx eslint src",
     "format": "bunx prettier --check src",
-    "format:write": "bunx prettier --write src",
-    "typecheck": "bunx tsc --noEmit"
+    "format:write": "bunx prettier --write src"
   },
   "dependencies": {
     "typescript": "^5.5.4"
