@@ -39,31 +39,34 @@ jobs:
 
       - name: Run Dagger CI pipeline (production)
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        working-directory: .dagger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DAGGER_CLOUD_TOKEN: ${{ secrets.DAGGER_CLOUD_TOKEN }}
         run: |
           dagger call ci \
-            --source=. \
+            --source=.. \
             --version="1.0.${{ github.run_number }}" \
             --git-sha="${{ github.sha }}" \
             --env="prod"
 
       - name: Run Dagger CI pipeline (development)
         if: github.event_name == 'pull_request' || github.ref != 'refs/heads/main'
+        working-directory: .dagger
         env:
           DAGGER_CLOUD_TOKEN: ${{ secrets.DAGGER_CLOUD_TOKEN }}
         run: |
           dagger call ci \
-            --source=. \
+            --source=.. \
             --version="dev-${{ github.run_number }}" \
             --git-sha="${{ github.sha }}" \
             --env="dev"
 
       - name: Extract artifacts
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        working-directory: .dagger
         run: |
-          dagger call artifact --source=. export --path=./artifacts
+          dagger call artifact --source=.. export --path=../artifacts
 
       - name: Upload artifacts
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -75,8 +78,9 @@ jobs:
 
       - name: Generate coverage report
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        working-directory: .dagger
         run: |
-          dagger call coverage --source=. export --path=./coverage
+          dagger call coverage --source=.. export --path=../coverage
 
       - name: Upload coverage report
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
