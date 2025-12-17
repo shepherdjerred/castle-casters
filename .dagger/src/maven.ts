@@ -1,5 +1,5 @@
-import { Container, Directory, dag } from "@dagger.io/dagger";
-import { getMavenContainerWithCache, logWithTimestamp, withTiming } from "./base";
+import { Container, Directory } from "@dagger.io/dagger";
+import { getMavenContainerWithCache, withTiming } from "./base";
 
 /**
  * Resolve Maven dependencies

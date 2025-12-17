@@ -5,6 +5,8 @@
         "moduleResolution": "bundler",
         "allowImportingTsExtensions": true,
         "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
         "strict": true,
         "skipLibCheck": true,
         "noEmit": true,
@@ -21,6 +23,7 @@
     ],
     "exclude": [
         "node_modules",
-        "dist"
+        "dist",
+        "src/sdk"
     ]
 }
