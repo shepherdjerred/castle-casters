@@ -1,12 +1,6 @@
-import {
-  func,
-  argument,
-  Directory,
-  object,
-  Secret,
-  Container,
-  dag,
-} from "@dagger.io/dagger";
+import { func, argument, Directory, object } from "@dagger.io/dagger";
+import { Stage } from "@shepherdjerred/dagger-utils";
+import { runNamedParallel } from "@shepherdjerred/dagger-utils/utils";
 import {
   buildProject,
   runTests,
@@ -45,18 +39,26 @@ export class CastleCasters {
   ): Promise<string> {
     logWithTimestamp("🔍 Starting comprehensive check process");
 
-    // Run checks in parallel
-    const [_buildResult, _testResult, _qualityResult] = await withTiming(
-      "parallel checks",
-      async () => {
-        logWithTimestamp("🔄 Running build, test, and quality checks in parallel...");
-        return Promise.all([
-          withTiming("build check", () => buildProject(source)),
-          withTiming("test check", () => runTests(source)),
-          withTiming("quality check", () => checkCodeQuality(source)),
-        ]);
-      }
-    );
+    // Run checks in parallel with detailed error reporting
+    const results = await withTiming("parallel checks", async () => {
+      logWithTimestamp(
+        "🔄 Running build, test, and quality checks in parallel..."
+      );
+      return runNamedParallel([
+        { name: "build", operation: () => buildProject(source) },
+        { name: "test", operation: () => runTests(source) },
+        { name: "quality", operation: () => checkCodeQuality(source) },
+      ]);
+    });
+
+    // Check for failures and report all of them
+    const failures = results.filter((r) => !r.success);
+    if (failures.length > 0) {
+      const failureMessages = failures
+        .map((f) => `${f.name}: ${f.error instanceof Error ? f.error.message : String(f.error)}`)
+        .join("\n");
+      throw new Error(`Check failed:\n${failureMessages}`);
+    }
 
     logWithTimestamp("✅ All checks completed successfully!");
     return "All checks passed: build, test, and code quality verification completed successfully.";
@@ -173,6 +175,7 @@ export class CastleCasters {
    * @param source The source directory
    * @param version The version to build
    * @param gitSha The git SHA
+   * @param env The environment (dev or prod)
    * @returns A message indicating completion
    */
   @func()
@@ -195,33 +198,43 @@ export class CastleCasters {
     source: Directory,
     @argument() version: string,
     @argument() gitSha: string,
-    env?: string
+    env: string = Stage.Dev
   ): Promise<string> {
-    logWithTimestamp(`🚀 Starting CI pipeline for version ${version} (${gitSha})`);
-
-    // Run all CI steps in parallel where possible
-    const [_buildResult, _testResult, _qualityResult] = await withTiming(
-      "CI pipeline execution",
-      async () => {
-        logWithTimestamp("🔄 Running CI pipeline steps...");
-        return Promise.all([
-          withTiming("CI build", () => buildProject(source)),
-          withTiming("CI tests", () => runTests(source)),
-          withTiming("CI quality checks", () => checkCodeQuality(source)),
-        ]);
-      }
+    logWithTimestamp(
+      `🚀 Starting CI pipeline for version ${version} (${gitSha})`
     );
 
-    // If production environment, we could add additional steps here
-    if (env === "prod") {
-      logWithTimestamp("🏭 Production environment detected - running additional checks");
+    // Run all CI steps in parallel with detailed error reporting
+    const results = await withTiming("CI pipeline execution", async () => {
+      logWithTimestamp("🔄 Running CI pipeline steps...");
+      return runNamedParallel([
+        { name: "build", operation: () => buildProject(source) },
+        { name: "test", operation: () => runTests(source) },
+        { name: "quality", operation: () => checkCodeQuality(source) },
+      ]);
+    });
+
+    // Check for failures and report all of them
+    const failures = results.filter((r) => !r.success);
+    if (failures.length > 0) {
+      const failureMessages = failures
+        .map((f) => `${f.name}: ${f.error instanceof Error ? f.error.message : String(f.error)}`)
+        .join("\n");
+      throw new Error(`CI pipeline failed:\n${failureMessages}`);
+    }
+
+    // If production environment, run additional steps
+    if (env === Stage.Prod) {
+      logWithTimestamp(
+        "🏭 Production environment detected - running additional checks"
+      );
       await withTiming("production coverage report", async () => {
         await generateCoverageReport(source);
       });
     }
 
     logWithTimestamp("✅ CI pipeline completed successfully!");
-    return `CI pipeline completed successfully for version ${version} (${gitSha}) in ${env || "dev"} environment.`;
+    return `CI pipeline completed successfully for version ${version} (${gitSha}) in ${env} environment.`;
   }
 
   /**

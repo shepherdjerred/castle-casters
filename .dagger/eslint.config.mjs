@@ -5,7 +5,7 @@ export default tseslint.config(
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    ignores: ['dist/', 'node_modules/', '*.js', '*.mjs'],
+    ignores: ['dist/', 'node_modules/', '*.js', '*.mjs', 'src/sdk/'],
   },
   {
     rules: {

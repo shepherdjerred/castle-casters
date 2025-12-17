@@ -1,6 +1,6 @@
 {
   "name": "castle-casters",
-  "engineVersion": "v0.18.12",
+  "engineVersion": "v0.19.0",
   "sdk": {
     "source": "typescript"
   },
