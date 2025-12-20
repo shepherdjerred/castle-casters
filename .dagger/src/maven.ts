@@ -73,7 +73,7 @@ export async function generateCoverageReport(source: Directory): Promise<Contain
   return withTiming("Maven coverage report", async () => {
     const container = getMavenContainerWithCache()
       .withDirectory(".", source)
-      .withExec(["mvn", "test", "jacoco:report"]);
+      .withExec(["mvn", "jacoco:prepare-agent", "test", "jacoco:report"]);
 
     await container.sync();
     return container;
