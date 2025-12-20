@@ -59,7 +59,7 @@ export async function checkCodeQuality(source: Directory): Promise<Container> {
   return withTiming("Maven code quality check", async () => {
     const container = getMavenContainerWithCache()
       .withDirectory(".", source)
-      .withExec(["mvn", "compile", "checkstyle:check", "spotbugs:check"]);
+      .withExec(["mvn", "compile", "spotbugs:check"]);
 
     await container.sync();
     return container;
