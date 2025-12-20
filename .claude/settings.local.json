@@ -11,7 +11,10 @@
       "Bash(git merge-base:*)",
       "Bash(gh run view:*)",
       "Bash(git commit:*)",
-      "Bash(dagger functions)"
+      "Bash(dagger functions)",
+      "Bash(gh run list:*)",
+      "Bash(xargs:*)",
+      "Bash(dagger functions:*)"
     ]
   }
 }

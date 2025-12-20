@@ -1,5 +1,4 @@
 import { func, argument, Directory, object } from "@dagger.io/dagger";
-import { Stage } from "@shepherdjerred/dagger-utils";
 import { runNamedParallel } from "@shepherdjerred/dagger-utils/utils";
 import {
   buildProject,
@@ -198,7 +197,7 @@ export class CastleCasters {
     source: Directory,
     @argument() version: string,
     @argument() gitSha: string,
-    env: string = Stage.Dev
+    env: string = "dev"
   ): Promise<string> {
     logWithTimestamp(
       `🚀 Starting CI pipeline for version ${version} (${gitSha})`
@@ -224,7 +223,7 @@ export class CastleCasters {
     }
 
     // If production environment, run additional steps
-    if (env === Stage.Prod) {
+    if (env === "prod") {
       logWithTimestamp(
         "🏭 Production environment detected - running additional checks"
       );
