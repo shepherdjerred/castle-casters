@@ -113,5 +113,3 @@ jobs:
 permissions:
   contents: read
   packages: write
-
-
