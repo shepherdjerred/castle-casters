@@ -1,4 +1,4 @@
-import { func, argument, Directory, object } from "@dagger.io/dagger";
+import { func, argument, Directory, object, dag } from "@dagger.io/dagger";
 import { runNamedParallel } from "@shepherdjerred/dagger-utils/utils";
 import {
   buildProject,
@@ -306,5 +306,100 @@ export class CastleCasters {
 
     logWithTimestamp("✅ Coverage report generated successfully!");
     return reportDir;
+  }
+
+  /**
+   * Run CI and return all artifacts in a single directory.
+   * This consolidates ci, artifact, and coverage into one call.
+   * @param source The source directory
+   * @param version The version to build
+   * @param gitSha The git SHA
+   * @param env The environment (dev or prod)
+   * @returns Directory containing all CI artifacts (JAR and coverage report for prod)
+   */
+  @func()
+  async ciWithArtifacts(
+    @argument({
+      ignore: [
+        "target",
+        "logs",
+        "*.log",
+        ".env*",
+        "!.env.example",
+        ".dagger",
+        "node_modules",
+        "dist",
+        "build",
+        ".cache",
+      ],
+      defaultPath: ".",
+    })
+    source: Directory,
+    @argument() version: string,
+    @argument() gitSha: string,
+    env: string = "dev"
+  ): Promise<Directory> {
+    const isProd = env === "prod";
+    logWithTimestamp(
+      `🚀 Starting CI pipeline with artifacts for version ${version} (${gitSha}) in ${env} environment`
+    );
+
+    // Run all CI steps in parallel
+    const results = await withTiming("CI pipeline execution", async () => {
+      logWithTimestamp("🔄 Running CI pipeline steps...");
+      return runNamedParallel([
+        { name: "build", operation: () => buildProject(source) },
+        { name: "test", operation: () => runTests(source) },
+        { name: "quality", operation: () => checkCodeQuality(source) },
+      ]);
+    });
+
+    // Check for failures and report all of them
+    const failures = results.filter((r) => !r.success);
+    if (failures.length > 0) {
+      const failureMessages = failures
+        .map((f) => `${f.name}: ${f.error instanceof Error ? f.error.message : String(f.error)}`)
+        .join("\n");
+      throw new Error(`CI pipeline failed:\n${failureMessages}`);
+    }
+
+    // Get the build container from results to extract JAR
+    const buildResult = results.find((r) => r.name === "build");
+    if (!buildResult?.success || !buildResult.result) {
+      throw new Error("Build result not found");
+    }
+    const buildContainer = buildResult.result as Awaited<ReturnType<typeof buildProject>>;
+
+    // Extract JAR artifact
+    const jarDir = await withTiming("artifact extraction", async () => {
+      return getJarArtifact(buildContainer);
+    });
+
+    // For prod, also generate coverage report
+    if (isProd) {
+      logWithTimestamp("🏭 Production environment - generating coverage report");
+      const coverageContainer = await withTiming("coverage generation", async () => {
+        return generateCoverageReport(source);
+      });
+
+      const coverageDir = await withTiming("coverage extraction", async () => {
+        return coverageContainer.directory("target/site/jacoco");
+      });
+
+      // Create a combined artifacts directory
+      const artifactsDir = dag
+        .directory()
+        .withDirectory("jar", jarDir)
+        .withDirectory("coverage", coverageDir);
+
+      logWithTimestamp("✅ CI pipeline with artifacts completed successfully!");
+      return artifactsDir;
+    }
+
+    // For dev, just return JAR in artifacts directory
+    const artifactsDir = dag.directory().withDirectory("jar", jarDir);
+
+    logWithTimestamp("✅ CI pipeline with artifacts completed successfully!");
+    return artifactsDir;
   }
 }

@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  ci:
+  dagger-ci:
     runs-on: [castle-casters-runner-set]
     permissions:
       contents: read
@@ -80,39 +80,34 @@ jobs:
             echo "version=dev-${{ github.run_number }}" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Run Dagger CI
+      - name: Run Dagger CI with artifacts
         env:
           GITHUB_TOKEN: ${{ github.token }}
         working-directory: .dagger
         run: |
-          dagger call ci \
+          dagger call ci-with-artifacts \
             --source=.. \
             --version="${{ steps.env.outputs.version }}" \
             --git-sha="${{ github.sha }}" \
-            --env="${{ steps.env.outputs.env }}"
+            --env="${{ steps.env.outputs.env }}" \
+            export --path=../artifacts
 
-      - name: Extract artifacts
-        if: steps.env.outputs.env == 'prod'
-        working-directory: .dagger
-        run: dagger call artifact --source=.. export --path=../artifacts
-
-      - name: Upload artifacts
+      - name: Upload JAR artifact
         if: steps.env.outputs.env == 'prod'
         uses: actions/upload-artifact@v4
         with:
           name: castle-casters-jar
-          path: ./artifacts/*.jar
+          path: ./artifacts/jar/*.jar
           retention-days: 30
-
-      - name: Generate coverage report
-        if: steps.env.outputs.env == 'prod'
-        working-directory: .dagger
-        run: dagger call coverage --source=.. export --path=../coverage
 
       - name: Upload coverage report
         if: steps.env.outputs.env == 'prod'
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
-          path: ./coverage
+          path: ./artifacts/coverage
           retention-days: 30
+
+permissions:
+  contents: read
+  packages: write
