@@ -2,7 +2,19 @@
 # yarn lockfile v1
 
 
+"@shepherdjerred/dagger-utils@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@shepherdjerred/dagger-utils/-/dagger-utils-0.1.0.tgz#6f3c391b83093aec2deb0f557c9b6da81cd85b18"
+  integrity sha512-Bg11tp8/szWlDGQ21pJ+ydGCLVppEv/9A9gPzFEmAdaKYiOWNvkatQG4Dmy7A0rnijyNTrCyAVAsaBETtmZq8Q==
+  dependencies:
+    zod "^4.0.0"
+
 typescript@^5.5.4:
-  version "5.8.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.8.3.tgz#92f8a3e5e3cf497356f4178c34cd65a7f5e8440e"
-  integrity sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==
+  version "5.9.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.9.3.tgz#5b4f59e15310ab17a216f5d6cf53ee476ede670f"
+  integrity sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==
+
+zod@^4.0.0:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-4.2.1.tgz#07f0388c7edbfd5f5a2466181cb4adf5b5dbd57b"
+  integrity sha512-0wZ1IRqGGhMP76gLqz8EyfBXKk0J2qo2+H3fi4mcUP/KtTocoX08nmIAHl1Z2kJIZbZee8KOpBCSNPRgauucjw==
