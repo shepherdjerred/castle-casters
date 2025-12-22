@@ -12,13 +12,21 @@ jobs:
       contents: read
       packages: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
-      - name: Set up Bun
-        uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@v2
+
+      - uses: 1password/load-secrets-action/configure@v2
         with:
-          bun-version: latest
+          connect-host: http://onepassword-connect.1password.svc.cluster.local:8080
+          connect-token: ${{ secrets.OP_CONNECT_TOKEN }}
+
+      - uses: 1password/load-secrets-action@v2
+        with:
+          export-env: true
+        env:
+          DAGGER_CLOUD_TOKEN: op://bic45kuflnwsnxnd67dzcnxjze/5p65mbzr237yyzt2sfnfao3a5a/DAGGER_CLOUD_TOKEN
+          GH_TOKEN: op://bic45kuflnwsnxnd67dzcnxjze/5p65mbzr237yyzt2sfnfao3a5a/GH_TOKEN
 
       - name: Extract kubectl version
         id: kubectl-version
@@ -27,7 +35,7 @@ jobs:
           echo "version=$KUBECTL_VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Cache kubectl
-        uses: actions/cache@v5
+        uses: actions/cache@v4
         id: kubectl-cache
         with:
           path: ~/.local/bin/kubectl
@@ -38,8 +46,7 @@ jobs:
         run: |
           mkdir -p ~/.local/bin
           curl -LO "https://dl.k8s.io/release/${{ steps.kubectl-version.outputs.version }}/bin/linux/amd64/kubectl"
-          chmod +x kubectl
-          mv kubectl ~/.local/bin/
+          chmod +x kubectl && mv kubectl ~/.local/bin/
 
       - name: Add kubectl to PATH
         run: echo "$HOME/.local/bin" >> "$GITHUB_PATH"
@@ -47,87 +54,62 @@ jobs:
       - name: Extract Dagger version
         id: dagger-version
         run: |
-          # Get the Dagger version from the running dagger-dagger-helm-engine pod
           DAGGER_IMAGE=$(kubectl get pod --selector=name=dagger-dagger-helm-engine --namespace=dagger -o jsonpath='{.items[0].spec.containers[0].image}')
-          # Extract version from image tag (e.g., "registry.dagger.io/engine:v0.18.12" -> "0.18.12")
           DAGGER_VERSION="${DAGGER_IMAGE##*:v}"
-          echo "Detected Dagger version: $DAGGER_VERSION"
           echo "version=$DAGGER_VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Install Dagger CLI
         run: |
-          curl -L https://dl.dagger.io/dagger/install.sh | DAGGER_VERSION=${{ steps.dagger-version.outputs.version }} BIN_DIR=$HOME/.local/bin sh
-          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          curl -fsSL https://dl.dagger.io/dagger/install.sh | DAGGER_VERSION=${{ steps.dagger-version.outputs.version }} BIN_DIR=$HOME/.local/bin sh
 
       - name: Get Dagger Engine Pod Name
         run: |
           DAGGER_ENGINE_POD_NAME="$(kubectl get pod --selector=name=dagger-dagger-helm-engine --namespace=dagger --output=jsonpath='{.items[0].metadata.name}')"
-          echo "DAGGER_ENGINE_POD_NAME=$DAGGER_ENGINE_POD_NAME" >> "$GITHUB_ENV"
+          echo "_EXPERIMENTAL_DAGGER_RUNNER_HOST=kube-pod://$DAGGER_ENGINE_POD_NAME?namespace=dagger" >> "$GITHUB_ENV"
 
       - name: Install Dagger dependencies
         working-directory: .dagger
-        run: |
-          bun install
+        run: bun install
 
-      - name: Verify Dagger installation
+      - name: Determine environment
+        id: env
         run: |
-          dagger version
+          if [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "env=prod" >> "$GITHUB_OUTPUT"
+            echo "version=1.0.${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "env=dev" >> "$GITHUB_OUTPUT"
+            echo "version=dev-${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+          fi
 
-      - name: Run Dagger CI pipeline (production)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        working-directory: .dagger
+      - name: Run Dagger CI with artifacts
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DAGGER_CLOUD_TOKEN: ${{ secrets.DAGGER_CLOUD_TOKEN }}
-          _EXPERIMENTAL_DAGGER_RUNNER_HOST: kube-pod://${{ env.DAGGER_ENGINE_POD_NAME }}?namespace=dagger
+          GITHUB_TOKEN: ${{ env.GH_TOKEN }}
+        working-directory: .dagger
         run: |
-          dagger call ci \
+          dagger call ci-with-artifacts \
             --source=.. \
-            --version="1.0.${{ github.run_number }}" \
+            --version="${{ steps.env.outputs.version }}" \
             --git-sha="${{ github.sha }}" \
-            --env="prod"
+            --env="${{ steps.env.outputs.env }}" \
+            export --path=../artifacts
 
-      - name: Run Dagger CI pipeline (development)
-        if: github.event_name == 'pull_request' || github.ref != 'refs/heads/main'
-        working-directory: .dagger
-        env:
-          DAGGER_CLOUD_TOKEN: ${{ secrets.DAGGER_CLOUD_TOKEN }}
-          _EXPERIMENTAL_DAGGER_RUNNER_HOST: kube-pod://${{ env.DAGGER_ENGINE_POD_NAME }}?namespace=dagger
-        run: |
-          dagger call ci \
-            --source=.. \
-            --version="dev-${{ github.run_number }}" \
-            --git-sha="${{ github.sha }}" \
-            --env="dev"
-
-      - name: Extract artifacts
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        working-directory: .dagger
-        env:
-          _EXPERIMENTAL_DAGGER_RUNNER_HOST: kube-pod://${{ env.DAGGER_ENGINE_POD_NAME }}?namespace=dagger
-        run: |
-          dagger call artifact --source=.. export --path=../artifacts
-
-      - name: Upload artifacts
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: actions/upload-artifact@v6
+      - name: Upload JAR artifact
+        if: steps.env.outputs.env == 'prod'
+        uses: actions/upload-artifact@v4
         with:
           name: castle-casters-jar
-          path: ./artifacts/*.jar
+          path: ./artifacts/jar/*.jar
           retention-days: 30
-
-      - name: Generate coverage report
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        working-directory: .dagger
-        env:
-          _EXPERIMENTAL_DAGGER_RUNNER_HOST: kube-pod://${{ env.DAGGER_ENGINE_POD_NAME }}?namespace=dagger
-        run: |
-          dagger call coverage --source=.. export --path=../coverage
 
       - name: Upload coverage report
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: actions/upload-artifact@v6
+        if: steps.env.outputs.env == 'prod'
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report
-          path: ./coverage
+          path: ./artifacts/coverage
           retention-days: 30
+
+permissions:
+  contents: read
+  packages: write
