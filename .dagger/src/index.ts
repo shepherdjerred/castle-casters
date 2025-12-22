@@ -365,10 +365,10 @@ export class CastleCasters {
 
     // Get the build container from results to extract JAR
     const buildResult = results.find((r) => r.name === "build");
-    if (!buildResult?.success || !buildResult.result) {
+    if (!buildResult?.success || !buildResult.value) {
       throw new Error("Build result not found");
     }
-    const buildContainer = buildResult.result as Awaited<ReturnType<typeof buildProject>>;
+    const buildContainer = buildResult.value as Awaited<ReturnType<typeof buildProject>>;
 
     // Extract JAR artifact
     const jarDir = await withTiming("artifact extraction", async () => {
