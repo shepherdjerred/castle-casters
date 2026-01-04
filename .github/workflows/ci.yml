@@ -96,7 +96,7 @@ jobs:
 
       - name: Upload JAR artifact
         if: steps.env.outputs.env == 'prod'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: castle-casters-jar
           path: ./artifacts/jar/*.jar
@@ -104,7 +104,7 @@ jobs:
 
       - name: Upload coverage report
         if: steps.env.outputs.env == 'prod'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: coverage-report
           path: ./artifacts/coverage
