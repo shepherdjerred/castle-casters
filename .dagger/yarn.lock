@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@shepherdjerred/dagger-utils@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@shepherdjerred/dagger-utils/-/dagger-utils-0.5.0.tgz#d3c85e8f81514b2917d98b41b508101fe1e58d0c"
-  integrity sha512-5e/f3J+1vM/dGHHONWAA/unZfRDkuQxrDaNK9rAfTQFqdVTJjXlG3dCS/sEf8BdX7bPznOkGg0PE02mVDX5C7Q==
+"@shepherdjerred/dagger-utils@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@shepherdjerred/dagger-utils/-/dagger-utils-0.6.0.tgz#a528f21a783c3799febd9ec1e1b60664bb6d6b52"
+  integrity sha512-SC24GY8mXQlTSRgYq+eKaRyCCOtQ+6nbZVtab+1DxA+Oulb1U7/t8+arxYLf6nFaWMyYtj1TJPMLdNcMN0B6qQ==
   dependencies:
     zod "^4.0.0"
 
